@@ -68,9 +68,10 @@ function dotsR(x = 350, y = 52, color = NAVY) {
   [x, x + 11.5, x + 23].forEach(cx => doc.circle(cx, y, 2.4).fill(color));
 }
 
-function logoBlock(x = MX, y = 42, dark = false) {
+function logoBlock(x = MX, y = 42, dark = false, markOnly = false) {
   doc.save().roundedRect(x, y, 26, 26, 3).fill(NAVY).restore();
   doc.image('assets/emblem.png', x + 4.1, y + 7.0, { width: 17.8 });
+  if (markOnly) return;
   doc.font('PM').fontSize(10.5).fillColor(dark ? '#FFFFFF' : NAVY)
     .text('Lynton\nEvents', x + 34, y + 2.2, { lineGap: 1.6 });
 }
@@ -208,32 +209,29 @@ function photoClip(img, clipPts, fitW, fitH, align = 'center', valign = 'center'
 }
 
 /* =====================================================================
-   P1 · COVER   (mirrors the uploaded reference cover)
+   P1 · COVER   (photo-forward: full-bleed photo, title in the navy base)
 ===================================================================== */
 page({ chrome: false });
 doc.rect(0, 0, W, H).fill(LIGHT);
-poly([W, 0, W, 300, W - 190, 0], GHOST);
-photoClip('lynton2.jpg', [0, 0, 248, 0, 248, 384, 132, 470, 0, 470], 248, 470);
-poly([0, 470, 132, 470, 248, 384, 248, 424, 0, 506], SLATE);
-poly([0, 516, 248, 428, 248, 439, 0, 525], '#FFFFFF');
-poly([0, 535, 248, 445, W, 548, W, H, 0, H], NAVY);
-logoBlock(28, 30);
-dotsR(352, 40);
-// navy title slab
-navyBox(112, 96, W - 112, 172, 0);
-doc.font('PB').fontSize(27).fillColor('#FFFFFF')
-  .text('USHERS\nTRAINING &\nBRIEFING', 112, 116, { width: W - 112, align: 'center', lineGap: 3.5 });
-doc.font('PM').fontSize(8.6).fillColor('#E4C775')
-  .text('THE EVENT TEAM HANDBOOK', 112, 234, { width: W - 112, align: 'center', characterSpacing: 2 });
-// right light column: edition + contacts + promise
-doc.font('PB').fontSize(22).fillColor(NAVY).text('EDITION 01', 217, 286, { width: 160, align: 'right' });
-doc.moveTo(324, 318).lineTo(377, 318).lineWidth(1.4).strokeColor(GOLD).stroke();
-contactRow('phone', '+254 729 474 546', 346, { size: 10.4 });
-contactRow('mail', 'lyntoneventske@gmail.com', 372, { size: 9.2 });
-contactRow('globe', 'www.lyntonevents.com', 398, { size: 10.4 });
-doc.font('JM').fontSize(9).fillColor(NAVY)
-  .text('EVERY EVENT  ·  EVERY GUEST', 207, 428, { width: 170, align: 'right', characterSpacing: 0.6 })
-  .text('ONE STANDARD', 207, 443, { width: 170, align: 'right', characterSpacing: 2.2 });
+// full-width hero photo (bottom edge: diagonal rising to the left)
+photoClip('lynton2.jpg', [0, 0, W, 0, W, 462, 0, 392], W, 462);
+// reference-style diagonal bands flowing from the photo edge
+poly([0, 402, W, 462, W, 494, 0, 434], SLATE);
+poly([0, 434, W, 494, W, 502, 0, 442], '#FFFFFF');
+poly([0, 442, W, 502, W, H, 0, H], NAVY);
+logoBlock(28, 30, false, true);
+// title: big, white, nothing over the photo
+doc.font('PB').fontSize(23).fillColor('#FFFFFF')
+  .text('USHERS', 36, 456)
+  .text('TRAINING &', 36, 483);
+doc.font('PB').fontSize(23).fillColor(GOLD).text('BRIEFING', 36, 510);
+doc.moveTo(36, 547).lineTo(80, 547).lineWidth(1.6).strokeColor(GOLD).stroke();
+doc.font('PM').fontSize(8.4).fillColor('#E4C775')
+  .text('THE EVENT TEAM HANDBOOK  ·  EDITION 01', 36, 555, { characterSpacing: 1.6 });
+doc.font('JB').fontSize(8.2).fillColor(INKSOFT)
+  .text('+254 729 474 546      ·      lyntoneventske@gmail.com      ·      www.lyntonevents.com', 36, 574);
+// gold dots constellation in the deep navy corner
+dotsR(352, 530, GOLD);
 
 /* =====================================================================
    P2 · WELCOME TO THE TEAM
