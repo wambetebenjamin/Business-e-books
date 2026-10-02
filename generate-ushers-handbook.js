@@ -220,15 +220,20 @@ poly([0, 516, 248, 428, 248, 439, 0, 525], '#FFFFFF');
 poly([0, 535, 248, 445, W, 548, W, H, 0, H], NAVY);
 logoBlock(28, 30);
 dotsR(352, 40);
-// title slab: light veil instead of solid navy
-doc.save().opacity(0.88).rect(112, 96, W - 112, 172).fill('#FFFFFF').restore();
-doc.rect(112, 96, 3, 172).fill(GOLD);
-doc.font('PB').fontSize(27).fillColor(NAVY)
-  .text('USHERS\nTRAINING &', 112, 116, { width: W - 112, align: 'center', lineGap: 3.5 });
-doc.font('PB').fontSize(27).fillColor(GOLD)
-  .text('BRIEFING', 112, 188, { width: W - 112, align: 'center' });
-doc.font('PM').fontSize(8.6).fillColor(NAVY)
-  .text('THE EVENT TEAM HANDBOOK', 112, 234, { width: W - 112, align: 'center', characterSpacing: 2 });
+// title: no panel, soft white halo keeps it readable over the photo
+function haloText(str, x, y, w, fontName, size, color, o = 0.9, extra = {}) {
+  const opts = Object.assign({ width: w, align: 'center' }, extra);
+  doc.font(fontName).fontSize(size);
+  doc.save().opacity(0.8).fillColor('#FFFFFF');
+  [[-o, 0], [o, 0], [0, -o], [0, o], [-o, -o], [o, o], [-o, o], [o, -o]]
+    .forEach(([dx, dy]) => doc.text(str, x + dx, y + dy, opts));
+  doc.restore();
+  doc.font(fontName).fontSize(size).fillColor(color).text(str, x, y, opts);
+}
+haloText('USHERS\nTRAINING &', 112, 116, W - 112, 'PB', 27, NAVY, 0.9, { lineGap: 3.5 });
+haloText('BRIEFING', 112, 188, W - 112, 'PB', 27, GOLD, 0.9);
+doc.moveTo(237, 226).lineTo(293, 226).lineWidth(1.2).strokeColor(GOLD).stroke();
+haloText('THE EVENT TEAM HANDBOOK', 112, 234, W - 112, 'PM', 8.6, NAVY, 0.5, { characterSpacing: 2 });
 // right light column: edition + contacts + promise
 doc.font('PB').fontSize(22).fillColor(NAVY).text('EDITION 01', 217, 286, { width: 160, align: 'right' });
 doc.moveTo(324, 318).lineTo(377, 318).lineWidth(1.4).strokeColor(GOLD).stroke();
