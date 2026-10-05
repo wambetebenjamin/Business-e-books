@@ -1,0 +1,28 @@
+RENDER REPORT — 2026-10-05T20:10:23.125Z
+Slides: 22
+
+S01  elements=21 drew=4 texts=13
+S02  elements=10 drew=2 texts=5
+S03  elements=20 drew=2 texts=14
+S04  elements=38 drew=3 texts=19
+S05  elements=14 drew=3 texts=6
+S06  elements=23 drew=2 texts=18
+S07  elements=10 drew=2 texts=5
+S08  elements=23 drew=2 texts=13
+S09  elements=14 drew=2 texts=8
+S10  elements=17 drew=2 texts=12
+S11  elements=16 drew=2 texts=9
+S12  elements=12 drew=2 texts=6
+S13  elements=36 drew=2 texts=22
+S14  elements=19 drew=2 texts=11
+S15  elements=30 drew=2 texts=18
+S16  elements=21 drew=2 texts=15
+S17  elements=9 drew=2 texts=4
+S18  elements=11 drew=3 texts=5
+S19  elements=22 drew=2 texts=11
+S20  elements=16 drew=3 texts=7
+S21  elements=21 drew=4 texts=14
+S22  elements=9 drew=2 texts=4
+
+ISSUES:
+  none — all checks passed
