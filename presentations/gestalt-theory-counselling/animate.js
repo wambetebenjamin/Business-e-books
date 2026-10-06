@@ -159,6 +159,7 @@ for (let i = 1; i <= N_SLIDES; i++) {
 
   // 2) round PICTURE geometry only: rect → roundRect (adj 5000 ≈ 5% radius)
   xml = xml.replace(/<p:pic>[\s\S]*?<\/p:pic>/g, (block) => {
+    if (block.includes('name="bg"')) return block; // full-bleed silhouette background stays square
     if (!block.includes('prst="rect"')) return block;
     roundedPics++;
     return block.replace(

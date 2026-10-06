@@ -7,7 +7,55 @@ the same output path and the same 280 required content phrases (verified by
 
 ---
 
-## v4 — Modern redesign: cards, premium fonts, animations *(current)*
+## v5 — Human photography, silhouette backgrounds, Office fonts *(current)*
+Commit `<this release>` · people-centred imagery, ultrarealistic silhouette
+backgrounds, Georgia + Calibri typography
+
+### Human images where applicable
+- **Why:** the deck should show people (counselling is about people) — placed
+  consistently and aligned across sections.
+- 16 of 22 card images are now **professional Unsplash people photos**:
+  person on a summit (S1), two women talking in a café (S2), hands of two
+  people talking over a table (S5), person meditating (S6), woman by a window
+  (S7), two people in conversation (S9), pensive man at a barrier (S10),
+  person walking a path (S11), psychologist with a patient (S12), counsellor
+  with a therapy group in a circle (S16), support group celebrating (S17),
+  students studying in a library (S19). No romantic/sensual imagery.
+- **CORE CONCEPTS photo cards unified to identical geometry** — S6, S7, S10,
+  S11 all `x8.5 y1.74 w4.16 h4.66` (S10's photo moved from left to the shared
+  right slot, its cards to the left column; S11 cards narrowed to match);
+  S9 photo `x8.5 y1.74 w4.16 h3.12` with the contact-boundary diagram card
+  docked directly beneath it (`x8.5 y5.06 w4.16 h1.74`).
+- Kept from v4 where objects still fit best: history books (S3), library
+  theorists (S4), chairs (S13, S14), candle (S15), storm (S18), summit
+  climber (S21 — already human), books (S22).
+
+### Ultrarealistic silhouette backgrounds
+- Every slide now sits on a **full-bleed photographic silhouette background**
+  (1600×900 Unsplash): bright-sky figure silhouettes on light slides under a
+  white 72 % overlay (shadow-lifted so silhouettes stay visible), a person
+  under a starry night sky on dark slides (S1, S5, S12, S18, S21) under an
+  80 % deep-navy overlay. Backgrounds are excluded from rounding and
+  animation.
+- Dark-slide background-level text (eyebrows, citations, footer, S21 flow
+  arrows) moved to a lighter tone (`#C9D4EA` → `WHITE` where needed) to hold
+  3:1+ contrast over the new backgrounds; periwinkle stays on solid navy
+  cards only.
+
+### Fonts — Georgia + Calibri (universal Office fonts)
+- **Why:** Plus Jakarta Sans/Inter read as "AI-deck fonts"; Georgia and
+  Calibri ship with every Office install.
+- **Georgia Bold, Title Case** for all slide titles and the hero ("Gestalt /
+  Theory", 46 pt); **Georgia Italic** for the two pull-quotes.
+- **Calibri** everywhere else — Bold for eyebrows, labels, leads, chips,
+  numbers and flows; Regular for body; Italic for citations. No semibold
+  families remain (pure bold flag, so PowerPoint never substitutes).
+- render.js now renders/validates with **Gelasio + Carlito** (the
+  metric-compatible open clones of Georgia/Calibri).
+
+---
+
+## v4 — Modern redesign: cards, premium fonts, animations
 Commit `d2dd6dd` · replaces every photo, every layout, every font
 
 ### Photography — all 22 images replaced
