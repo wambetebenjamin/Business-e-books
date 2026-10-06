@@ -11,9 +11,15 @@ stock (Unsplash / Pexels only — no AI images).
 - **Colours** — deep navy `#162B57` (primary) · dark navy `#0A1937` (dark slides/overlays)
   · periwinkle `#8097BE` (accent, on navy only) · slate `#717E9B` · white
   · light blue tints `#E8EDF6` / `#F0F3F9` for chips and zebra rows
-- **Typography** — Poppins Bold for headlines/labels, Poppins Regular for body
-  (the reference also uses Futura LT Pro; Poppins is its free geometric-sans
-  counterpart so the file renders correctly on any machine)
+- **Typography** — full Poppins hierarchy: **Bold** 25pt uppercase tracked titles,
+  **SemiBold** subheads / chips / lead statements / numbered rows, **Regular** body,
+  **Italic** citations and quotes; tracked eyebrow section tags
+  (OVERVIEW → FOUNDATIONS → CORE CONCEPTS → PRACTICE → EVALUATION → CLOSING) above
+  every title; 44pt stacked hero on the title slide
+- **Structure** — every content slide: eyebrow → title → accent rule → content grid
+  at a consistent baseline; numbered assumption/role lists, labelled contrast panels
+  (focus/past, contributions/considerations), card grids, a contact-boundary diagram
+  and a zebra technique table
 - **Look** — flat fills, thin hairlines, white-on-navy panels, square cards;
   photo slides use flat navy overlays (no gradient scrims)
 

@@ -39,6 +39,8 @@ const FACES = {
   "Poppins Bold": path.join(POP, "poppins-latin-700-normal.woff2"),
   "Poppins Italic": path.join(POP, "poppins-latin-400-italic.woff2"),
   "Poppins BoldItalic": path.join(POP, "poppins-latin-700-italic.woff2"),
+  "Poppins SemiBold": path.join(POP, "poppins-latin-600-normal.woff2"),
+  "Poppins SemiBold Italic": path.join(POP, "poppins-latin-600-italic.woff2"),
   "DejaVu Serif": path.join(DJ, "ttf", "DejaVuSerif.ttf"),
   "DejaVu Serif Bold": path.join(DJ, "ttf", "DejaVuSerif-Bold.ttf"),
   "DejaVu Serif Italic": path.join(DJ, "ttf", "DejaVuSerif-Italic.ttf"),
@@ -58,11 +60,14 @@ for (const [alias, p] of Object.entries(FACES)) {
 const SPECIAL = /[→↓↑↔⇄⇒≠✓✗✔✘▪●◦]/;
 function face(typeface, bold, italic, text) {
   if (text && SPECIAL.test(text)) {
-    return "DejaVu Sans" + (bold ? " Bold" : "") + (italic ? " Italic" : "");
+    return "DejaVu Sans" + (bold || /semibold/i.test(typeface || "") ? " Bold" : "") + (italic ? " Italic" : "");
   }
-  const isPoppins = /poppins|futura|century|montserrat/i.test(typeface || "") || !typeface;
-  const base = isPoppins ? "Poppins" : "DejaVu Sans";
-  const key = base + (bold ? " Bold" : "") + (italic ? " Italic" : "");
+  const tf = typeface || "";
+  let base;
+  if (/semibold/i.test(tf)) base = "Poppins SemiBold";        // semibold wins over bold flag
+  else if (/poppins|futura|century|montserrat/i.test(tf) || !tf) base = "Poppins";
+  else base = "DejaVu Sans";
+  const key = base + (bold && base === "Poppins" ? " Bold" : "") + (italic ? " Italic" : "");
   return FACES[key] ? key : base;
 }
 function fontString(f, sizePx) { return `${sizePx}px "${f}"`; }

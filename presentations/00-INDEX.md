@@ -11,7 +11,7 @@ One row per deck. Never overwrite or delete a previous deck folder — add new r
 ### 1 · Gestalt Theory and Its Application to Counselling
 - **Folder:** `presentations/gestalt-theory-counselling/`
 - **Source:** user-pasted outline in `source/content.md`; design reference is the repository's uploaded `company profile.pdf` (flat corporate navy presentation).
-- **Design system (v2, follows the profile entirely):** deep navy `#162B57` · dark navy `#0A1937` · periwinkle `#8097BE` (accent on navy) · slate `#717E9B` · white · light-blue tints `#E8EDF6`/`#F0F3F9`; **Poppins** Bold/Regular throughout (free counterpart of the profile's Futura LT Pro); flat fills, hairlines, no dots/gradients/shine.
+- **Design system (v3, follows the profile entirely):** deep navy `#162B57` · dark navy `#0A1937` · periwinkle `#8097BE` (accent on navy) · slate `#717E9B` · white · light-blue tints `#E8EDF6`/`#F0F3F9`; full **Poppins** hierarchy (Bold tracked titles / SemiBold subheads, chips, numbered rows / Regular body / Italic citations) with tracked eyebrow section tags on every slide; flat fills, hairlines, numbered lists, contrast panels, card grids — no dots/gradients/shine.
 - **Imagery:** royalty-free stock photos only (Unsplash / Pexels), tone-matched, exact-aspect crops in `assets/`.
 - **Rebuild:** `cd presentations/gestalt-theory-counselling && npm install && npm install @fontsource/poppins && node build.js` → `output/…​.pptx`
 - **Verify:** `node render.js` (renders the real PPTX with genuine Poppins metrics → PNG/PDF + overflow/contrast/overlap/numbering checks) and `python3 check-content.py` (280-phrase content completeness check). Latest run: **all checks passed** (`render-report.txt`).
