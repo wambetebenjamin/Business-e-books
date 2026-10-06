@@ -29,18 +29,22 @@ const PXW = Math.round(SLW * DPI), PXH = Math.round(SLH * DPI);
 const px = (emu) => (emu / EMU) * DPI;
 
 /* ---------- fonts ----------
-   Real Poppins (@fontsource woff2) is registered so the renderer measures the
-   exact production font. Special glyphs Poppins lacks (→ ↓ ↔ ≠ ✓ ✗ × – –)
-   fall back to DejaVu Sans — PowerPoint does the same kind of substitution. */
+   Real Plus Jakarta Sans + Inter (@fontsource woff2) are registered so the
+   renderer measures the exact production fonts. Glyphs missing from their
+   latin subsets (verified: → ↓ ↔ ≠ ✓ ✗ are tofu) fall back to DejaVu Sans,
+   as PowerPoint would substitute. */
 const DJ = path.dirname(require.resolve("dejavu-fonts-ttf/package.json"));
-const POP = path.join(DECK, "node_modules", "@fontsource", "poppins", "files");
+const PJS_DIR = path.join(DECK, "node_modules", "@fontsource", "plus-jakarta-sans", "files");
+const INT_DIR = path.join(DECK, "node_modules", "@fontsource", "inter", "files");
 const FACES = {
-  "Poppins": path.join(POP, "poppins-latin-400-normal.woff2"),
-  "Poppins Bold": path.join(POP, "poppins-latin-700-normal.woff2"),
-  "Poppins Italic": path.join(POP, "poppins-latin-400-italic.woff2"),
-  "Poppins BoldItalic": path.join(POP, "poppins-latin-700-italic.woff2"),
-  "Poppins SemiBold": path.join(POP, "poppins-latin-600-normal.woff2"),
-  "Poppins SemiBold Italic": path.join(POP, "poppins-latin-600-italic.woff2"),
+  "PJS": path.join(PJS_DIR, "plus-jakarta-sans-latin-400-normal.woff2"),
+  "PJS Bold": path.join(PJS_DIR, "plus-jakarta-sans-latin-700-normal.woff2"),
+  "PJS Italic": path.join(PJS_DIR, "plus-jakarta-sans-latin-400-italic.woff2"),
+  "PJS SemiBold": path.join(PJS_DIR, "plus-jakarta-sans-latin-600-normal.woff2"),
+  "Inter": path.join(INT_DIR, "inter-latin-400-normal.woff2"),
+  "Inter Bold": path.join(INT_DIR, "inter-latin-700-normal.woff2"),
+  "Inter Italic": path.join(INT_DIR, "inter-latin-400-italic.woff2"),
+  "Inter SemiBold": path.join(INT_DIR, "inter-latin-600-normal.woff2"),
   "DejaVu Serif": path.join(DJ, "ttf", "DejaVuSerif.ttf"),
   "DejaVu Serif Bold": path.join(DJ, "ttf", "DejaVuSerif-Bold.ttf"),
   "DejaVu Serif Italic": path.join(DJ, "ttf", "DejaVuSerif-Italic.ttf"),
@@ -52,23 +56,28 @@ const FACES = {
 };
 let registered = 0;
 for (const [alias, p] of Object.entries(FACES)) {
-  if (!fs.existsSync(p)) { if (alias.startsWith("Poppins")) console.warn("WARN missing font file:", p); continue; }
+  if (!fs.existsSync(p)) { console.warn("WARN missing font file:", p); continue; }
   const ok = GlobalFonts.registerFromPath(p, alias);
   if (ok) registered++;
 }
-// glyphs NOT covered by Poppins latin subset (verified: tofu) → DejaVu Sans
+// glyphs NOT covered by PJS/Inter latin subsets (verified: tofu) → DejaVu Sans
 const SPECIAL = /[→↓↑↔⇄⇒≠✓✗✔✘▪●◦]/;
 function face(typeface, bold, italic, text) {
-  if (text && SPECIAL.test(text)) {
-    return "DejaVu Sans" + (bold || /semibold/i.test(typeface || "") ? " Bold" : "") + (italic ? " Italic" : "");
-  }
   const tf = typeface || "";
-  let base;
-  if (/semibold/i.test(tf)) base = "Poppins SemiBold";        // semibold wins over bold flag
-  else if (/poppins|futura|century|montserrat/i.test(tf) || !tf) base = "Poppins";
-  else base = "DejaVu Sans";
-  const key = base + (bold && base === "Poppins" ? " Bold" : "") + (italic ? " Italic" : "");
-  return FACES[key] ? key : base;
+  const wantsBold = bold || /semibold/i.test(tf);
+  if (text && SPECIAL.test(text)) {
+    return "DejaVu Sans" + (wantsBold ? " Bold" : "") + (italic ? " Italic" : "");
+  }
+  let fam;
+  if (/jakarta/i.test(tf)) fam = "PJS";
+  else if (/inter|open.?sans|montserrat|poppins/i.test(tf) || !tf) fam = "Inter";
+  else fam = "DejaVu Sans";
+  if (fam === "DejaVu Sans") {
+    return fam + (bold ? " Bold" : "") + (italic ? " Italic" : "");
+  }
+  const semi = /semibold/i.test(tf);
+  const key = fam + (semi ? " SemiBold" : bold ? " Bold" : "") + (italic ? " Italic" : "");
+  return FACES[key] ? key : fam;
 }
 function fontString(f, sizePx) { return `${sizePx}px "${f}"`; }
 
