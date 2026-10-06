@@ -7,7 +7,36 @@ the same output path and the same 280 required content phrases (verified by
 
 ---
 
-## v6 — Pure photo backgrounds, no rules, editorial fonts *(current)*
+## v7 — Everything floats: no cards, tick bullets, premium numerals *(current)*
+Commit `<this release>` · zero cards/chips/frames, ✓ markers, Playfair numerals
+
+### No cards anywhere
+- **Why:** the user asked to remove every card behind texts/titles and every
+  image holder/placeholder — let all text float.
+- All 38 content cards, every chip, every accent bar, hairline and separator
+  is gone. Text sits directly on the photography; photos float free with no
+  shadow and square corners (photo rounding removed from animate.js).
+- The S8 figure/ground ring diagram remains as a line drawing (content, not a
+  card). Everything else is pure floating typography.
+
+### Tick bullets instead of dashes/points
+- Every bullet list now uses the **✓ tick** marker (was an en-dash).
+  Strengths (S17), applications (S16), influences (S3), case columns (S19),
+  technique tables (S15) and all standard lists included.
+- Where numbered lists remain, the numerals are **Playfair Display** serif
+  figures (premium font numerals) — also the 01–09 technique grid (S13) and
+  the "07" assumption (S5).
+
+### Contrast safety on free text
+- The two brightest backgrounds (fog ridgelines, storm shore) were
+  highlight-capped (max ≈ 0.55 sRGB) after line-level QA sampling caught
+  bright fog/horizon bands under text; night, forest and birds moods were
+  already dark enough. All free text is white; periwinkle survives only as
+  tick marks/accents on the darkest zones.
+
+---
+
+## v6 — Pure photo backgrounds, no rules, editorial fonts
 Commit `<this release>` · the silhouette photos ARE the background; modern
 magazine typography; free-flowing text
 

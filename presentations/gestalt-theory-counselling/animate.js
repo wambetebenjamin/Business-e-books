@@ -143,7 +143,7 @@ const TRANSITION =
 
 /* ---------- main ---------- */
 const zip = new AdmZip(PPTX);
-let totalEffects = 0, roundedPics = 0;
+let totalEffects = 0;
 
 for (let i = 1; i <= N_SLIDES; i++) {
   const file = `ppt/slides/slide${i}.xml`;
@@ -157,16 +157,7 @@ for (let i = 1; i <= N_SLIDES; i++) {
     totalEffects++;
   }
 
-  // 2) round PICTURE geometry only: rect → roundRect (adj 5000 ≈ 5% radius)
-  xml = xml.replace(/<p:pic>[\s\S]*?<\/p:pic>/g, (block) => {
-    if (block.includes('name="bg"')) return block; // full-bleed silhouette background stays square
-    if (!block.includes('prst="rect"')) return block;
-    roundedPics++;
-    return block.replace(
-      /<a:prstGeom prst="rect"><a:avLst\s*(?:\/>|><\/a:avLst>)<\/a:prstGeom>/,
-      `<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val 5000"/></a:avLst></a:prstGeom>`
-    );
-  });
+  // 2) pictures stay square — free-floating images, no rounded "card" look
 
   // 3) transition + timing (element order in p:sld: cSld, clrMapOvr, transition, timing)
   if (xml.includes("</p:clrMapOvr>")) {
@@ -181,4 +172,4 @@ for (let i = 1; i <= N_SLIDES; i++) {
 }
 
 zip.writeZip(PPTX);
-console.log(`animate.js: ${N_SLIDES} slides — transition=Morph, ${totalEffects} animated shapes, ${roundedPics} photos rounded`);
+console.log(`animate.js: ${N_SLIDES} slides — transition=Morph, ${totalEffects} animated shapes`);

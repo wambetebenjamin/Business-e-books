@@ -4,7 +4,7 @@ MCP504 · Theories of Counseling and Psychotherapy · Group 4 · Pan African Chr
 22-slide deck (16:9), built with pptxgenjs + a custom OOXML post-processor.
 Design follows the repository's uploaded presentation reference (`company profile.pdf`)
 palette (flat corporate navy/white/soft-blue) with a dark editorial layout,
-glass content cards, and **native PowerPoint animations + Morph transitions**.
+floating editorial typography, and **native PowerPoint animations + Morph transitions**.
 Backgrounds: full-bleed silhouette photography — the photo IS the background,
 no solid overlays. Card imagery: royalty-free Unsplash people photos wherever
 people are the subject.
@@ -19,20 +19,17 @@ people are the subject.
   (accent, inside navy cards only) · slate `#717E9B` · white · light-blue tints
   — flat corporate, no ornaments
 - **Typography** — **Playfair Display** (Bold Title-Case titles / free italic
-  statements & quotes) + **Outfit** (body, labels, chips — bold for emphasis)
+  statements & quotes) + **Outfit** (body, labels, lists — bold for emphasis)
   + **IBM Plex Mono** (eyebrows, citations, footer — tracked magazine meta).
   No underline rules, no hairlines
-- **Structure** — asymmetric grids of glass cards (white cards 12 % translucent
-  over the photography, navy cards solid); titles, eyebrows, citations,
-  footers, statements and quotes float free on the images
-- **Structure** — asymmetric grids: staggered and offset floating cards with soft
-  drop shadows, 60/40 and 40/30/30 column splits, indented panels, numbered lists,
-  contrast panels, card grids; consistent eyebrow → title → rule → content rhythm
-- **Images** — every photo sits in a rounded-corner card (native `roundRect`
-  geometry on the picture, 5% radius) lifted with a soft drop shadow
+- **Structure** — everything floats: no cards, chips, frames or rules; text
+  sits directly on the photography (white; Playfair for titles/statements/
+  numerals, Outfit for body/labels, Plex Mono for meta); ✓ tick bullets;
+  photos free-floating, square, no shadows
+- **Images** — free-floating photographs, square corners, no frames or shadows
 - **Motion (native OOXML, injected by `animate.js`)** —
   titles: Fade In 0.35 s on click · content blocks: Wipe left-to-right, sequential
-  · image cards: Float In after the text · slide transitions: **Morph** on all
+  · images: Float In after the text · slide transitions: **Morph** on all
   slides (fade fallback for older PowerPoint). Nothing is flattened — all text,
   shapes and pictures remain fully editable.
 
@@ -43,7 +40,7 @@ people are the subject.
   `bg-dark.jpg`) + flat icons
 - `build.js` — pptxgenjs generator → `output/…​.pptx` (every animated element
   carries an `objectName`: `hdr` / `blkN` / `img`)
-- `animate.js` — post-processor: rounds picture geometry, injects Morph
+- `animate.js` — post-processor: injects Morph
   transitions + the native animation timing tree
 - `render.js` — renders the actual PPTX (parses its OOXML) to PNG + PDF and runs
   deterministic QA: text overflow, text/background contrast (WCAG-style, sampled

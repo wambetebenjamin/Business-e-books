@@ -1,28 +1,28 @@
-RENDER REPORT — 2026-10-06T10:47:48.149Z
+RENDER REPORT — 2026-10-06T11:06:06.622Z
 Slides: 22
 
-S01  elements=24 drew=3 texts=14
-S02  elements=12 drew=3 texts=7
-S03  elements=21 drew=3 texts=15
-S04  elements=35 drew=3 texts=20
-S05  elements=24 drew=3 texts=19
-S06  elements=27 drew=3 texts=20
-S07  elements=19 drew=3 texts=11
-S08  elements=26 drew=2 texts=14
-S09  elements=16 drew=3 texts=11
-S10  elements=19 drew=3 texts=14
-S11  elements=20 drew=3 texts=12
-S12  elements=24 drew=3 texts=20
-S13  elements=44 drew=3 texts=23
-S14  elements=20 drew=3 texts=13
-S15  elements=37 drew=3 texts=19
-S16  elements=21 drew=3 texts=16
-S17  elements=35 drew=3 texts=18
-S18  elements=12 drew=3 texts=7
-S19  elements=22 drew=3 texts=12
-S20  elements=18 drew=4 texts=8
+S01  elements=17 drew=3 texts=14
+S02  elements=10 drew=3 texts=7
+S03  elements=15 drew=3 texts=12
+S04  elements=20 drew=3 texts=17
+S05  elements=22 drew=3 texts=19
+S06  elements=14 drew=3 texts=11
+S07  elements=14 drew=3 texts=11
+S08  elements=20 drew=2 texts=14
+S09  elements=10 drew=3 texts=7
+S10  elements=13 drew=3 texts=10
+S11  elements=13 drew=3 texts=10
+S12  elements=23 drew=3 texts=20
+S13  elements=26 drew=3 texts=23
+S14  elements=14 drew=3 texts=11
+S15  elements=22 drew=3 texts=19
+S16  elements=13 drew=3 texts=10
+S17  elements=9 drew=3 texts=6
+S18  elements=10 drew=3 texts=7
+S19  elements=15 drew=3 texts=12
+S20  elements=12 drew=4 texts=8
 S21  elements=18 drew=3 texts=15
-S22  elements=9 drew=3 texts=5
+S22  elements=8 drew=3 texts=5
 
 ISSUES:
   none — all checks passed
