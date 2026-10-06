@@ -1,14 +1,25 @@
 # Gestalt Theory and Its Application to Counselling
 
 MCP504 · Theories of Counseling and Psychotherapy · Group 4 · Pan African Christian University
-22-slide deck (16:9), built with pptxgenjs. Design language follows the user's Canva
-reference (Wardiere-style minimalist): cream paper, deep forest green, brass gold,
-Georgia display + Arial body, dots motif, hairline rules, gradient scrims over
-royalty-free stock photography (Unsplash / Pexels only — no AI images).
+22-slide deck (16:9), built with pptxgenjs. Design language follows the repository's
+uploaded presentation reference (`company profile.pdf`) entirely: flat corporate
+navy/white/soft-blue, **Poppins** (Bold headlines / Regular body) typography,
+no ornaments — no dots, no gradients, no shine. Photography is royalty-free
+stock (Unsplash / Pexels only — no AI images).
+
+## Theme (extracted from `company profile.pdf`)
+- **Colours** — deep navy `#162B57` (primary) · dark navy `#0A1937` (dark slides/overlays)
+  · periwinkle `#8097BE` (accent, on navy only) · slate `#717E9B` · white
+  · light blue tints `#E8EDF6` / `#F0F3F9` for chips and zebra rows
+- **Typography** — Poppins Bold for headlines/labels, Poppins Regular for body
+  (the reference also uses Futura LT Pro; Poppins is its free geometric-sans
+  counterpart so the file renders correctly on any machine)
+- **Look** — flat fills, thin hairlines, white-on-navy panels, square cards;
+  photo slides use flat navy overlays (no gradient scrims)
 
 ## Layout
 - `source/content.md` — the user's pasted content (verbatim)
-- `assets/` — final tone-matched, aspect-cropped stock images + scrims/dots
+- `assets/` — final tone-matched, aspect-cropped stock images
 - `build.js` — pptxgenjs generator → `output/Gestalt Theory and Its Application to Counselling.pptx`
 - `render.js` — renders the actual PPTX (parses its OOXML) to PNG + PDF and runs
   deterministic QA: text overflow, text/background contrast (WCAG-style, sampled from
@@ -19,15 +30,19 @@ royalty-free stock photography (Unsplash / Pexels only — no AI images).
 
 ## Rebuild & verify
 ```bash
-npm install          # pptxgenjs, @napi-rs/canvas, adm-zip, pdfkit, dejavu-fonts-ttf
-node build.js        # writes output/<Deck Title>.pptx
-node render.js       # writes output/<Deck Title>.pdf + render/*.png + QA report (exits 1 on issues)
+npm install                        # pptxgenjs, @napi-rs/canvas, adm-zip, pdfkit, dejavu-fonts-ttf
+npm install @fontsource/poppins    # real Poppins woff2 used by the QA renderer
+node build.js                      # writes output/<Deck Title>.pptx
+node render.js                     # writes output/<Deck Title>.pdf + render/*.png + QA report (exits 1 on issues)
 python3 check-content.py
 ```
 
-Fonts in the .pptx are Georgia/Arial (available everywhere PowerPoint runs).
-The renderer substitutes metric-wider DejaVu faces, so anything that passes
-QA in the render is guaranteed to fit in PowerPoint.
+Fonts in the .pptx are set to **Poppins** — a free Google font, not a system
+default. If Poppins is not installed, PowerPoint substitutes a default sans
+(layout still holds; QA was run with the real Poppins metrics via
+`@fontsource/poppins`). For perfect fidelity install Poppins once from
+<https://fonts.google.com/specimen/Poppins>. Glyphs Poppins lacks (→ ↓ ↔ ≠ ✓ ✗)
+are auto-substituted by PowerPoint, exactly as the QA renderer does with DejaVu.
 
 Note: the user's pasted outline skipped slides 11–20; the deck contains the
 22 provided slides, numbered sequentially 01–22 in the footer.

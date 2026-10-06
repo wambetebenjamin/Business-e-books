@@ -6,8 +6,9 @@
      · text-on-text overlap
      · slide count / footer numbering order
      · manifest title cross-check, placeholder text scan
-   Fonts: DejaVu Serif ≈ Georgia, DejaVu Sans ≈ Arial (both WIDER than the
-   real fonts → if it fits here, it fits in PowerPoint).
+   Fonts: real Poppins (@fontsource woff2, same metrics as the Google font) —
+   the renderer measures the exact production font. Glyphs missing from
+   Poppins fall back to DejaVu Sans, as PowerPoint would substitute.
    Run:  node render.js
    ========================================================================== */
 const fs = require("fs");
@@ -27,9 +28,17 @@ const DPI = 150, EMU = 914400, SLW = 13.333, SLH = 7.5;
 const PXW = Math.round(SLW * DPI), PXH = Math.round(SLH * DPI);
 const px = (emu) => (emu / EMU) * DPI;
 
-/* ---------- fonts ---------- */
+/* ---------- fonts ----------
+   Real Poppins (@fontsource woff2) is registered so the renderer measures the
+   exact production font. Special glyphs Poppins lacks (→ ↓ ↔ ≠ ✓ ✗ × – –)
+   fall back to DejaVu Sans — PowerPoint does the same kind of substitution. */
 const DJ = path.dirname(require.resolve("dejavu-fonts-ttf/package.json"));
+const POP = path.join(DECK, "node_modules", "@fontsource", "poppins", "files");
 const FACES = {
+  "Poppins": path.join(POP, "poppins-latin-400-normal.woff2"),
+  "Poppins Bold": path.join(POP, "poppins-latin-700-normal.woff2"),
+  "Poppins Italic": path.join(POP, "poppins-latin-400-italic.woff2"),
+  "Poppins BoldItalic": path.join(POP, "poppins-latin-700-italic.woff2"),
   "DejaVu Serif": path.join(DJ, "ttf", "DejaVuSerif.ttf"),
   "DejaVu Serif Bold": path.join(DJ, "ttf", "DejaVuSerif-Bold.ttf"),
   "DejaVu Serif Italic": path.join(DJ, "ttf", "DejaVuSerif-Italic.ttf"),
@@ -39,11 +48,22 @@ const FACES = {
   "DejaVu Sans Italic": path.join(DJ, "ttf", "DejaVuSans-Oblique.ttf"),
   "DejaVu Sans BoldItalic": path.join(DJ, "ttf", "DejaVuSans-BoldOblique.ttf"),
 };
-for (const [alias, p] of Object.entries(FACES)) GlobalFonts.registerFromPath(p, alias);
-function face(typeface, bold, italic) {
-  const serif = /georgia|times|serif/i.test(typeface || "");
-  const key = (serif ? "DejaVu Serif" : "DejaVu Sans") + (bold ? " Bold" : "") + (italic ? " Italic" : "");
-  return FACES[key] ? key : "DejaVu Sans";
+let registered = 0;
+for (const [alias, p] of Object.entries(FACES)) {
+  if (!fs.existsSync(p)) { if (alias.startsWith("Poppins")) console.warn("WARN missing font file:", p); continue; }
+  const ok = GlobalFonts.registerFromPath(p, alias);
+  if (ok) registered++;
+}
+// glyphs NOT covered by Poppins latin subset (verified: tofu) → DejaVu Sans
+const SPECIAL = /[→↓↑↔⇄⇒≠✓✗✔✘▪●◦]/;
+function face(typeface, bold, italic, text) {
+  if (text && SPECIAL.test(text)) {
+    return "DejaVu Sans" + (bold ? " Bold" : "") + (italic ? " Italic" : "");
+  }
+  const isPoppins = /poppins|futura|century|montserrat/i.test(typeface || "") || !typeface;
+  const base = isPoppins ? "Poppins" : "DejaVu Sans";
+  const key = base + (bold ? " Bold" : "") + (italic ? " Italic" : "");
+  return FACES[key] ? key : base;
 }
 function fontString(f, sizePx) { return `${sizePx}px "${f}"`; }
 
@@ -199,7 +219,7 @@ function layoutParas(ctx, el) {
     };
     for (const t of tokens) {
       const r = t.run;
-      ctx.font = fontString(face(r.typeface, r.bold, r.italic), (r.size / 72) * DPI);
+      ctx.font = fontString(face(r.typeface, r.bold, r.italic, t.text), (r.size / 72) * DPI);
       const track = (r.spc / 72) * DPI;
       const w = ctx.measureText(t.text).width + (t.space ? 0 : track * Math.max(0, t.text.length - 1));
       t.w = w; t.track = track;
@@ -338,7 +358,7 @@ function layoutParas(ctx, el) {
           if (ln.para.algn === "r") dx = ln.x + Math.max(0, (px(e.box.w - e.text.bodyPr.lIns - e.text.bodyPr.rIns) - ln.width));
           if (ln.bullet) {
             const r = ln.bullet.run;
-            ctx.font = fontString(face(r.typeface, r.bold, false), (r.size / 72) * DPI);
+            ctx.font = fontString(face(r.typeface, r.bold, false, ln.bullet.char), (r.size / 72) * DPI);
             ctx.fillStyle = "#" + r.color; ctx.globalAlpha = r.alpha;
             ctx.textBaseline = "alphabetic";
             ctx.fillText(ln.bullet.char, ln.bullet.x, ln.y + ascentOf(ctx, ln.lineH));
@@ -347,7 +367,7 @@ function layoutParas(ctx, el) {
           for (const t of ln.tokens) {
             if (t.space) { dx += t.w; continue; }
             const r = t.run;
-            ctx.font = fontString(face(r.typeface, r.bold, r.italic), (r.size / 72) * DPI);
+            ctx.font = fontString(face(r.typeface, r.bold, r.italic, t.text), (r.size / 72) * DPI);
             ctx.fillStyle = "#" + r.color; ctx.globalAlpha = r.alpha;
             ctx.textBaseline = "alphabetic";
             if (r.shadow) { ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 8; ctx.shadowOffsetY = 3; }
