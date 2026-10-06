@@ -40,17 +40,17 @@ const GLASSLN = "5C6C8F";
 const LIGHT_ON_DARK = "C9D4EA";
 const OK_BG = "E3EAF6", OK_LN = "AFBDD8";
 const NO_BG = "ECF0F6", NO_LN = "C3CCDC";
-const HEAD = "Georgia", HSEMI = "Calibri";
-const BODY = "Calibri", BSEMI = "Calibri";
+const HEAD = "Playfair Display", HSEMI = "Outfit";
+const BODY = "Outfit", BSEMI = "Outfit";
+const META = "IBM Plex Mono";
 const BRAND = "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504";
 const TITLE_DECK = "Gestalt Theory and Its Application to Counselling";
 
 const shadowL = () => ({ type: "outer", angle: 90, blur: 10, offset: 3, color: "1B2A4A", opacity: 0.2 });
 
-/* ultrarealistic silhouette photo background + readability overlay */
-function bgPhoto(s, file, dark) {
+/* ultrarealistic silhouette photo background — the photo IS the background */
+function bgPhoto(s, file) {
   s.addImage({ path: A(file), x: 0, y: 0, w: 13.333, h: 7.5, objectName: "bg" });
-  s.addShape("rect", { x: 0, y: 0, w: 13.333, h: 7.5, fill: { color: dark ? DEEP : WHITE, transparency: dark ? 20 : 28 } });
 }
 const shadowD = () => ({ type: "outer", angle: 90, blur: 14, offset: 5, color: "000000", opacity: 0.32 });
 
@@ -73,26 +73,23 @@ function newSlide(title) {
 
 /* ---------- helpers ---------- */
 function footer(s, dark) {
-  s.addShape("rect", { x: 0.66, y: 7.07, w: 12.01, h: 0.013, fill: { color: dark ? HAIR_D : LINE } });
-  s.addText(BRAND, { x: 0.66, y: 7.13, w: 9, h: 0.24, fontFace: BODY, fontSize: 7.5, color: dark ? LIGHT_ON_DARK : MUTED, charSpacing: 1.5, margin: 0 });
-  s.addText(String(slideNo).padStart(2, "0"), { x: 11.7, y: 7.13, w: 0.97, h: 0.24, align: "right", fontFace: BSEMI, bold: true, fontSize: 8, color: dark ? WHITE : NAVY, margin: 0 });
+  s.addText(BRAND, { x: 0.66, y: 7.13, w: 9, h: 0.24, fontFace: META, fontSize: 7.5, color: WHITE, charSpacing: 1.5, margin: 0 });
+  s.addText(String(slideNo).padStart(2, "0"), { x: 11.7, y: 7.13, w: 0.97, h: 0.24, align: "right", fontFace: META, bold: true, fontSize: 8, color: WHITE, margin: 0 });
 }
 
 /* section header — all parts named "hdr" → fade in as one group */
 function header(s, eyebrow, txt, o = {}) {
-  const x = o.x ?? 0.66, w = o.w ?? 11.4, dark = !!o.dark;
+  const x = o.x ?? 0.66, w = o.w ?? 11.4;
   const align = o.align ?? "left";
-  s.addText(eyebrow, { x, y: 0.6, w, h: 0.26, fontFace: HSEMI, fontSize: 9, bold: true, color: dark ? LIGHT_ON_DARK : SLATE_D, charSpacing: 2.5, margin: 0, align, objectName: "hdr" });
-  s.addText(txt, { x, y: 0.86, w, h: 0.56, fontFace: HEAD, fontSize: 25, bold: true, color: dark ? WHITE : NAVY, charSpacing: 0.75, margin: 0, align, objectName: "hdr" });
-  const rx = align === "ctr" ? 6.167 : x;
-  s.addShape("rect", { x: rx, y: 1.46, w: 1.0, h: 0.045, fill: { color: dark ? PERI : NAVY }, objectName: "hdr" });
+  s.addText(eyebrow, { x, y: 0.6, w, h: 0.26, fontFace: META, fontSize: 9, bold: true, color: WHITE, charSpacing: 2.5, margin: 0, align, objectName: "hdr" });
+  s.addText(txt, { x, y: 0.86, w, h: 0.6, fontFace: HEAD, fontSize: 26, bold: true, color: WHITE, margin: 0, align, objectName: "hdr" });
 }
 
 /* floating card (rounded rect + soft shadow) */
 function card(s, x, y, w, h, o = {}) {
   s.addShape("roundRect", {
     x, y, w, h, rectRadius: o.r ?? 0.09,
-    fill: { color: o.fill ?? WHITE, transparency: o.transp ?? 0 },
+    fill: { color: o.fill ?? WHITE, transparency: o.transp ?? (o.dark ? 0 : 12) },
     line: o.line ? { color: o.line, width: 1 } : { color: o.fill ?? WHITE, width: 0 },
     shadow: o.dark ? shadowD() : shadowL(),
     objectName: o.name,
@@ -105,7 +102,7 @@ function photo(s, file, x, y, w, h, o = {}) {
 }
 
 function label(s, txt, x, y, w, o = {}) {
-  s.addText(txt, { x, y, w, h: 0.26, fontFace: HSEMI, fontSize: o.size ?? 9, bold: true, color: o.color ?? (o.dark ? PERI : SLATE_D), charSpacing: 2.2, margin: 0, align: o.align ?? "left", objectName: o.name });
+  s.addText(txt, { x, y, w, h: 0.26, fontFace: o.font ?? HSEMI, fontSize: o.size ?? 9, bold: true, color: o.color ?? (o.dark ? PERI : SLATE_D), charSpacing: 2.2, margin: 0, align: o.align ?? "left", objectName: o.name });
 }
 
 function lead(s, txt, x, y, w, o = {}) {
@@ -113,12 +110,11 @@ function lead(s, txt, x, y, w, o = {}) {
 }
 
 function statement(s, txt, x, y, w, o = {}) {
-  s.addShape("rect", { x, y, w: 0.05, h: 0.46, fill: { color: PERI }, objectName: o.name });
-  s.addText(txt, { x: x + 0.22, y, w: w - 0.22, h: 0.46, fontFace: BSEMI, bold: true, fontSize: o.size ?? 13.5, color: o.dark ? WHITE : NAVY, margin: 0, valign: "middle", objectName: o.name });
+  s.addText(txt, { x, y, w, h: o.h ?? 0.46, fontFace: HEAD, italic: true, fontSize: o.size ?? 14, color: o.dark ? WHITE : NAVY, margin: 0, valign: "middle", objectName: o.name });
 }
 
 function citation(s, txt, o = {}) {
-  s.addText(txt, { x: o.x ?? 0.66, y: o.y ?? 6.6, w: o.w ?? 8.6, h: 0.3, fontFace: BODY, fontSize: 10, italic: true, color: o.dark ? LIGHT_ON_DARK : MUTED, margin: 0, align: o.align ?? "left", objectName: o.name });
+  s.addText(txt, { x: o.x ?? 0.66, y: o.y ?? 6.6, w: o.w ?? 8.6, h: 0.3, fontFace: META, fontSize: 9.5, italic: true, color: WHITE, margin: 0, align: o.align ?? "left", objectName: o.name });
 }
 
 /** bullet list — items: string | array of runs {t, b, i, color, size} */
@@ -186,13 +182,13 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Gestalt Theory and Its Application to Counselling");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-dark.jpg", true);
+  bgPhoto(s, "bg-night.jpg");
   photo(s, "h-summit.jpg", 7.3, 0.62, 5.35, 6.26, { dark: true });
 
-  label(s, "GROUP 4 PRESENTATION  ·  MCP504", 0.66, 0.76, 6.6, { color: LIGHT_ON_DARK, size: 10, name: "hdr" });
-  s.addText("Gestalt", { x: 0.62, y: 0.98, w: 6.9, h: 0.78, fontFace: HEAD, fontSize: 46, bold: true, color: WHITE, margin: 0, objectName: "hdr" });
-  s.addText("Theory", { x: 0.62, y: 1.84, w: 6.9, h: 0.78, fontFace: HEAD, fontSize: 46, bold: true, color: WHITE, margin: 0, objectName: "hdr" });
-  s.addText("AND ITS APPLICATION TO COUNSELLING", { x: 0.66, y: 2.8, w: 6.9, h: 0.36, fontFace: HSEMI, bold: true, fontSize: 14, color: LIGHT_ON_DARK, charSpacing: 2, margin: 0, objectName: "hdr" });
+  label(s, "GROUP 4 PRESENTATION  ·  MCP504", 0.66, 0.66, 6.6, { color: WHITE, size: 10, font: META, name: "hdr" });
+  s.addText("Gestalt", { x: 0.62, y: 1.04, w: 6.9, h: 0.86, fontFace: HEAD, fontSize: 52, bold: true, color: WHITE, margin: 0, objectName: "hdr" });
+  s.addText("Theory", { x: 0.62, y: 1.96, w: 6.9, h: 0.86, fontFace: HEAD, fontSize: 52, bold: true, color: WHITE, margin: 0, objectName: "hdr" });
+  s.addText("AND ITS APPLICATION TO COUNSELLING", { x: 0.66, y: 2.96, w: 6.9, h: 0.36, fontFace: META, bold: true, fontSize: 13, color: WHITE, charSpacing: 2, margin: 0, objectName: "hdr" });
   s.addShape("rect", { x: 0.68, y: 3.3, w: 1.2, h: 0.045, fill: { color: PERI }, objectName: "hdr" });
 
   card(s, 0.66, 3.56, 6.2, 1.9, { fill: NAVY, dark: true, name: "blk1" });
@@ -220,7 +216,7 @@ function numberedList(s, items, x, y, w, o = {}) {
     ["LECTURER", "Dr. Lucy Gachenia", 6.26, 1.5],
   ];
   info.forEach((r) => {
-    label(s, r[0], r[2], 5.92, r[3], { color: LIGHT_ON_DARK, size: 8.5, name: "blk2" });
+    label(s, r[0], r[2], 5.92, r[3], { color: WHITE, size: 8.5, name: "blk2" });
     s.addText(r[1], { x: r[2], y: 6.18, w: r[3], h: 0.66, fontFace: BODY, fontSize: 11, color: WHITE, margin: 0, lineSpacingMultiple: 1.18, objectName: "blk2" });
   });
 }
@@ -230,8 +226,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Introduction");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-ridge.jpg");
   header(s, "OVERVIEW", "Introduction", { w: 7.6 });
 
   card(s, 0.66, 1.74, 6.0, 4.55, { name: "blk1" });
@@ -254,8 +250,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Historical Background");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-ridge.jpg");
   header(s, "FOUNDATIONS", "Historical Background", { w: 8.6 });
 
   photo(s, "p-history.jpg", 0.66, 1.74, 3.0, 4.9);
@@ -274,7 +270,7 @@ function numberedList(s, items, x, y, w, o = {}) {
   chip(s, "Field theory", 4.53, 4.44, 1.85, 0.5, { size: 11, name: "blk2" });
   chip(s, "Holistic approaches", 6.58, 4.44, 2.35, 0.5, { size: 11, name: "blk2" });
 
-  statement(s, "Emphasized experience, awareness and contact", 3.95, 5.3, 8.4, { size: 13, name: "blk3" });
+  statement(s, "Emphasized experience, awareness and contact", 3.95, 5.3, 8.4, { size: 13, dark: true, name: "blk3" });
 
   card(s, 3.95, 5.86, 8.72, 0.9, { fill: NAVY, dark: true, name: "blk4" });
   label(s, "INTELLECTUAL ROOTS", 4.23, 5.98, 4, { dark: true, size: 8, name: "blk4" });
@@ -288,8 +284,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Major Theorists");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-ridge.jpg");
   header(s, "FOUNDATIONS", "Major Theorists", { dark: false, w: 7.4 });
   photo(s, "p-theorists.jpg", 8.25, 0.56, 4.42, 1.9);
 
@@ -323,7 +319,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Core Assumptions of Gestalt Therapy");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-dark.jpg", true);
+  bgPhoto(s, "bg-ridge.jpg");
   header(s, "FOUNDATIONS", "Core Assumptions of Gestalt Therapy", { dark: true, w: 11.5 });
 
   card(s, 0.66, 1.9, 4.2, 4.55, { fill: NAVY, dark: true, name: "blk1" });
@@ -352,11 +348,11 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Awareness");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "Awareness", { w: 7.6 });
 
-  statement(s, "Central concept in Gestalt therapy", 0.66, 1.78, 7.5, { size: 14.5, name: "blk1" });
+  statement(s, "Central concept in Gestalt therapy", 0.66, 1.78, 7.5, { size: 14.5, dark: true, name: "blk1" });
 
   card(s, 0.66, 2.36, 7.55, 1.62, { name: "blk2" });
   label(s, "NOTICING", 0.92, 2.52, 3, { name: "blk2" });
@@ -386,8 +382,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("The Here-and-Now");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "The Here-and-Now", { w: 7.9 });
 
   card(s, 0.66, 1.74, 3.95, 2.5, { name: "blk1" });
@@ -417,8 +413,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Figure and Ground");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "Figure and Ground", { w: 8 });
 
   card(s, 0.66, 1.74, 5.3, 4.5, { fill: DEEP, dark: true, name: "blk1" });
@@ -428,13 +424,13 @@ function numberedList(s, items, x, y, w, o = {}) {
   s.addShape("ellipse", { x: 2.46, y: 3.14, w: 1.7, h: 1.7, fill: { color: WHITE }, line: { color: WHITE, width: 1.25 }, objectName: "blk1" });
   s.addText("FIGURE", { x: 2.46, y: 4.94, w: 1.7, h: 0.28, align: "center", fontFace: HSEMI, bold: true, fontSize: 9, color: PERI, charSpacing: 2.2, margin: 0, objectName: "blk1" });
   s.addText("GROUND", { x: 0.96, y: 5.78, w: 2.5, h: 0.26, fontFace: HSEMI, bold: true, fontSize: 9, color: MUTED_D, charSpacing: 2.2, margin: 0, objectName: "blk1" });
-  s.addText("One element steps forward as figure against a ground of context.", { x: 0.66, y: 6.38, w: 5.3, h: 0.3, fontFace: BODY, fontSize: 9.5, italic: true, color: MUTED, margin: 0, objectName: "blk1" });
+  s.addText("One element steps forward as figure against a ground of context.", { x: 0.66, y: 6.38, w: 5.3, h: 0.3, fontFace: META, fontSize: 9, italic: true, color: WHITE, margin: 0, objectName: "blk1" });
 
   card(s, 6.3, 1.74, 6.37, 1.04, { name: "blk2" });
   s.addShape("rect", { x: 6.3, y: 1.74, w: 0.08, h: 1.04, fill: { color: NAVY }, objectName: "blk2" });
   s.addText("FIGURE", { x: 6.58, y: 1.88, w: 3, h: 0.34, fontFace: HSEMI, bold: true, fontSize: 14, color: NAVY, charSpacing: 0.5, margin: 0, objectName: "blk2" });
   s.addText("What is most prominent in awareness", { x: 6.58, y: 2.26, w: 5.9, h: 0.34, fontFace: BODY, fontSize: 12, color: TEXT, margin: 0, objectName: "blk2" });
-  s.addText("↓", { x: 6.3, y: 2.82, w: 6.37, h: 0.42, align: "center", valign: "middle", fontFace: BODY, fontSize: 18, bold: true, color: SLATE_D, margin: 0, objectName: "blk2" });
+  s.addText("↓", { x: 6.3, y: 2.82, w: 6.37, h: 0.42, align: "center", valign: "middle", fontFace: BODY, fontSize: 18, bold: true, color: WHITE, margin: 0, objectName: "blk2" });
   card(s, 6.3, 3.28, 6.37, 1.04, { name: "blk2" });
   s.addShape("rect", { x: 6.3, y: 3.28, w: 0.08, h: 1.04, fill: { color: SLATE_D }, objectName: "blk2" });
   s.addText("GROUND", { x: 6.58, y: 3.42, w: 3, h: 0.34, fontFace: HSEMI, bold: true, fontSize: 14, color: SLATE_D, charSpacing: 0.5, margin: 0, objectName: "blk2" });
@@ -455,8 +451,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Contact and Contact Boundary");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "Contact and Contact Boundary", { w: 11 });
 
   card(s, 0.66, 1.74, 7.0, 4.55, { name: "blk1" });
@@ -486,8 +482,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Unfinished Business");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "Unfinished Business", { w: 8.6 });
 
   card(s, 0.66, 1.74, 7.6, 2.56, { name: "blk1" });
@@ -514,8 +510,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Personal Responsibility");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "Personal Responsibility", { w: 7.9 });
 
   card(s, 0.66, 1.74, 7.6, 2.4, { name: "blk1" });
@@ -552,7 +548,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Role of the Gestalt Counsellor");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-dark.jpg", true);
+  bgPhoto(s, "bg-birds.jpg");
   header(s, "PRACTICE  ·  THE COUNSELLOR", "Role of the Gestalt Counsellor", { dark: true, w: 11.5 });
 
   photo(s, "h-session.jpg", 0.66, 1.9, 6.3, 4.55, { dark: true });
@@ -578,8 +574,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Gestalt Therapeutic Techniques");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-birds.jpg");
   header(s, "PRACTICE", "Gestalt Therapeutic Techniques", { x: 0.66, w: 9.2 });
 
   photo(s, "p-chairs2.jpg", 0.66, 1.74, 3.0, 4.9);
@@ -603,8 +599,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Empty-Chair Technique");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-birds.jpg");
   header(s, "PRACTICE", "Empty-Chair Technique", { w: 7 });
 
   card(s, 0.66, 1.74, 6.4, 2.6, { name: "blk1" });
@@ -641,8 +637,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Other Experiential Techniques");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-birds.jpg");
   header(s, "PRACTICE", "Other Experiential Techniques", { w: 10.2 });
   s.addImage({ path: A("circle-candle.png"), x: 11.32, y: 0.42, w: 1.35, h: 1.35 });
 
@@ -675,8 +671,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Application in Counselling");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-birds.jpg");
   header(s, "PRACTICE", "Application in Counselling", { w: 10.6 });
 
   card(s, 0.66, 1.74, 7.4, 3.3, { name: "blk1" });
@@ -701,8 +697,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Strengths of Gestalt Therapy");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-shore.jpg");
   header(s, "EVALUATION", "Strengths of Gestalt Therapy", { w: 7.9 });
 
   const strengths = [
@@ -734,7 +730,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Limitations and Criticisms");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-dark.jpg", true);
+  bgPhoto(s, "bg-shore.jpg");
   header(s, "EVALUATION", "Limitations and Criticisms", { dark: true, w: 10.5 });
 
   photo(s, "p-storm.jpg", 0.66, 1.9, 3.9, 4.55, { dark: true });
@@ -763,8 +759,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Case Application");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-shore.jpg");
   header(s, "EVALUATION", "Case Application", { w: 9 });
 
   card(s, 0.66, 1.74, 3.55, 4.95, { name: "blk1" });
@@ -792,8 +788,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("Critical Evaluation");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light2.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-shore.jpg");
   header(s, "EVALUATION", "Critical Evaluation", { w: 9 });
 
   const panels = [
@@ -823,7 +819,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Conclusion");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-dark.jpg", true);
+  bgPhoto(s, "bg-night.jpg");
   header(s, "CLOSING", "Conclusion", { dark: true, w: 9, align: "ctr" });
 
   const steps = ["AWARENESS", "HERE-AND-NOW", "CONTACT", "RESPONSIBILITY & CHOICE", "GROWTH"];
@@ -837,7 +833,7 @@ function numberedList(s, items, x, y, w, o = {}) {
       align: "center", valign: "middle", fontFace: BSEMI, bold: true, fontSize: 11.5,
       color: last ? DEEP : WHITE, charSpacing: 1, margin: 0, objectName: "blk1",
     });
-    if (!last) s.addText("↓", { x: 4.97, y: y + 0.5, w: 3.4, h: 0.38, align: "center", valign: "middle", fontFace: BODY, fontSize: 14, bold: true, color: LIGHT_ON_DARK, margin: 0, objectName: "blk1" });
+    if (!last) s.addText("↓", { x: 4.97, y: y + 0.5, w: 3.4, h: 0.38, align: "center", valign: "middle", fontFace: BODY, fontSize: 14, bold: true, color: WHITE, margin: 0, objectName: "blk1" });
   });
 
   photo(s, "p-summit.jpg", 9.3, 1.9, 3.37, 4.72, { dark: true });
@@ -854,8 +850,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* ========================================================================== */
 {
   const s = newSlide("References");
-  s.background = { color: PAGE };
-  bgPhoto(s, "bg-light.jpg", false);
+  s.background = { color: DEEP };
+  bgPhoto(s, "bg-night.jpg");
   header(s, "CLOSING", "References", { x: 0.66, w: 9.2 });
 
   photo(s, "p-books.jpg", 0.66, 1.74, 3.0, 4.9);

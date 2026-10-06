@@ -3,24 +3,28 @@
 MCP504 · Theories of Counseling and Psychotherapy · Group 4 · Pan African Christian University
 22-slide deck (16:9), built with pptxgenjs + a custom OOXML post-processor.
 Design follows the repository's uploaded presentation reference (`company profile.pdf`)
-palette (flat corporate navy/white/soft-blue) with a modern asymmetric card layout,
-rounded photo cards with soft shadows, and **native PowerPoint animations + Morph
-transitions**. Photography: royalty-free Unsplash images — professional people
-photos wherever people are the subject (counselling conversations, meditation,
-therapy groups, students), neutral object photos elsewhere — over full-bleed
-ultrarealistic silhouette backgrounds.
+palette (flat corporate navy/white/soft-blue) with a dark editorial layout,
+glass content cards, and **native PowerPoint animations + Morph transitions**.
+Backgrounds: full-bleed silhouette photography — the photo IS the background,
+no solid overlays. Card imagery: royalty-free Unsplash people photos wherever
+people are the subject.
 
 ## Theme
-- **Backgrounds** — every slide sits on a full-bleed photographic silhouette
-  (1600×900): bright-sky figure silhouettes under a white 72 % overlay on light
-  slides, a starry-night figure silhouette under an 80 % deep-navy overlay on
-  dark slides (01, 05, 12, 18, 21)
+- **Backgrounds** — one full-bleed silhouette photograph per slide, tone-tuned
+  so free text holds 3:1+ contrast (`zone-report.py` verifies the exact text
+  zones before each build). Section moods: starry night (title + closing),
+  fog ridgelines (Foundations), misty forest (Core Concepts), sunset birds
+  (Practice), storm shore (Evaluation)
 - **Colours** — deep navy `#162B57` · dark navy `#0A1937` · periwinkle `#8097BE`
-  (accent, on solid navy cards only) · slate `#717E9B` · white · light-blue tints
+  (accent, inside navy cards only) · slate `#717E9B` · white · light-blue tints
   — flat corporate, no ornaments
-- **Typography** — **Georgia** (Bold Title-Case titles / Italic quotes) +
-  **Calibri** (Bold eyebrows, labels, leads, chips, numbers, flows / Regular
-  body / Italic citations) — universal Office fonts, no semibold families
+- **Typography** — **Playfair Display** (Bold Title-Case titles / free italic
+  statements & quotes) + **Outfit** (body, labels, chips — bold for emphasis)
+  + **IBM Plex Mono** (eyebrows, citations, footer — tracked magazine meta).
+  No underline rules, no hairlines
+- **Structure** — asymmetric grids of glass cards (white cards 12 % translucent
+  over the photography, navy cards solid); titles, eyebrows, citations,
+  footers, statements and quotes float free on the images
 - **Structure** — asymmetric grids: staggered and offset floating cards with soft
   drop shadows, 60/40 and 40/30/30 column splits, indented panels, numbered lists,
   contrast panels, card grids; consistent eyebrow → title → rule → content rhythm
@@ -52,18 +56,20 @@ ultrarealistic silhouette backgrounds.
 ## Rebuild & verify
 ```bash
 npm install                                              # pptxgenjs, @napi-rs/canvas, adm-zip, pdfkit,
-                                                         # dejavu-fonts-ttf, @fontsource/{gelasio,carlito}
+                                                         # dejavu-fonts-ttf, @fontsource/{playfair-display,outfit,ibm-plex-mono}
 node build.js        # writes output/<Deck Title>.pptx
 node animate.js      # injects rounded photo geometry + animations + Morph
 node render.js       # writes output/<Deck Title>.pdf + render/*.png + QA report (exits 1 on issues)
 python3 check-content.py
+python3 zone-report.py assets/bg-*.jpg                  # bg text-zone luminance check
 ```
 
-Fonts named in the .pptx are **Georgia** and **Calibri** — universal Office
-fonts, so the presenting machine renders them natively with no installs.
-(QA renders with Gelasio/Carlito, their metric-compatible open clones.)
-Glyphs they lack (→ ↓ ↔ ≠ ✓ ✗) are auto-substituted by PowerPoint, exactly as
-the QA renderer does with DejaVu.
+Fonts named in the .pptx are **Playfair Display**, **Outfit** and
+**IBM Plex Mono** (Google Fonts). For perfect fidelity in PowerPoint, install
+them once from Google Fonts on the presenting machine — otherwise PowerPoint
+substitutes its defaults (the PDF always shows the true fonts). Glyphs they
+lack (→ ↓ ↔ ≠ ✓ ✗) are auto-substituted by PowerPoint, exactly as the QA
+renderer does with DejaVu.
 
 Note: the user's pasted outline skipped slides 11–20; the deck contains the
 22 provided slides, numbered sequentially 01–22 in the footer.

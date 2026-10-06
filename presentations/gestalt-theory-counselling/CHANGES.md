@@ -7,7 +7,49 @@ the same output path and the same 280 required content phrases (verified by
 
 ---
 
-## v5 — Human photography, silhouette backgrounds, Office fonts *(current)*
+## v6 — Pure photo backgrounds, no rules, editorial fonts *(current)*
+Commit `<this release>` · the silhouette photos ARE the background; modern
+magazine typography; free-flowing text
+
+### Backgrounds — pure photography, no solid overlays
+- **Why:** the v5 white/navy overlays read as solid colour backgrounds — the
+  silhouettes were barely visible.
+- Every overlay rect is gone. Each slide's background is now a single
+  full-bleed silhouette photograph, chosen and tone-processed so free text
+  keeps 3:1+ contrast (verified per text zone before building —
+  `zone-report.py`).
+- Five section-aligned moods: **starry night** (title + closing), **fog
+  ridgelines** (Foundations S2–S5), **misty forest at sunrise** (Core
+  Concepts S6–S11), **sunset birds** (Practice S12–S16), **storm shore**
+  (Evaluation S17–S20).
+- The deck is now a dark editorial system: luminous photography, white
+  free-floating titles, glass content cards.
+
+### No underlines, no rules
+- The title underline rule and the footer hairline are removed on every
+  slide. Statements lost their accent bars — they are now free italic serif
+  lines that sit directly on the photography.
+
+### Fonts — Playfair Display + Outfit + IBM Plex Mono
+- **Why:** Office-default fonts didn't blend with the photography; the user
+  asked for other modern fonts and styles.
+- **Playfair Display** Bold (Title-Case titles, 52 pt hero, free italic
+  statements/quotes) — editorial display serif that pairs with photography.
+- **Outfit** (body, labels, chips, lists — bold for emphasis) — modern
+  geometric sans.
+- **IBM Plex Mono** (eyebrows, citations, footer, title-slide meta) —
+  magazine-style "meta" voice in tracked mono.
+- render.js validates with the real @fontsource metrics; arrow/check glyphs
+  still fall back to DejaVu in QA exactly as PowerPoint substitutes them.
+
+### Placement variety — not everything in a placeholder
+- Titles, eyebrows, citations, footers, statements and quotes float directly
+  on the photographs; content stays on cards. White cards are now 12 %
+  translucent "glass" so the imagery shows through; navy cards stay solid.
+
+---
+
+## v5 — Human photography, silhouette backgrounds, Office fonts
 Commit `<this release>` · people-centred imagery, ultrarealistic silhouette
 backgrounds, Georgia + Calibri typography
 

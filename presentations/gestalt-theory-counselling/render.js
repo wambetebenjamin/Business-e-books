@@ -34,17 +34,19 @@ const px = (emu) => (emu / EMU) * DPI;
    latin subsets (verified: → ↓ ↔ ≠ ✓ ✗ are tofu) fall back to DejaVu Sans,
    as PowerPoint would substitute. */
 const DJ = path.dirname(require.resolve("dejavu-fonts-ttf/package.json"));
-const GEL_DIR = path.join(DECK, "node_modules", "@fontsource", "gelasio", "files");
-const CAR_DIR = path.join(DECK, "node_modules", "@fontsource", "carlito", "files");
+const PF_DIR = path.join(DECK, "node_modules", "@fontsource", "playfair-display", "files");
+const OF_DIR = path.join(DECK, "node_modules", "@fontsource", "outfit", "files");
+const PM_DIR = path.join(DECK, "node_modules", "@fontsource", "ibm-plex-mono", "files");
 const FACES = {
-  "Gelasio": path.join(GEL_DIR, "gelasio-latin-400-normal.woff2"),
-  "Gelasio Bold": path.join(GEL_DIR, "gelasio-latin-700-normal.woff2"),
-  "Gelasio Italic": path.join(GEL_DIR, "gelasio-latin-400-italic.woff2"),
-  "Gelasio BoldItalic": path.join(GEL_DIR, "gelasio-latin-700-italic.woff2"),
-  "Carlito": path.join(CAR_DIR, "carlito-latin-400-normal.woff2"),
-  "Carlito Bold": path.join(CAR_DIR, "carlito-latin-700-normal.woff2"),
-  "Carlito Italic": path.join(CAR_DIR, "carlito-latin-400-italic.woff2"),
-  "Carlito BoldItalic": path.join(CAR_DIR, "carlito-latin-700-italic.woff2"),
+  "Playfair Display": path.join(PF_DIR, "playfair-display-latin-400-normal.woff2"),
+  "Playfair Display Bold": path.join(PF_DIR, "playfair-display-latin-700-normal.woff2"),
+  "Playfair Display Italic": path.join(PF_DIR, "playfair-display-latin-400-italic.woff2"),
+  "Playfair Display BoldItalic": path.join(PF_DIR, "playfair-display-latin-700-italic.woff2"),
+  "Outfit": path.join(OF_DIR, "outfit-latin-400-normal.woff2"),
+  "Outfit Bold": path.join(OF_DIR, "outfit-latin-700-normal.woff2"),
+  "IBM Plex Mono": path.join(PM_DIR, "ibm-plex-mono-latin-400-normal.woff2"),
+  "IBM Plex Mono Bold": path.join(PM_DIR, "ibm-plex-mono-latin-700-normal.woff2"),
+  "IBM Plex Mono Italic": path.join(PM_DIR, "ibm-plex-mono-latin-400-italic.woff2"),
   "DejaVu Serif": path.join(DJ, "ttf", "DejaVuSerif.ttf"),
   "DejaVu Serif Bold": path.join(DJ, "ttf", "DejaVuSerif-Bold.ttf"),
   "DejaVu Serif Italic": path.join(DJ, "ttf", "DejaVuSerif-Italic.ttf"),
@@ -60,7 +62,7 @@ for (const [alias, p] of Object.entries(FACES)) {
   const ok = GlobalFonts.registerFromPath(p, alias);
   if (ok) registered++;
 }
-// glyphs NOT covered by Gelasio/Carlito latin subsets (verified: tofu) → DejaVu Sans
+// glyphs NOT covered by Playfair/Outfit/Plex Mono latin subsets (verified: tofu) → DejaVu Sans
 const SPECIAL = /[→↓↑↔⇄⇒≠✓✗✔✘▪●◦]/;
 function face(typeface, bold, italic, text) {
   const tf = typeface || "";
@@ -69,8 +71,9 @@ function face(typeface, bold, italic, text) {
     return "DejaVu Sans" + (wantsBold ? " Bold" : "") + (italic ? " Italic" : "");
   }
   let fam;
-  if (/gelasio|georgia|times|serif/i.test(tf)) fam = "Gelasio";
-  else fam = "Carlito";
+  if (/playfair|georgia|times|serif/i.test(tf)) fam = "Playfair Display";
+  else if (/plex|mono/i.test(tf)) fam = "IBM Plex Mono";
+  else fam = "Outfit";
   const key = fam + (bold ? " Bold" : "") + (italic ? " Italic" : "");
   return FACES[key] ? key : fam;
 }
