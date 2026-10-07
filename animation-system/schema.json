@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/wambetebenjamin/Business-e-books/animation-system/schema.json",
+  "title": "Website Animation Effect Registry",
+  "description": "Machine-readable decomposition of website animation effects, structured so an AI can reproduce each one exactly in a website build prompt. One record per effect, every record answerable as build instructions.",
+  "type": "object",
+  "required": ["source", "families", "slots", "effects"],
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["title", "publisher", "url", "effect_count"],
+      "properties": {
+        "title": { "type": "string" },
+        "publisher": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "analyzed_on": { "type": "string", "format": "date" },
+        "effect_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "families": {
+      "type": "object",
+      "description": "Grouping key (A-I) used to cluster effects by engineering discipline.",
+      "additionalProperties": { "type": "string" }
+    },
+    "slots": {
+      "type": "object",
+      "description": "Named regions of the target page. Each effect is assigned to exactly one slot so no two effects fight for the same surface.",
+      "additionalProperties": { "type": "string" }
+    },
+    "effects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "n", "name", "family", "one_liner", "intent", "trigger",
+          "stack", "slot", "placement", "params", "perf", "a11y",
+          "acceptance", "prompt_line"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^EFFECT-[0-9]{2}$",
+            "description": "Stable identifier, zero-padded, in source order."
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Position in the source article (1-31)."
+          },
+          "name": {
+            "type": "string",
+            "description": "Effect name as a designer would recognise it."
+          },
+          "family": {
+            "type": "string",
+            "enum": ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
+            "description": "Engineering family. A Spatial/Dimensional, B Narrative/Scroll, C Type/Brand, D Vector Craft, E Atmosphere, F Interaction/UI, G State/Feedback, H Surface Styles, I Editorial/Media."
+          },
+          "one_liner": {
+            "type": "string",
+            "description": "What the effect is, in one sentence an AI can reason about."
+          },
+          "intent": {
+            "type": "string",
+            "description": "Why it exists — the user-facing job it does. Drives whether an AI should keep it when adapting the design."
+          },
+          "trigger": {
+            "type": "string",
+            "description": "What starts the animation: load, in-view, scroll, hover, focus, click, pointer, idle-loop, state-change, navigation, data-loading, multi-user, session."
+          },
+          "stack": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "description": "Concrete technologies that implement the effect. Must be implementable client-side."
+          },
+          "slot": {
+            "type": "string",
+            "description": "Page region key from `slots`. Guarantees coverage: every slot is populated and every effect has a home."
+          },
+          "placement": {
+            "type": "string",
+            "description": "Exactly where and how the effect appears, in build terms."
+          },
+          "params": {
+            "type": "object",
+            "description": "Motion values. A number is a scalar; a two-item array is a [min,max] range; a string is a named mode or loop description.",
+            "additionalProperties": { "type": ["number", "string", "array"] }
+          },
+          "perf": {
+            "type": "object",
+            "required": ["cost", "gpu", "frame_budget_ms"],
+            "properties": {
+              "cost": { "type": "string", "enum": ["low", "medium", "high"] },
+              "gpu": { "type": "boolean", "description": "Whether the effect composites on the GPU (transform/opacity/filter) rather than repainting layout." },
+              "frame_budget_ms": { "type": "number", "description": "Milliseconds of the 16.7ms frame this effect may consume." }
+            }
+          },
+          "a11y": {
+            "type": "object",
+            "required": ["prefers_reduced_motion", "keyboard", "aria"],
+            "properties": {
+              "prefers_reduced_motion": { "type": "string", "description": "The mandatory non-animated fallback. Never optional." },
+              "keyboard": { "type": "string", "description": "Keyboard equivalence for the trigger." },
+              "aria": { "type": "string", "description": "Semantics the implementation must expose." }
+            }
+          },
+          "acceptance": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2,
+            "description": "Binary, testable checks. If any fails, the effect is not done."
+          },
+          "prompt_line": {
+            "type": "string",
+            "description": "A single imperative sentence that can be pasted directly into a build prompt. Composed of trigger + technique + placement + constraints."
+          }
+        }
+      }
+    }
+  }
+}
