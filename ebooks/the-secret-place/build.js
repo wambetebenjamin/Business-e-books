@@ -1,11 +1,15 @@
 /* ============================================================================
-   THE SECRET PLACE — The Three Levels of the Will of God
-   E-book · A4 · Presbyter Jeremiah Mugala · CHRICO Central Church, Nairobi
+   THE SECRET PLACE — The Three Levels of the Will of God   ·   v2 (new book)
+   E-book · A4 · Presbyter Jeremiah Mugala · CHRISCO Central Church, Nairobi
    Spiritual Emphasis Month · 4th Week · Wednesday
 
-   Design: full-bleed dimmed ultrarealistic photography per page, floating
-   white typography (Playfair Display / Outfit / IBM Plex Mono), no bullets,
-   no cards, no rules — pure editorial layout.
+   v2 design (built on the Canva template EAHDoZfQENg design language —
+   modern GREEN / BLACK / WHITE with accent):
+     · black = dimmed ultrarealistic photography (full bleed)
+     · white = floating typography (Playfair Display / Outfit / IBM Plex Mono)
+     · green accent = eyebrows, giant level numerals, scripture refs, footer
+   Poster-style level pages: oversized numerals, bigger display titles.
+   No bullets, no cards, no rules, no underlines — pure editorial layout.
    Run: node build.js && python3 check-content.py
    ========================================================================== */
 const PDFDocument = require("pdfkit");
@@ -20,13 +24,13 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const W = 595.28, H = 841.89;      // A4 portrait, pt
 const MX = 56, CW = W - 2 * MX;    // margins / content width
-const WHITE = "#FFFFFF", SOFT = "#E8EBF4", META = "#C9D4EA";
+const WHITE = "#FFFFFF", SOFT = "#E8EBF4", META = "#C9D4EA", GREEN = "#3ECF8E";
 
 const doc = new PDFDocument({
   size: "A4", margin: 0,
   info: {
     Title: "The Secret Place — The Three Levels of the Will of God",
-    Author: "Presbyter Jeremiah Mugala · CHRICO Central Church, Nairobi",
+    Author: "Presbyter Jeremiah Mugala · CHRISCO Central Church, Nairobi",
     Subject: "Spiritual Emphasis Month · 4th Week · Wednesday",
   },
 });
@@ -47,9 +51,9 @@ function newPage(bg, o = {}) {
   pageNo++;
   doc.image(A(bg), 0, 0, { width: W, height: H });
   if (!o.noFooter) {
-    doc.font("PlexMono").fontSize(7.5).fillColor(META)
-      .text("CHRICO CENTRAL CHURCH  ·  NAIROBI", MX, 800, { characterSpacing: 1.5 });
-    doc.font("PlexMono-Bold").fontSize(8).fillColor(META)
+    doc.font("PlexMono").fontSize(7.5).fillColor(GREEN)
+      .text("CHRISCO CENTRAL CHURCH  ·  NAIROBI", MX, 800, { characterSpacing: 1.5 });
+    doc.font("PlexMono-Bold").fontSize(8).fillColor(GREEN)
       .text(String(pageNo).padStart(2, "0"), W - MX - 30, 800, { width: 30, align: "right" });
   }
 }
@@ -57,7 +61,7 @@ function fits(y, label) {
   if (y > 782) throw new Error(`OVERFLOW on page ${pageNo} (${label}): y=${y.toFixed(0)}`);
 }
 function eyebrow(t, y) {
-  doc.font("PlexMono-Bold").fontSize(8.5).fillColor(META)
+  doc.font("PlexMono-Bold").fontSize(8.5).fillColor(GREEN)
     .text(t, MX, y, { width: CW, characterSpacing: 2.5 });
   dump(t);
 }
@@ -95,13 +99,14 @@ function verse(t, y, o = {}) {
   return doc.y + 10;
 }
 function verseRef(t, y) {
-  doc.font("PlexMono-Bold").fontSize(9).fillColor(META)
+  doc.font("PlexMono-Bold").fontSize(9).fillColor(GREEN)
     .text(t, MX, y, { width: CW, characterSpacing: 2.5 });
   dump(t);
   return doc.y + 20;
 }
-function numeral(n, y) {
-  doc.font("PF-Bold").fontSize(34).fillColor(WHITE).text(n, MX, y);
+/** oversized green accent numeral — the poster signature of this book */
+function numeral(n, y, size = 40) {
+  doc.font("PF-Bold").fontSize(size).fillColor(GREEN).text(n, MX, y);
   dump(n);
   return doc.y;
 }
@@ -109,14 +114,14 @@ function numeral(n, y) {
 /* ============================== PAGE 1 — COVER ============================ */
 newPage("cover.jpg", { noFooter: true });
 eyebrow("SPIRITUAL EMPHASIS MONTH  ·  4TH WEEK  ·  WEDNESDAY", 96);
-doc.font("PF-Bold").fontSize(48).fillColor(WHITE).text("The Secret\nPlace", MX, 250, { lineGap: 6 });
+doc.font("PF-Bold").fontSize(50).fillColor(WHITE).text("The Secret\nPlace", MX, 240, { lineGap: 6 });
 dump("The Secret Place");
 doc.font("PF-Italic").fontSize(20).fillColor(SOFT)
   .text("The Three Levels of the Will of God", MX, 420, { width: CW });
 dump("The Three Levels of the Will of God");
 doc.font("PlexMono-Bold").fontSize(9).fillColor(META).text("PRESBYTER JEREMIAH MUGALA", MX, 700, { characterSpacing: 2.5 });
-doc.font("PlexMono").fontSize(8.5).fillColor(META).text("CHRICO CENTRAL CHURCH  ·  NAIROBI", MX, 722, { characterSpacing: 2.5 });
-dump("PRESBYTER JEREMIAH MUGALA"); dump("CHRICO CENTRAL CHURCH  ·  NAIROBI");
+doc.font("PlexMono").fontSize(8.5).fillColor(GREEN).text("CHRISCO CENTRAL CHURCH  ·  NAIROBI", MX, 722, { characterSpacing: 2.5 });
+dump("PRESBYTER JEREMIAH MUGALA"); dump("CHRISCO CENTRAL CHURCH  ·  NAIROBI");
 
 /* ======================= PAGE 2 — THE SECRET PLACE ======================== */
 newPage("secret.jpg");
@@ -149,7 +154,7 @@ const levels = [
   ["03", "The Holy of Holies", "Where the Lord is. The place of worship, intercession, exchange and redefinition."],
 ];
 levels.forEach((lv) => {
-  const ny = numeral(lv[0], y);
+  const ny = numeral(lv[0], y, 40);
   doc.font("Outfit-Bold").fontSize(14.5).fillColor(WHITE).text(lv[1], MX, ny + 2);
   dump(lv[1]);
   y = para(lv[2], doc.y + 6, { gap: 20, size: 11, color: SOFT });
@@ -158,8 +163,9 @@ fits(y, "p3");
 
 /* ==================== PAGE 4 — LEVEL 01 · OUTER COURT ===================== */
 newPage("outer.jpg");
-eyebrow("LEVEL 01", 96);
-y = title("The Outer Court", 126, 28);
+eyebrow("LEVEL ONE  ·  THE OUTER COURT", 96);
+y = numeral("01", 122, 64);
+y = title("The Outer Court", y + 4, 30);
 y = para([
   { t: "The Outer Court is " }, { t: "still in the will of God", b: true },
   { t: " — though one who wants to do exploits has to be in the " },
@@ -181,8 +187,9 @@ fits(y, "p4");
 
 /* ==================== PAGE 5 — LEVEL 02 · HOLY PLACE ====================== */
 newPage("holyplace.jpg");
-eyebrow("LEVEL 02", 96);
-y = title("The Holy Place", 126, 28);
+eyebrow("LEVEL TWO  ·  THE HOLY PLACE", 96);
+y = numeral("02", 122, 64);
+y = title("The Holy Place", y + 4, 30);
 y = para([
   { t: "In the Holy Place there is a " }, { t: "curtain", b: true },
   { t: ", and " }, { t: "complete darkness", b: true },
@@ -205,7 +212,7 @@ fits(y, "p5");
 
 /* ==================== PAGE 6 — LEVEL 02 · THE BREAD ======================= */
 newPage("bread.jpg");
-eyebrow("LEVEL 02  ·  THE TABLE", 96);
+eyebrow("LEVEL TWO  ·  THE TABLE", 96);
 y = title("The Bread of the Word", 126, 28);
 y = para([
   { t: "We use the Holy Spirit to light our spiritual bread — the " },
@@ -221,8 +228,9 @@ fits(y, "p6");
 
 /* ================== PAGE 7 — LEVEL 03 · HOLY OF HOLIES ==================== */
 newPage("incense.jpg");
-eyebrow("LEVEL 03", 96);
-y = title("The Holy of Holies", 126, 28);
+eyebrow("LEVEL THREE  ·  THE HOLY OF HOLIES", 96);
+y = numeral("03", 122, 64);
+y = title("The Holy of Holies", y + 4, 30);
 y = para([
   { t: "At the entrance there is another altar: the " },
   { t: "altar of incense", b: true }, { t: "." },
@@ -244,7 +252,7 @@ fits(y, "p7");
 
 /* ================== PAGE 8 — ENCOUNTERS IN THE HOLY OF HOLIES ============= */
 newPage("encounters.jpg");
-eyebrow("LEVEL 03  ·  CONTINUED", 96);
+eyebrow("LEVEL THREE  ·  CONTINUED", 96);
 y = title("Encounters in the Holy of Holies", 126, 27);
 y = para([
   { t: "That is where you " },
@@ -283,7 +291,7 @@ const keys = [
   ["03", [{ t: "You need to " }, { t: "experience God", b: true }, { t: "." }]],
 ];
 keys.forEach((k) => {
-  const ny = numeral(k[0], y);
+  const ny = numeral(k[0], y, 40);
   y = para(k[1], ny + 6, { gap: 22 });
 });
 fits(y, "p9");
@@ -314,8 +322,9 @@ doc.font("PF-Italic").fontSize(26).fillColor(WHITE)
 dump("He is inviting us closer.");
 doc.font("PlexMono-Bold").fontSize(9).fillColor(META).text("PRESBYTER JEREMIAH MUGALA", MX, 640, { characterSpacing: 2.5 });
 doc.font("PlexMono").fontSize(8.5).fillColor(META).text("SPIRITUAL EMPHASIS MONTH  ·  4TH WEEK  ·  WEDNESDAY", MX, 662, { characterSpacing: 2 });
-doc.font("PlexMono").fontSize(8.5).fillColor(META).text("CHRICO CENTRAL CHURCH  ·  NAIROBI", MX, 682, { characterSpacing: 2.5 });
+doc.font("PlexMono").fontSize(8.5).fillColor(GREEN).text("CHRISCO CENTRAL CHURCH  ·  NAIROBI", MX, 684, { characterSpacing: 2.5 });
 dump("SPIRITUAL EMPHASIS MONTH  ·  4TH WEEK  ·  WEDNESDAY");
+dump("CHRISCO CENTRAL CHURCH  ·  NAIROBI");
 
 /* ---------- write ---------- */
 doc.end();

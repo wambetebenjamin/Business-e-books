@@ -11,7 +11,7 @@ PDF = ROOT / "output" / "The Secret Place - Three Levels of the Will of God.pdf"
 
 REQUIRED = [
     # identity
-    "presbyter jeremiah mugala", "chrico central church", "nairobi",
+    "presbyter jeremiah mugala", "chrisco central church", "nairobi",
     "spiritual emphasis month",
     # secret place
     "secret place of the most high", "get closer", "balance",
@@ -56,6 +56,9 @@ def main() -> int:
     missing = [p for p in REQUIRED if norm(p) not in text]
     for p in missing:
         errors.append(f"missing phrase: {p!r}")
+    for bad in ("chrico ", " chrico"):          # superseded spelling must be gone
+        if bad in f" {text} ":
+            errors.append("stale spelling present: CHRICO (should be CHRISCO)")
     if not PDF.exists():
         errors.append(f"PDF missing: {PDF.name}")
     else:
