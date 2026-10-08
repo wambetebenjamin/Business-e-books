@@ -7,7 +7,39 @@ the same output path and the same 280 required content phrases (verified by
 
 ---
 
-## v7 — Everything floats: no cards, tick bullets, premium numerals *(current)*
+## v8 — No markers, no content imagery, relevant dimmed backgrounds *(current)*
+Commit `<this release>` · pure floating typography over relevant, dimmed
+silhouette photography
+
+### No bullets, no dashes, no ticks
+- **Why:** the user asked to stop using bullets entirely when writing points.
+- Every list marker is gone — points are plain floating lines separated by
+  generous paragraph spacing. (Numbered lists keep their Playfair Display
+  serif numerals, per the earlier request for premium numbering fonts.)
+
+### No cards or placeholders for images and text
+- All content photographs, the candle/seedling/scale icons and the S8 ring
+  diagram are removed — no image placeholders anywhere. The only imagery is
+  the full-bleed background photograph of each slide; everything else is
+  typography floating on it.
+- Layouts rebalanced to use the freed width (S3, S12, S13, S18, S19, S22
+  re-flowed; S2/S7 columns widened).
+
+### Relevant, dimmed backgrounds
+- **Why:** "background images don't have to be at 100% visibility; use
+  relevant images — where does the galaxy come in?"
+- The starry-night background is gone. Five content-relevant moods, all
+  tone-dimmed to ~65% brightness so white text floats comfortably:
+  **a room of empty chairs** (title + closing — the counselling setup and
+  the empty-chair technique), **a dark library with sunlit shelves**
+  (Foundations — history and theorists), **a misty forest path** (Core
+  Concepts — the awareness journey), **hands writing in a notebook**
+  (Practice — session work and techniques), **a storm over the shore**
+  (Evaluation — limitations and criticism).
+
+---
+
+## v7 — Everything floats: no cards, tick bullets, premium numerals
 Commit `<this release>` · zero cards/chips/frames, ✓ markers, Playfair numerals
 
 ### No cards anywhere

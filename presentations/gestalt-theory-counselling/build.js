@@ -85,11 +85,6 @@ function header(s, eyebrow, txt, o = {}) {
   s.addText(txt, { x, y: 0.86, w, h: 0.6, fontFace: HEAD, fontSize: 26, bold: true, color: WHITE, margin: 0, align, objectName: "hdr" });
 }
 
-/* photo — floats free, no card, no shadow */
-function photo(s, file, x, y, w, h, o = {}) {
-  s.addImage({ path: A(file), x, y, w, h, objectName: o.name ?? "img" });
-}
-
 function label(s, txt, x, y, w, o = {}) {
   s.addText(txt, { x, y, w, h: 0.26, fontFace: o.font ?? HSEMI, fontSize: o.size ?? 9, bold: true, color: o.color ?? WHITE, charSpacing: o.spacing ?? 2.2, margin: 0, align: o.align ?? "left", objectName: o.name });
 }
@@ -120,7 +115,6 @@ function bullets(s, items, x, y, w, h, o = {}) {
         italic: !!r.i,
       };
       if (i === 0) {
-        opt.bullet = { code: o.bulletCode ?? "2713", indent: o.indent ?? 11 };
         opt.paraSpaceAfter = o.space ?? 11;
         opt.lineSpacingMultiple = o.lsm ?? 1.3;
       }
@@ -161,8 +155,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Gestalt Theory and Its Application to Counselling");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-night.jpg");
-  photo(s, "h-summit.jpg", 7.3, 0.62, 5.35, 6.26, { dark: true });
+  bgPhoto(s, "bg-chairs.jpg");
 
   label(s, "GROUP 4 PRESENTATION  ·  MCP504", 0.66, 0.66, 6.6, { color: WHITE, size: 10, font: META, name: "hdr" });
   s.addText("Gestalt", { x: 0.62, y: 1.04, w: 6.9, h: 0.86, fontFace: HEAD, fontSize: 52, bold: true, color: WHITE, margin: 0, objectName: "hdr" });
@@ -198,17 +191,15 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Introduction");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-ridge.jpg");
+  bgPhoto(s, "bg-library.jpg");
   header(s, "OVERVIEW", "Introduction", { w: 7.6 });
-  lead(s, "Experiential and humanistic approach to counselling", 0.94, 2.0, 5.44, { size: 16, h: 0.82, name: "blk1" });
+  lead(s, "Experiential and humanistic approach to counselling", 0.94, 2.0, 7.6, { size: 16, h: 0.82, name: "blk1" });
   bullets(s, [
     [{ t: "Emphasizes " }, { t: "awareness, present experience and contact", b: true }],
     [{ t: "Understands individuals within their " }, { t: "environment and relationships", b: true }],
     [{ t: "Encourages personal responsibility, choice and authentic living" }],
     [{ t: "Focuses on the client's experience in the " }, { t: "here-and-now", b: true }],
-  ], 0.94, 3.16, 5.44, 2.95, { size: 13.5, space: 13, name: "blk1" });
-
-  photo(s, "h-conversation.jpg", 7.0, 1.95, 5.65, 4.4);
+  ], 0.94, 3.16, 7.6, 2.95, { size: 13.5, space: 13, name: "blk1" });
   citation(s, "(Perls et al., 1951; Joyce & Sills, 2014)", { y: 6.5, w: 7.5, name: "blk2" });
   footer(s);
 }
@@ -219,22 +210,20 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Historical Background");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-ridge.jpg");
+  bgPhoto(s, "bg-library.jpg");
   header(s, "FOUNDATIONS", "Historical Background", { w: 8.6 });
-
-  photo(s, "p-history.jpg", 0.66, 1.74, 3.0, 4.9);
   bullets(s, [
     [{ t: "Emerged during the " }, { t: "1940s and 1950s", b: true }],
     [{ t: "Developed partly in response to limitations perceived in " }, { t: "traditional psychoanalysis", b: true }],
-  ], 4.23, 1.98, 8.16, 1.05, { size: 13, space: 8, name: "blk1" });
-  label(s, "INFLUENCED BY", 4.53, 3.52, 4, { name: "blk2" });
-  bullets(s, ["Gestalt psychology", "Phenomenology", "Existential philosophy"], 4.25, 3.78, 4.1, 1.15, { size: 12.5, space: 5, name: "blk2" });
-  bullets(s, ["Field theory", "Holistic approaches"], 8.6, 3.78, 3.8, 0.85, { size: 12.5, space: 5, name: "blk2" });
+  ], 0.66, 1.98, 11.9, 1.05, { size: 13, space: 8, name: "blk1" });
+  label(s, "INFLUENCED BY", 0.66, 3.52, 4, { name: "blk2" });
+  bullets(s, ["Gestalt psychology", "Phenomenology", "Existential philosophy"], 0.66, 3.78, 5.2, 1.15, { size: 12.5, space: 5, name: "blk2" });
+  bullets(s, ["Field theory", "Holistic approaches"], 6.2, 3.78, 4.6, 0.85, { size: 12.5, space: 5, name: "blk2" });
 
-  statement(s, "Emphasized experience, awareness and contact", 3.95, 5.3, 8.4, { size: 13, dark: true, name: "blk3" });
-  label(s, "INTELLECTUAL ROOTS", 4.23, 5.98, 4, { dark: true, size: 8, name: "blk4" });
-  flow(s, ["Gestalt Psychology", "Phenomenology", "Existentialism", "Field Theory", "Gestalt Therapy"], 4.23, 6.24, 8.16, 0.4, { size: 10.5, align: "left", name: "blk4" });
-  citation(s, "(Perls et al., 1951; Woldt & Toman, 2005)", { x: 3.95, y: 6.85, w: 8.5, name: "blk4" });
+  statement(s, "Emphasized experience, awareness and contact", 0.66, 5.3, 8.4, { size: 13, dark: true, name: "blk3" });
+  label(s, "INTELLECTUAL ROOTS", 0.66, 5.98, 4, { dark: true, size: 8, name: "blk4" });
+  flow(s, ["Gestalt Psychology", "Phenomenology", "Existentialism", "Field Theory", "Gestalt Therapy"], 0.66, 6.24, 11.9, 0.4, { size: 10.5, align: "left", name: "blk4" });
+  citation(s, "(Perls et al., 1951; Woldt & Toman, 2005)", { x: 0.66, y: 6.85, w: 8.5, name: "blk4" });
   footer(s);
 }
 
@@ -244,9 +233,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Major Theorists");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-ridge.jpg");
+  bgPhoto(s, "bg-library.jpg");
   header(s, "FOUNDATIONS", "Major Theorists", { dark: false, w: 7.4 });
-  photo(s, "p-theorists.jpg", 8.25, 0.56, 4.42, 1.9);
 
   const people = [
     { ini: "FP", name: "Fritz Perls", yrs: "1893–1970", role: "Major founder", det: "Awareness, experience and responsibility", c: NAVY, rc: NAVY },
@@ -273,7 +261,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Core Assumptions of Gestalt Therapy");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-ridge.jpg");
+  bgPhoto(s, "bg-library.jpg");
   header(s, "FOUNDATIONS", "Core Assumptions of Gestalt Therapy", { dark: true, w: 11.5 });
   numberedList(s, [
     "People are best understood as whole persons",
@@ -287,8 +275,6 @@ function numberedList(s, items, x, y, w, o = {}) {
   ], 5.32, 2.88, 3.1, { size: 12.5, step: 0.78, dark: true, rowH: 0.72, startNum: 5, name: "blk2" });
   s.addText("07", { x: 5.32, y: 4.44, w: 0.5, h: 0.34, fontFace: HEAD, bold: true, fontSize: 13, color: WHITE, margin: 0, objectName: "blk2" });
   s.addText("Psychological difficulties may involve interruptions in awareness or contact", { x: 5.92, y: 4.4, w: 2.56, h: 1.35, fontFace: BODY, fontSize: 12.5, color: WHITE, margin: 0, lineSpacingMultiple: 1.2, objectName: "blk2" });
-
-  photo(s, "h-hands.jpg", 8.86, 1.9, 3.8, 4.55, { dark: true });
   citation(s, "(Perls et al., 1951; Brownell, 2010; Joyce & Sills, 2014)", { y: 6.6, dark: true, w: 9, name: "blk3" });
   footer(s, true);
 }
@@ -306,15 +292,13 @@ function numberedList(s, items, x, y, w, o = {}) {
   label(s, "NOTICING", 0.92, 2.42, 3, { name: "blk2" });
   s.addText(
     ["Thoughts", "Feelings", "Bodily sensations", "Behaviour", "Needs"].flatMap((t) => [
-      { text: "✓  ", options: { fontFace: BODY, fontSize: 12, bold: true, color: PERI } },
-      { text: t + "    ", options: { fontFace: HSEMI, fontSize: 12.5, bold: true, color: WHITE } },
+      { text: t, options: { fontFace: HSEMI, fontSize: 13, bold: true, color: WHITE } },
+      { text: "      ", options: { fontFace: BODY, fontSize: 13, color: WHITE } },
     ]),
     { x: 0.92, y: 2.78, w: 7.3, h: 0.4, margin: 0, valign: "middle", objectName: "blk2" });
   label(s, "THE PROCESS", 0.92, 4.42, 3, { name: "blk3" });
   bullets(s, ["Focuses on present experience", "Creates opportunities for choice and change"], 0.92, 4.78, 7.0, 0.9, { size: 12, space: 7, name: "blk3" });
   flow(s, ["AWARENESS", "CHOICE", "CHANGE"], 0.92, 5.66, 7.3, 0.5, { size: 14, align: "left", name: "blk3" });
-
-  photo(s, "h-meditate.jpg", 8.5, 1.74, 4.16, 4.66);
   citation(s, "(Perls et al., 1951; Joyce & Sills, 2014)", { y: 6.55, w: 7.5, name: "blk4" });
   footer(s);
 }
@@ -335,10 +319,8 @@ function numberedList(s, items, x, y, w, o = {}) {
   bullets(s, [
     [{ t: "Encourages " }, { t: "direct experience", b: true }, { t: " rather than excessive intellectual analysis" }],
     [{ t: "The therapeutic relationship provides an opportunity for " }, { t: "present-moment awareness", b: true }],
-  ], 5.21, 1.98, 2.9, 4.2, { size: 12.5, space: 14, name: "blk3" });
-
-  photo(s, "h-window.jpg", 8.5, 1.74, 4.16, 4.66);
-  citation(s, "(Perls et al., 1951; Brownell, 2010)", { x: 4.95, y: 6.55, w: 3.4, name: "blk3" });
+  ], 4.95, 1.98, 4.7, 4.2, { size: 12.5, space: 14, name: "blk3" });
+  citation(s, "(Perls et al., 1951; Brownell, 2010)", { x: 4.95, y: 6.55, w: 4.7, name: "blk3" });
   footer(s);
 }
 
@@ -350,24 +332,18 @@ function numberedList(s, items, x, y, w, o = {}) {
   s.background = { color: DEEP };
   bgPhoto(s, "bg-forest.jpg");
   header(s, "CORE CONCEPTS", "Figure and Ground", { w: 8 });
-  [4.35, 3.55, 2.85].forEach((d) => {
-    s.addShape("ellipse", { x: 3.31 - d / 2, y: 3.99 - d / 2, w: d, h: d, fill: { color: DEEP, transparency: 100 }, line: { color: PANEL_LN, width: 1 }, objectName: "blk1" });
-  });
-  s.addShape("ellipse", { x: 2.46, y: 3.14, w: 1.7, h: 1.7, fill: { color: WHITE }, line: { color: WHITE, width: 1.25 }, objectName: "blk1" });
-  s.addText("FIGURE", { x: 2.46, y: 4.94, w: 1.7, h: 0.28, align: "center", fontFace: HSEMI, bold: true, fontSize: 9, color: WHITE, charSpacing: 2.2, margin: 0, objectName: "blk1" });
-  s.addText("GROUND", { x: 0.96, y: 5.78, w: 2.5, h: 0.26, fontFace: HSEMI, bold: true, fontSize: 9, color: WHITE, charSpacing: 2.2, margin: 0, objectName: "blk1" });
-  s.addText("One element steps forward as figure against a ground of context.", { x: 0.66, y: 6.38, w: 5.3, h: 0.3, fontFace: META, fontSize: 9, italic: true, color: WHITE, margin: 0, objectName: "blk1" });
+  statement(s, "One element steps forward as figure against a ground of context.", 0.66, 1.95, 5.6, { size: 17, h: 1.3, name: "blk1" });
+  bullets(s, [
+    "Needs and concerns move between figure and ground",
+    "The figure changes as circumstances change",
+    "Awareness helps identify what is most significant in the present",
+  ], 0.66, 3.6, 5.6, 2.6, { size: 13, space: 12, name: "blk1" });
+  citation(s, "(Perls et al., 1951; Woldt & Toman, 2005)", { x: 0.66, y: 6.55, w: 5.6, name: "blk1" });
   s.addText("FIGURE", { x: 6.58, y: 1.88, w: 3, h: 0.34, fontFace: HSEMI, bold: true, fontSize: 14, color: WHITE, charSpacing: 0.5, margin: 0, objectName: "blk2" });
   s.addText("What is most prominent in awareness", { x: 6.58, y: 2.26, w: 5.9, h: 0.34, fontFace: BODY, fontSize: 12, color: WHITE, margin: 0, objectName: "blk2" });
   s.addText("↓", { x: 6.3, y: 2.82, w: 6.37, h: 0.42, align: "center", valign: "middle", fontFace: BODY, fontSize: 18, bold: true, color: WHITE, margin: 0, objectName: "blk2" });
   s.addText("GROUND", { x: 6.58, y: 3.42, w: 3, h: 0.34, fontFace: HSEMI, bold: true, fontSize: 14, color: WHITE, charSpacing: 0.5, margin: 0, objectName: "blk2" });
   s.addText("The surrounding context and experiences", { x: 6.58, y: 3.8, w: 5.9, h: 0.34, fontFace: BODY, fontSize: 12, color: WHITE, margin: 0, objectName: "blk2" });
-  bullets(s, [
-    "Needs and concerns move between figure and ground",
-    "The figure changes as circumstances change",
-    "Awareness helps identify what is most significant in the present",
-  ], 6.56, 4.86, 5.85, 1.4, { size: 12, space: 9, name: "blk3" });
-  citation(s, "(Perls et al., 1951; Woldt & Toman, 2005)", { x: 6.3, y: 6.6, w: 6.3, name: "blk3" });
   footer(s);
 }
 
@@ -386,8 +362,6 @@ function numberedList(s, items, x, y, w, o = {}) {
     [{ t: "Contact involves " }, { t: "engaging, responding and withdrawing", b: true }],
     "Relationships, culture and circumstances influence contact",
   ], 0.92, 1.98, 6.48, 4.1, { size: 13, space: 12, name: "blk1" });
-
-  photo(s, "h-listening.jpg", 8.5, 1.74, 4.16, 3.12);
   s.addText([
     { text: "INDIVIDUAL", options: { fontFace: HSEMI, bold: true, fontSize: 9.5, color: WHITE } },
     { text: "  ↔  ", options: { fontFace: BODY, fontSize: 9.5, color: WHITE } },
@@ -412,8 +386,8 @@ function numberedList(s, items, x, y, w, o = {}) {
   label(s, "MAY INCLUDE", 0.94, 2.56, 4, { name: "blk1" });
   s.addText(
     ["Grief", "Anger", "Guilt", "Resentment", "Unmet needs"].flatMap((t) => [
-      { text: "✓  ", options: { fontFace: BODY, fontSize: 12, bold: true, color: PERI } },
-      { text: t + "    ", options: { fontFace: HSEMI, fontSize: 12.5, bold: true, color: WHITE } },
+      { text: t, options: { fontFace: HSEMI, fontSize: 13, bold: true, color: WHITE } },
+      { text: "      ", options: { fontFace: BODY, fontSize: 13, color: WHITE } },
     ]),
     { x: 0.94, y: 2.94, w: 7.2, h: 0.4, margin: 0, valign: "middle", objectName: "blk1" });
   bullets(s, [
@@ -421,8 +395,6 @@ function numberedList(s, items, x, y, w, o = {}) {
     "May interfere with healthy contact",
   ], 0.94, 4.74, 7.04, 0.85, { size: 12.5, space: 8, name: "blk2" });
   statement(s, "Therapy promotes awareness and processing", 0.94, 5.6, 7.0, { size: 13, name: "blk2" });
-
-  photo(s, "h-pensive.jpg", 8.5, 1.74, 4.16, 4.66);
   citation(s, "(Perls et al., 1951; Joyce & Sills, 2014)", { x: 0.66, y: 6.42, w: 7.6, name: "blk3" });
   footer(s);
 }
@@ -456,8 +428,6 @@ function numberedList(s, items, x, y, w, o = {}) {
       { text: e.q, options: { fontFace: HEAD, fontSize: 14.5, italic: true, color: WHITE } },
     ], { x: 0.66, y, w: 7.5, h: 0.5, valign: "middle", margin: 0, objectName: "blk3" });
   });
-
-  photo(s, "h-walking.jpg", 8.5, 1.74, 4.16, 4.66);
   citation(s, "(Perls et al., 1951; Corey, 2024)", { x: 8.5, y: 6.55, w: 4.16, name: "blk4" });
   footer(s);
 }
@@ -468,11 +438,9 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Role of the Gestalt Counsellor");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-birds.jpg");
+  bgPhoto(s, "bg-practice.jpg");
   header(s, "PRACTICE  ·  THE COUNSELLOR", "Role of the Gestalt Counsellor", { dark: true, w: 11.5 });
-
-  photo(s, "h-session.jpg", 0.66, 1.9, 6.3, 4.55, { dark: true });
-  label(s, "THE ROLE", 7.46, 2.5, 3, { dark: true, size: 8.5, name: "blk1" });
+  label(s, "THE ROLE", 0.92, 2.3, 3, { size: 8.5, name: "blk1" });
   numberedList(s, [
     "Facilitates awareness",
     "Focuses on present experience",
@@ -481,7 +449,7 @@ function numberedList(s, items, x, y, w, o = {}) {
     "Encourages authentic expression",
     "Explores interruptions in contact",
     "Promotes responsibility and choice",
-  ], 7.46, 2.9, 4.95, { size: 12, step: 0.5, dark: true, rowH: 0.46, name: "blk1" });
+  ], 0.92, 2.75, 8.6, { size: 13, step: 0.52, rowH: 0.48, name: "blk1" });
 
   citation(s, "(Joyce & Sills, 2014; Brownell, 2010)", { y: 6.62, dark: true, w: 6.3, name: "blk2" });
   footer(s, true);
@@ -493,20 +461,18 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Gestalt Therapeutic Techniques");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-birds.jpg");
+  bgPhoto(s, "bg-practice.jpg");
   header(s, "PRACTICE", "Gestalt Therapeutic Techniques", { x: 0.66, w: 9.2 });
-
-  photo(s, "p-chairs2.jpg", 0.66, 1.74, 3.0, 4.9);
 
   const tech = ["Empty-chair technique", "Two-chair dialogue", "Exaggeration", "Staying with the feeling", "Role-play", "Body awareness", "“I” statements", "Dream work", "Here-and-now questioning"];
   tech.forEach((t, i) => {
     const col = i % 3, row = Math.floor(i / 3);
-    const x = 3.95 + col * 2.98, y = 1.74 + row * 1.34 + (col === 1 ? 0.28 : 0);
+    const x = 0.66 + col * 4.05, y = 1.74 + row * 1.34 + (col === 1 ? 0.28 : 0);
     const nm = `blk${col + 1}`;
     s.addText(String(i + 1).padStart(2, "0"), { x, y: y + 0.06, w: 1, h: 0.36, fontFace: HEAD, bold: true, fontSize: 14, color: WHITE, margin: 0, objectName: nm });
     s.addText(t, { x, y: y + 0.5, w: 2.6, h: 0.62, fontFace: HSEMI, bold: true, fontSize: 11.5, color: WHITE, margin: 0, lineSpacingMultiple: 1.1, objectName: nm });
   });
-  citation(s, "(Joyce & Sills, 2014)", { x: 3.95, y: 6.15, w: 8, name: "blk4" });
+  citation(s, "(Joyce & Sills, 2014)", { x: 0.66, y: 6.15, w: 8, name: "blk4" });
   footer(s);
 }
 
@@ -516,7 +482,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Empty-Chair Technique");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-birds.jpg");
+  bgPhoto(s, "bg-practice.jpg");
   header(s, "PRACTICE", "Empty-Chair Technique", { w: 7 });
   bullets(s, [
     "Client imagines another person in an empty chair",
@@ -530,8 +496,6 @@ function numberedList(s, items, x, y, w, o = {}) {
   s.addText("Imagine your father is sitting in that chair. What would you want him to hear from you?", {
     x: 2.05, y: 5.2, w: 4.75, h: 1.15, fontFace: HEAD, fontSize: 13.5, italic: true, color: WHITE, margin: 0, lineSpacingMultiple: 1.3, objectName: "blk2",
   });
-
-  photo(s, "p-chairs.jpg", 7.3, 1.74, 5.37, 4.03);
   label(s, "THE SETUP", 7.5, 6.05, 3, { dark: true, size: 8, name: "blk3" });
   s.addText([
     { text: "CLIENT", options: { fontFace: HSEMI, bold: true, fontSize: 11, color: WHITE } },
@@ -549,9 +513,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Other Experiential Techniques");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-birds.jpg");
+  bgPhoto(s, "bg-practice.jpg");
   header(s, "PRACTICE", "Other Experiential Techniques", { w: 10.2 });
-  s.addImage({ path: A("circle-candle.png"), x: 11.32, y: 0.42, w: 1.35, h: 1.35 });
   const rows = [
     ["Two-chair dialogue", "Explore opposing parts"],
     ["Exaggeration", "Increase awareness"],
@@ -577,7 +540,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Application in Counselling");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-birds.jpg");
+  bgPhoto(s, "bg-practice.jpg");
   header(s, "PRACTICE", "Application in Counselling", { w: 10.6 });
   label(s, "GESTALT THERAPY CAN BE APPLIED TO", 0.92, 1.94, 7, { name: "blk1" });
   const apps = ["Grief and loss", "Relationship difficulties", "Anxiety and emotional distress", "Unresolved anger", "Identity concerns", "Emotional-expression difficulties", "Personal growth", "Unresolved interpersonal experiences"];
@@ -585,8 +548,6 @@ function numberedList(s, items, x, y, w, o = {}) {
   bullets(s, apps.slice(4), 4.62, 2.3, 3.6, 2.3, { size: 12, space: 12, name: "blk1" });
   label(s, "THERAPEUTIC MOVEMENT", 0.92, 5.4, 4, { dark: true, size: 8.5, name: "blk2" });
   flow(s, ["Awareness", "Contact", "Responsibility", "Choice", "Growth"], 0.92, 5.72, 6.88, 0.66, { size: 13.5, align: "left", name: "blk2" });
-
-  photo(s, "h-group.jpg", 8.25, 1.74, 4.42, 4.86);
   citation(s, "(Brownell, 2010; Joyce & Sills, 2014)", { y: 6.72, w: 7.4, name: "blk3" });
   footer(s);
 }
@@ -611,8 +572,6 @@ function numberedList(s, items, x, y, w, o = {}) {
   ];
   bullets(s, strengths.slice(0, 4), 0.66, 1.82, 3.85, 3.7, { size: 13, space: 16, name: "blk1" });
   bullets(s, strengths.slice(4), 4.86, 2.12, 3.7, 2.8, { size: 13, space: 16, name: "blk2" });
-
-  photo(s, "h-support.jpg", 8.75, 1.74, 3.92, 4.55);
   footer(s);
 }
 
@@ -624,19 +583,17 @@ function numberedList(s, items, x, y, w, o = {}) {
   s.background = { color: DEEP };
   bgPhoto(s, "bg-shore.jpg");
   header(s, "EVALUATION", "Limitations and Criticisms", { dark: true, w: 10.5 });
-
-  photo(s, "p-storm.jpg", 0.66, 1.9, 3.9, 4.55, { dark: true });
   bullets(s, [
     "Some techniques may feel intense",
     "Requires skilled and sensitive application",
     "May be challenging for clients who prefer highly structured approaches",
     [{ t: "Experiential techniques can be " }, { t: "misused", b: true }],
-  ], 5.11, 2.16, 3.28, 4.05, { size: 12, space: 12, dark: true, name: "blk1" });
+  ], 0.92, 2.16, 5.5, 4.05, { size: 12.5, space: 12, dark: true, name: "blk1" });
   bullets(s, [
     "Not every intervention suits every client",
     [{ t: "Cultural context", b: true }, { t: " must be considered" }],
     "Ethical boundaries are essential",
-  ], 9.13, 2.51, 3.28, 3.7, { size: 12, space: 12, dark: true, name: "blk2" });
+  ], 7.1, 2.51, 5.5, 3.7, { size: 12.5, space: 12, dark: true, name: "blk2" });
 
   citation(s, "(Corey, 2024; Joyce & Sills, 2014)", { y: 6.6, dark: true, w: 8, name: "blk3" });
   footer(s, true);
@@ -650,9 +607,8 @@ function numberedList(s, items, x, y, w, o = {}) {
   s.background = { color: DEEP };
   bgPhoto(s, "bg-shore.jpg");
   header(s, "EVALUATION", "Case Application", { w: 9 });
-  photo(s, "h-students.jpg", 0.78, 1.86, 3.31, 3.08, { name: "blk1" });
-  label(s, "CLIENT", 0.94, 5.16, 2.5, { name: "blk1" });
-  s.addText("20-year-old undergraduate scholarship student", { x: 0.94, y: 5.44, w: 3.0, h: 0.95, fontFace: HSEMI, bold: true, fontSize: 12, color: WHITE, margin: 0, lineSpacingMultiple: 1.25, objectName: "blk1" });
+  label(s, "CLIENT", 0.94, 1.82, 2.5, { name: "blk1" });
+  s.addText("20-year-old undergraduate scholarship student", { x: 0.94, y: 2.2, w: 3.3, h: 1.5, fontFace: HSEMI, bold: true, fontSize: 13, color: WHITE, margin: 0, lineSpacingMultiple: 1.3, objectName: "blk1" });
 
   const cols = [
     { x: 4.45, y: 1.74, h: "01 · PRESENTING CONCERNS", c: DEEP, items: ["Academic anxiety", "Fear of losing scholarship", "Fear of disappointing family", "Difficulty expressing emotions", "Pressure to maintain high grades"], nm: "blk2" },
@@ -686,8 +642,7 @@ function numberedList(s, items, x, y, w, o = {}) {
     },
   ];
   panels.forEach((p) => {
-    s.addImage({ path: A(p.img), x: p.x, y: p.y + 0.1, w: 0.78, h: 0.78, objectName: p.nm });
-    label(s, p.head, p.x + 1.0, p.y + 0.32, 4.3, { size: 11, name: p.nm });
+    label(s, p.head, p.x, p.y + 0.1, 4.3, { size: 11, name: p.nm });
     bullets(s, p.items, p.x, p.y + 1.3, 5.5, 3.5, { size: 12.5, space: 12, name: p.nm });
   });
   footer(s);
@@ -699,7 +654,7 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("Conclusion");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-night.jpg");
+  bgPhoto(s, "bg-chairs.jpg");
   header(s, "CLOSING", "Conclusion", { dark: true, w: 9, align: "ctr" });
 
   const steps = ["AWARENESS", "HERE-AND-NOW", "CONTACT", "RESPONSIBILITY & CHOICE", "GROWTH"];
@@ -709,8 +664,6 @@ function numberedList(s, items, x, y, w, o = {}) {
     s.addText(t, { x: 4.97, y, w: 3.4, h: 0.5, align: "center", valign: "middle", fontFace: HSEMI, bold: true, fontSize: 13, color: last ? PERI : WHITE, charSpacing: 1.5, margin: 0, objectName: "blk1" });
     if (!last) s.addText("↓", { x: 4.97, y: y + 0.48, w: 3.4, h: 0.36, align: "center", valign: "middle", fontFace: BODY, fontSize: 14, bold: true, color: WHITE, margin: 0, objectName: "blk1" });
   });
-
-  photo(s, "p-summit.jpg", 9.3, 1.9, 3.37, 4.72, { dark: true });
 
   s.addText("Greater awareness creates greater possibilities for choice and change.", {
     x: 0.66, y: 6.05, w: 7.7, h: 0.42, align: "center", fontFace: HEAD, bold: false, fontSize: 14.5, italic: true, color: WHITE, margin: 0, objectName: "blk2",
@@ -725,10 +678,8 @@ function numberedList(s, items, x, y, w, o = {}) {
 {
   const s = newSlide("References");
   s.background = { color: DEEP };
-  bgPhoto(s, "bg-night.jpg");
+  bgPhoto(s, "bg-chairs.jpg");
   header(s, "CLOSING", "References", { x: 0.66, w: 9.2 });
-
-  photo(s, "p-books.jpg", 0.66, 1.74, 3.0, 4.9);
   const refs = [
     [["Brownell, P. (2010). "], ["Gestalt therapy: A guide to contemporary practice", 1], [". Springer Publishing Company."]],
     [["Corey, G. (2024). "], ["Theory and practice of counseling and psychotherapy", 1], [" (11th ed.). Cengage Learning."]],
@@ -746,7 +697,7 @@ function numberedList(s, items, x, y, w, o = {}) {
       arr.push({ text: r[0], options: opt });
     });
   });
-  s.addText(arr, { x: 4.25, y: 2.02, w: 8.12, h: 4.4, valign: "top", margin: 0, fontFace: BODY, objectName: "blk1" });
+  s.addText(arr, { x: 0.66, y: 2.02, w: 11.5, h: 4.4, valign: "top", margin: 0, fontFace: BODY, objectName: "blk1" });
   footer(s);
 }
 

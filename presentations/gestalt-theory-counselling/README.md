@@ -5,16 +5,15 @@ MCP504 · Theories of Counseling and Psychotherapy · Group 4 · Pan African Chr
 Design follows the repository's uploaded presentation reference (`company profile.pdf`)
 palette (flat corporate navy/white/soft-blue) with a dark editorial layout,
 floating editorial typography, and **native PowerPoint animations + Morph transitions**.
-Backgrounds: full-bleed silhouette photography — the photo IS the background,
-no solid overlays. Card imagery: royalty-free Unsplash people photos wherever
-people are the subject.
+The only imagery is each slide's full-bleed background photograph — relevant,
+dimmed counselling-context scenes. All content is floating typography.
 
 ## Theme
-- **Backgrounds** — one full-bleed silhouette photograph per slide, tone-tuned
-  so free text holds 3:1+ contrast (`zone-report.py` verifies the exact text
-  zones before each build). Section moods: starry night (title + closing),
-  fog ridgelines (Foundations), misty forest (Core Concepts), sunset birds
-  (Practice), storm shore (Evaluation)
+- **Backgrounds** — one full-bleed photograph per slide, dimmed to ~65%
+  brightness, content-relevant: empty counselling chairs (title + closing),
+  dark library (Foundations), misty forest path (Core Concepts), writing in
+  a notebook (Practice), storm shore (Evaluation). `zone-report.py` verifies
+  the text zones of every candidate background
 - **Colours** — deep navy `#162B57` · dark navy `#0A1937` · periwinkle `#8097BE`
   (accent, inside navy cards only) · slate `#717E9B` · white · light-blue tints
   — flat corporate, no ornaments
@@ -22,11 +21,12 @@ people are the subject.
   statements & quotes) + **Outfit** (body, labels, lists — bold for emphasis)
   + **IBM Plex Mono** (eyebrows, citations, footer — tracked magazine meta).
   No underline rules, no hairlines
-- **Structure** — everything floats: no cards, chips, frames or rules; text
-  sits directly on the photography (white; Playfair for titles/statements/
-  numerals, Outfit for body/labels, Plex Mono for meta); ✓ tick bullets;
-  photos free-floating, square, no shadows
-- **Images** — free-floating photographs, square corners, no frames or shadows
+- **Structure** — everything floats: no cards, chips, frames, rules, bullet
+  markers or image placeholders; plain text lines sit directly on the
+  photography (white; Playfair for titles/statements/numerals, Outfit for
+  body/labels, Plex Mono for meta); numbered lists use Playfair numerals
+- **Images** — background photographs only (dimmed, relevant); no content
+  photos or icons
 - **Motion (native OOXML, injected by `animate.js`)** —
   titles: Fade In 0.35 s on click · content blocks: Wipe left-to-right, sequential
   · images: Float In after the text · slide transitions: **Morph** on all
@@ -35,9 +35,8 @@ people are the subject.
 
 ## Layout
 - `source/content.md` — the user's pasted content (verbatim)
-- `assets/` — Unsplash photos, exact-aspect crops: people photos (`h-*.jpg`),
-  object photos (`p-*.jpg`), silhouette backgrounds (`bg-light*.jpg`,
-  `bg-dark.jpg`) + flat icons
+- `assets/` — the five dimmed background photographs (`bg-chairs/-library/
+  -forest/-practice/-shore.jpg`, 1600×900)
 - `build.js` — pptxgenjs generator → `output/…​.pptx` (every animated element
   carries an `objectName`: `hdr` / `blkN` / `img`)
 - `animate.js` — post-processor: injects Morph
