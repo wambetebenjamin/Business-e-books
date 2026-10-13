@@ -1,0 +1,6518 @@
+{
+ "1": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-night.jpg"
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-summit.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "GROUP 4 PRESENTATION  ·  MCP504",
+     "sz": "1000",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Gestalt",
+     "sz": "5200",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Theory",
+     "sz": "5200",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "AND ITS APPLICATION TO COUNSELLING",
+     "sz": "1300",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "8097BE"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PRESENTED BY  ·  GROUP 4 MEMBERS",
+     "sz": "850",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Josephine Biwott    ·    MACP/35996/0/26",
+     "sz": "1300",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "31415F"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Cynthia Cherono    ·    MACP/35785/4/26",
+     "sz": "1300",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "31415F"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Yvonne Juliet Awuor    ·    MALD/36547/4/26",
+     "sz": "1300",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "31415F"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "31415F"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "31415F"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "COURSE",
+     "sz": "850",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "MCP504 · Theories of Counseling and Psychotherapy",
+     "sz": "1100",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "INSTITUTION",
+     "sz": "850",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Pan African Christian University",
+     "sz": "1100",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "LECTURER",
+     "sz": "850",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Dr. Lucy Gachenia",
+     "sz": "1100",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "2": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-ridge.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "OVERVIEW",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Introduction",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Experiential and humanistic approach to counselling",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Emphasizes awareness, present experience and contact",
+     "sz": "1350",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Understands individuals within their environment and relationships",
+     "sz": "1350",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Encourages personal responsibility, choice and authentic living",
+     "sz": "1350",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Focuses on the client's experience in the here-and-now",
+     "sz": "1350",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-conversation.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 7",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 8",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "02",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "3": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-ridge.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "FOUNDATIONS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Historical Background",
+     "sz": "4000",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-history.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Emerged during the 1940s and 1950s",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Developed partly in response to limitations perceived in traditional psychoanalysis",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "INFLUENCED BY",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Gestalt psychology",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Phenomenology",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Existential philosophy",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Field theory",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Holistic approaches",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Emphasized experience, awareness and contact",
+     "sz": "1600",
+     "b": null,
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "INTELLECTUAL ROOTS",
+     "sz": "800",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Gestalt Psychology  →  Phenomenology  →  Existentialism  →  Field Theory  →  Gestalt Therapy",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Woldt & Toman, 2005)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 16",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 17",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "03",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "4": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-ridge.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "FOUNDATIONS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Major Theorists",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-theorists.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "FP",
+     "sz": "1350",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Fritz Perls",
+     "sz": "1500",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "1893–1970",
+     "sz": "1100",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Major founder",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Awareness, experience and responsibility",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "LP",
+     "sz": "1350",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Laura Perls",
+     "sz": "1500",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "1905–1990",
+     "sz": "1100",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Major contributor",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Contact, relationship and embodied experience",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PG",
+     "sz": "1350",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Paul Goodman",
+     "sz": "1500",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "1911–1972",
+     "sz": "1100",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Co-author of Gestalt Therapy (1951)",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Major contributor to theoretical formulation",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Woldt & Toman, 2005)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 30",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 31",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "04",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "5": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-ridge.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "FOUNDATIONS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Core Assumptions of Gestalt Therapy",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "01",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "People are best understood as whole persons",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "02",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Human experience is influenced by the environment",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "03",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Awareness is central to psychological growth",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "04",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Experience unfolds in the present",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "05",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "People have capacity for choice and self-regulation",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "06",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Healthy functioning involves meaningful contact",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "07",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Psychological difficulties may involve interruptions in awareness or contact",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-hands.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Brownell, 2010; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 19",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 20",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "05",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "6": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-forest.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CORE CONCEPTS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Awareness",
+     "sz": "4400",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Central concept in Gestalt therapy",
+     "sz": "1450",
+     "b": null,
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "NOTICING",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Thoughts",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Feelings",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Bodily sensations",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Behaviour",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Needs",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "THE PROCESS",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "8097BE"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Focuses on present experience",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "8097BE"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Creates opportunities for choice and change",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "AWARENESS",
+     "sz": "1250",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "0A1937"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "→",
+     "sz": "1800",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CHOICE",
+     "sz": "1250",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "→",
+     "sz": "1800",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CHANGE",
+     "sz": "1250",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "8097BE"
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-meditate.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 22",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 23",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "06",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "7": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-forest.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CORE CONCEPTS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "The Here-and-Now",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "THE FOCUS",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Focuses on the client's present experience",
+     "sz": "2000",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Includes thoughts, emotions, bodily sensations and behaviour",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "THE PAST",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Past experiences are explored through their current impact",
+     "sz": null,
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Encourages direct experience rather than excessive intellectual analysis",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "The therapeutic relationship provides an opportunity for present-moment awareness",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-window.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Brownell, 2010)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 14",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 15",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "07",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "8": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-forest.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CORE CONCEPTS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Figure and Ground",
+     "sz": "4800",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "0A1937"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "FIGURE",
+     "sz": null,
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "GROUND",
+     "sz": "2400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "One element steps forward as figure against a ground of context.",
+     "sz": "1200",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "FIGURE",
+     "sz": "2000",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "What is most prominent in awareness",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↓",
+     "sz": "1800",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "GROUND",
+     "sz": "2000",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "The surrounding context and experiences",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Needs and concerns move between figure and ground",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "The figure changes as circumstances change",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Awareness helps identify what is most significant in the present",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Woldt & Toman, 2005)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 22",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 23",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "08",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "9": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-forest.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CORE CONCEPTS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Contact and Contact Boundary",
+     "sz": "4000",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Contact: Interaction between the individual and environment",
+     "sz": null,
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Contact boundary: Point at which the individual and environment meet",
+     "sz": null,
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Healthy contact allows needs to be addressed while maintaining a sense of self",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Contact involves engaging, responding and withdrawing",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Relationships, culture and circumstances influence contact",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-listening.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "INDIVIDUAL",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "0A1937"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↔",
+     "sz": "1300",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CONTACT BOUNDARY",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↔",
+     "sz": "1300",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "ENVIRONMENT",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "5A6B94"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 11",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 12",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "09",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "10": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-forest.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CORE CONCEPTS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Unfinished Business",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Unresolved experiences or emotions",
+     "sz": "2800",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "MAY INCLUDE",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Grief",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Anger",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Guilt",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Resentment",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Unmet needs",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Can remain psychologically active in the present",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "May interfere with healthy contact",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Therapy promotes awareness and processing",
+     "sz": "1200",
+     "b": null,
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-pensive.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 14",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 15",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "10",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "11": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-forest.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CORE CONCEPTS",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Personal Responsibility",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Recognizing one's own choices and responses",
+     "sz": "2000",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Promotes agency and ownership",
+     "sz": "2000",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Encourages authentic decision-making",
+     "sz": "2000",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Uses language that reflects personal experience",
+     "sz": "2000",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "RESPONSIBILITY  ≠  BLAME",
+     "sz": "1250",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "LANGUAGE IN PRACTICE  ·  EXAMPLE",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "ECF0F6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✗",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "“You make me angry.”",
+     "sz": "1300",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "E3EAF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "“I notice that I become angry when…”",
+     "sz": "1300",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-walking.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Corey, 2024)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 15",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 16",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "11",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "12": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-birds.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PRACTICE  ·  THE COUNSELLOR",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Role of the Gestalt Counsellor",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-session.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "THE ROLE",
+     "sz": "3600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "01",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Facilitates awareness",
+     "sz": "2400",
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "02",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Focuses on present experience",
+     "sz": "2000",
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "03",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Observes verbal and non-verbal behaviour",
+     "sz": null,
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "04",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Uses the therapeutic relationship",
+     "sz": "2000",
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "05",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Encourages authentic expression",
+     "sz": null,
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "06",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Explores interruptions incontact",
+     "sz": null,
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "07",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Promotes responsibility and choice",
+     "sz": null,
+     "b": null,
+     "font": "Corbel",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Joyce & Sills, 2014; Brownell, 2010)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 19",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 20",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "12",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "13": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-birds.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PRACTICE",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Gestalt Therapeutic Techniques",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-chairs2.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "01",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Empty-chair technique",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "02",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Two-chair dialogue",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "03",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Exaggeration",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "04",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Staying with the feeling",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "05",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Role-play",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "06",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Body awareness",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "07",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "“I” statements",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "08",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Dream work",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "09",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Here-and-now questioning",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 39",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 40",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "13",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "14": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-birds.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PRACTICE",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Empty-Chair Technique",
+     "sz": "4400",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Client imagines another person in an empty chair",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Speaks directly to the imagined person",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Brings unresolved experiences into present awareness",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Facilitates expression of unfinished emotions",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "May promote new awareness and perspectives",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "8097BE"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "“",
+     "sz": "3000",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "EXAMPLE",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Imagine your father is sitting in that chair. What would you want him to hear from you?",
+     "sz": null,
+     "b": null,
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-chairs.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "THE SETUP",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CLIENT",
+     "sz": null,
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "0A1937"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↔",
+     "sz": "1500",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "IMAGINED PERSON",
+     "sz": null,
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 15",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 16",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "14",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "15": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-birds.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PRACTICE",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Other Experiential Techniques",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "Image 1",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/circle-candle.png"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "TECHNIQUE",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PURPOSE",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Two-chair dialogue",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Explore opposing parts",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "F7F9FC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Exaggeration",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Increase awareness",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Staying with the feeling",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Explore emerging emotions",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "F7F9FC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Body awareness",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Notice physical experience",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "“I” statements",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Own personal experience",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "F7F9FC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Dream work",
+     "sz": "1200",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Explore present meaning",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 32",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 33",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "15",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "16": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-birds.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PRACTICE",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Application in Counselling",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "GESTALT THERAPY CAN BE APPLIED TO",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Grief and loss",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Relationship difficulties",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Anxiety and emotional distress",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Unresolved anger",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Identity concerns",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Emotional-expression difficulties",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Personal growth",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Unresolved interpersonal experiences",
+     "sz": "1050",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "THERAPEUTIC MOVEMENT",
+     "sz": "850",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Awareness  →  Contact  →  Responsibility  →  Choice  →  Growth",
+     "sz": "1350",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-group.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Brownell, 2010; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 16",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 17",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "16",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "17": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-shore.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "EVALUATION",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Strengths of Gestalt Therapy",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Promotes self-awareness",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Focuses on lived experience",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Encourages agency and responsibility",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Integrates mind, emotion and body",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Considers person–environment interaction",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Encourages active client participation",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "ellipse",
+   "fill": "E8EDF6"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "✓",
+     "sz": "1100",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Supports experiential emotional processing",
+     "sz": "1200",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-support.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "Text 30",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 31",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "17",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "18": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-shore.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "EVALUATION",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Limitations and Criticisms",
+     "sz": "4800",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-storm.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Some techniques may feel intense",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Requires skilled and sensitive application",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "May be challenging for clients who prefer highly structured approaches",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Experiential techniques can be misused",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Not every intervention suits every client",
+     "sz": "2000",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Cultural context must be considered",
+     "sz": "2000",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Ethical boundaries are essential",
+     "sz": "2000",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Corey, 2024; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 7",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 8",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "18",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "19": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-shore.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "EVALUATION",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Case Application",
+     "sz": "4400",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "pic",
+   "name": "blk1",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/h-students.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CLIENT",
+     "sz": "900",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "20-year-old undergraduate scholarship student",
+     "sz": "1600",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "0A1937"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "01 · PRESENTING CONCERNS",
+     "sz": "1200",
+     "b": "1",
+     "font": "Calibri",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Academic anxiety",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Fear of losing scholarship",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Fear of disappointing family",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Difficulty expressing emotions",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Pressure to maintain high grades",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "02 · GESTALT CONCEPTUALIZATION",
+     "sz": "1200",
+     "b": "1",
+     "font": "Calibri",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk3",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Anxiety becomes figure",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Possible introjected expectations",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Limited awareness of personal needs",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Interrupted contact",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "5A6B94"
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "03 · POSSIBLE INTERVENTIONS",
+     "sz": "1200",
+     "b": "1",
+     "font": "Calibri",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Here-and-now exploration",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Body awareness",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Staying with the feeling",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "“I” statements",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Exploring introjected beliefs",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 17",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 18",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "19",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "20": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-shore.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "EVALUATION",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Critical Evaluation",
+     "sz": "2600",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "pic",
+   "name": "blk1",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/circle-seedling.png"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CONTRIBUTIONS",
+     "sz": "1550",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Holistic understanding of human experience",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Strong emphasis on awareness",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Integrates body, emotion and cognition",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Recognizes person–environment interaction",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Promotes agency and authentic choice",
+     "sz": null,
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "pic",
+   "name": "blk2",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/circle-scale.png"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CONSIDERATIONS",
+     "sz": "1550",
+     "b": "1",
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "5A6B94"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [],
+   "geom": "rect",
+   "fill": "D9E0EC"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Cultural adaptation",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Client readiness",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Therapist competence",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Appropriate use of experiential techniques",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Balance between present and past experience",
+     "sz": "1600",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 12",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 13",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "20",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "21": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-night.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CLOSING",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Conclusion",
+     "sz": "4800",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "AWARENESS",
+     "sz": "1150",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↓",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "HERE-AND-NOW",
+     "sz": "1150",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↓",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CONTACT",
+     "sz": "1150",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↓",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "RESPONSIBILITY & CHOICE",
+     "sz": "1150",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "162B57"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "↓",
+     "sz": "1400",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "GROWTH",
+     "sz": "1150",
+     "b": "1",
+     "font": "Outfit",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "roundRect",
+   "fill": "8097BE"
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-summit.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Greater awareness creates greater possibilities for choice and change.",
+     "sz": "1450",
+     "b": null,
+     "font": "Playfair Display",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "blk2",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "(Perls et al., 1951; Joyce & Sills, 2014)",
+     "sz": "950",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": "ctr"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 13",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 14",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "21",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ],
+ "22": [
+  {
+   "kind": "pic",
+   "name": "bg",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/bg-night.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "CLOSING",
+     "sz": "900",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "hdr",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "References",
+     "sz": "4400",
+     "b": "1",
+     "font": "Playfair Display",
+     "algn": "l"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "pic",
+   "name": "img",
+   "depth": 0,
+   "descr": "/home/user/Business-e-books/presentations/gestalt-theory-counselling/assets/p-books.jpg"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [],
+   "geom": "roundRect",
+   "fill": "FFFFFF"
+  },
+  {
+   "kind": "sp",
+   "name": "blk1",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "Brownell, P. (2010). Gestalt therapy: A guide to contemporary practice. Springer Publishing Company.",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Corey, G. (2024). Theory and practice of counseling and psychotherapy (11th ed.). Cengage Learning.",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Joyce, P., & Sills, C. (2014). Skills in Gestalt counselling & psychotherapy (3rd ed.). SAGE.",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Perls, F. S., Hefferline, R. F., & Goodman, P. (1951). Gestalt therapy: Excitement and growth in the human personality. Julian Press.",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Woldt, A. L., & Toman, S. M. (Eds.). (2005). Gestalt therapy: History, theory, and practice. SAGE.",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    },
+    {
+     "text": "Yontef, G., & Fuhr, R. (2005). Gestalt therapy theory of change. In A. L. Woldt & S. Toman (Eds.), Gestalt therapy: History, theory, and practice (pp. 81–100). SAGE.",
+     "sz": "1400",
+     "b": null,
+     "font": "Outfit",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 4",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "PAN AFRICAN CHRISTIAN UNIVERSITY  ·  MCP504",
+     "sz": "750",
+     "b": null,
+     "font": "IBM Plex Mono",
+     "algn": null
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  },
+  {
+   "kind": "sp",
+   "name": "Text 5",
+   "depth": 0,
+   "paras": [
+    {
+     "text": "22",
+     "sz": "800",
+     "b": "1",
+     "font": "IBM Plex Mono",
+     "algn": "r"
+    }
+   ],
+   "geom": "rect",
+   "fill": null
+  }
+ ]
+}

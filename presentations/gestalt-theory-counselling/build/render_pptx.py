@@ -1,0 +1,250 @@
+"""
+render_pptx.py
+Builds the deliverable: Gestalt Theory and Its Application to Counselling.pptx
+
+Structure of every slide:
+  * one full bleed background picture (the painted silhouette scene)
+  * one transparent "graphics" picture holding the halos, rings and chevrons
+  * the three dimensional tick badges as transparent pictures
+  * text boxes, one per text block, using Verdana / Playfair Display / Consolas
+
+Entrance animations are written into the slide timing tree: a soft fade for
+text, a small rise for headlines and a grow plus fade for the ticks. Every
+element carries its own delay so a slide assembles itself in reading order.
+"""
+
+import copy
+import os
+import sys
+from lxml import etree
+
+from pptx import Presentation
+from pptx.util import Inches, Pt, Emu
+from pptx.dml.color import RGBColor
+from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.shapes import MSO_SHAPE
+
+import irspec as S
+import render_common as RC
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT_DIR = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
+BUILD = os.path.abspath(os.path.join(HERE, "..", "build"))
+OUT_PPTX = os.path.abspath(os.path.join(HERE, "..",
+                                        "Gestalt Theory and Its Application to Counselling.pptx"))
+GRAPHICS_DIR = os.path.abspath(os.path.join(HERE, "..", "build", "graphics"))
+
+PX_PER_INCH = S.STAGE_W / 13.3333          # 120 stage pixels per inch
+PPT_SINGLE = 1.21                          # PowerPoint's single line spacing for Verdana
+
+NS = ('xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
+      'xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
+      'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"')
+
+
+def emu(px):
+    return Emu(int(round(px / PX_PER_INCH * 914400)))
+
+
+def pt_of(px):
+    """A stage pixel size expressed in points."""
+    return Pt(round(px * S.PT_PER_PX * 2) / 2.0)
+
+
+# ---------------------------------------------------------------------------
+# animation XML
+# ---------------------------------------------------------------------------
+
+_next_id = [100]
+
+
+def nid():
+    _next_id[0] += 3
+    return _next_id[0]
+
+
+def timing_xml(shape_id, kind, delay):
+    """Return the <p:par> XML for one entrance effect."""
+    d = int(round(delay * 1000))
+    if kind == "none":
+        return None
+    dur = 520
+    extra = ""
+    if kind == "pop":
+        preset, dur, extra = 10, 420, (
+            '<p:animScale><p:cBhvr><p:cTn id="%d" dur="%d" fill="hold"/>'
+            '<p:tgtEl><p:spTgt spid="%d"/></p:tgtEl></p:cBhvr>'
+            '<p:from x="60000" y="60000"/><p:to x="100000" y="100000"/></p:animScale>'
+            % (nid(), dur, shape_id))
+    elif kind == "zoom":
+        preset, dur, extra = 23, 700, (
+            '<p:animScale><p:cBhvr><p:cTn id="%d" dur="%d" fill="hold"/>'
+            '<p:tgtEl><p:spTgt spid="%d"/></p:tgtEl></p:cBhvr>'
+            '<p:from x="92000" y="92000"/><p:to x="100000" y="100000"/></p:animScale>'
+            % (nid(), dur, shape_id))
+    elif kind == "rise":
+        preset, dur, extra = 22, 620, (
+            '<p:anim calcmode="lin" valueType="num"><p:cBhvr additive="base">'
+            '<p:cTn id="%d" dur="%d" fill="hold"/><p:tgtEl><p:spTgt spid="%d"/></p:tgtEl>'
+            '<p:attrNameLst><p:attrName>ppt_y</p:attrName></p:attrNameLst></p:cBhvr>'
+            '<p:tavLst><p:tav tm="0"><p:val><p:strVal val="#ppt_y+.035"/></p:val></p:tav>'
+            '<p:tav tm="100000"><p:val><p:strVal val="#ppt_y"/></p:val></p:tav></p:tavLst>'
+            '</p:anim>' % (nid(), dur, shape_id))
+    else:                                     # fade
+        preset, dur, extra = 10, 520, ""
+    return (
+        '<p:par %s><p:cTn id="%d" presetID="%d" presetClass="entr" presetSubtype="0" '
+        'fill="hold" grpId="0" nodeType="%s"><p:stCondLst><p:cond delay="%d"/></p:stCondLst>'
+        '<p:childTnLst>'
+        '<p:set><p:cBhvr><p:cTn id="%d" dur="1" fill="hold"><p:stCondLst><p:cond delay="0"/>'
+        '</p:stCondLst></p:cTn><p:tgtEl><p:spTgt spid="%d"/></p:tgtEl>'
+        '<p:attrNameLst><p:attrName>style.visibility</p:attrName></p:attrNameLst></p:cBhvr>'
+        '<p:to><p:strVal val="visible"/></p:to></p:set>'
+        '<p:animEffect transition="in" filter="fade"><p:cBhvr><p:cTn id="%d" dur="%d"/>'
+        '<p:tgtEl><p:spTgt spid="%d"/></p:tgtEl></p:cBhvr></p:animEffect>'
+        '%s'
+        '</p:childTnLst></p:cTn></p:par>'
+        % (NS, nid(), preset, "clickEffect" if delay <= 0.001 else "afterEffect", d,
+           nid(), shape_id, nid(), dur, shape_id, extra))
+
+
+def install_timing(slide, animated):
+    """animated: list of (shape_id, kind, delay). Writes the slide timing tree."""
+    if not animated:
+        return
+    animated = sorted(animated, key=lambda a: a[2])
+    pars = []
+    first = True
+    for shape_id, kind, delay in animated:
+        xml = timing_xml(shape_id, kind, delay if not first else 0.0)
+        if xml:
+            pars.append(xml)
+        first = False
+    body = "".join(pars)
+    timing = (
+        '<p:timing %s><p:tnLst><p:par><p:cTn id="1" dur="indefinite" restart="never" '
+        'nodeType="tmRoot"><p:childTnLst>'
+        '<p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq">'
+        '<p:childTnLst>%s</p:childTnLst></p:cTn>'
+        '<p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond>'
+        '</p:prevCondLst>'
+        '<p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond>'
+        '</p:nextCondLst></p:seq>'
+        '</p:childTnLst></p:cTn></p:par></p:tnLst></p:timing>' % (NS, body))
+    el = etree.fromstring(timing)
+    sld = slide._element
+    # <p:timing> must follow <p:cSld> (and <p:clrMapOvr>) and precede <p:extLst>
+    sld.append(el)
+
+
+# ---------------------------------------------------------------------------
+# builders
+# ---------------------------------------------------------------------------
+
+def _color(palette, token):
+    return RC.TOKENS[palette].get(token, "#FFFFFF")
+
+
+def add_text_simple(slide, el, palette):
+    tf_x, tf_y, tf_w = el["x"], el["y"], el["w"]
+    box = slide.shapes.add_textbox(emu(tf_x), emu(tf_y), emu(tf_w * 1.02), emu(30))
+    tf = box.text_frame
+    tf.word_wrap = True
+    tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+    tf.vertical_anchor = MSO_ANCHOR.TOP
+    bodyPr = tf._txBody.find(
+        '{http://schemas.openxmlformats.org/drawingml/2006/main}bodyPr')
+    for tag in ('normAutofit', 'spAutoFit'):
+        child = bodyPr.find('{http://schemas.openxmlformats.org/drawingml/2006/main}' + tag)
+        if child is not None:
+            bodyPr.remove(child)
+    first_para = True
+    for p in el["paras"]:
+        para = tf.paragraphs[0] if first_para else tf.add_paragraph()
+        first_para = False
+        align = p.get("align") or el.get("align", "l")
+        para.alignment = {"l": PP_ALIGN.LEFT, "c": PP_ALIGN.CENTER, "r": PP_ALIGN.RIGHT}[align]
+        lf = p.get("line") or el.get("line") or 1.32
+        para.line_spacing = lf * S.LH / PPT_SINGLE
+        if p.get("space_before"):
+            para.space_before = Pt(round(p["space_before"] * S.PT_PER_PX, 1))
+        # no bullet glyphs anywhere in this deck
+        pPr = para._pPr if para._pPr is not None else para._p.get_or_add_pPr()
+        if pPr.find('{http://schemas.openxmlformats.org/drawingml/2006/main}buNone') is None:
+            pPr.append(etree.SubElement(pPr, '{http://schemas.openxmlformats.org/drawingml/2006/main}buNone'))
+        for r in p["runs"]:
+            run = para.add_run()
+            run.text = r["s"]
+            f = run.font
+            f.name = S.FONTS[r["font"]]
+            f.size = pt_of(r["size"])
+            f.bold = bool(r["bold"])
+            f.italic = bool(r["italic"])
+            f.color.rgb = RGBColor.from_string(_color(palette, r["color"]).lstrip("#").upper())
+            if r.get("spacing"):
+                run.font._rPr.set("spc", str(int(round(r["spacing"] * S.PT_PER_PX * 100))))
+    return box
+
+
+def bake_graphics(slide, index):
+    os.makedirs(GRAPHICS_DIR, exist_ok=True)
+    path = os.path.join(GRAPHICS_DIR, "graphics%02d.png" % index)
+    layer = RC.render_graphics(slide, scale=1.5)
+    layer.save(path, optimize=True)
+    return path
+
+
+def chev_asset(palette, key="accent"):
+    return "arrow_%s_%s_0.png" % (palette, key)
+
+
+def build_pptx():
+    prs = Presentation()
+    prs.slide_width = emu(S.STAGE_W)
+    prs.slide_height = emu(S.STAGE_H)
+    blank = prs.slide_layouts[6]
+    slides = S.build()
+    for sl in slides:
+        slide = prs.slides.add_slide(blank)
+        palette = sl["palette"]
+        # 1. background
+        bg_path = os.path.join(RC.ASSETS, sl["bg"])
+        slide.shapes.add_picture(bg_path, 0, 0, emu(S.STAGE_W), emu(S.STAGE_H))
+        animated = []
+        # 2. baked graphics (halos, rings, chevrons)
+        gpath = bake_graphics(sl, sl["n"])
+        pic = slide.shapes.add_picture(gpath, 0, 0, emu(S.STAGE_W), emu(S.STAGE_H))
+        animated.append((pic.shape_id, "fade", 0.45))
+        # 3. the elements
+        for el in sl["els"]:
+            k = el["k"]
+            if k == "bg":
+                continue
+            if k in ("img", "tick", "cross"):
+                src = el.get("src")
+                if k in ("tick", "cross"):
+                    src = RC.TICK_FILES[el["color"]]
+                    if k == "cross":
+                        src = "badgeember.png"
+                path = os.path.join(RC.ASSETS, src)
+                w = el["w"]
+                if el.get("h"):
+                    pic = slide.shapes.add_picture(path, emu(el["x"]), emu(el["y"]),
+                                                   emu(w), emu(el["h"]))
+                else:
+                    pic = slide.shapes.add_picture(path, emu(el["x"]), emu(el["y"]), emu(w))
+                if el.get("alpha", 1.0) < 1.0:
+                    pass  # alpha is baked into the asset where it matters
+                animated.append((pic.shape_id, el.get("anim", "fade"), el.get("delay", 0.4)))
+            elif k == "text":
+                box = add_text_simple(slide, el, palette)
+                animated.append((box.shape_id, el.get("anim", "fade"), el.get("delay", 0.4)))
+        install_timing(slide, animated)
+    os.makedirs(os.path.dirname(OUT_PPTX), exist_ok=True)
+    prs.save(OUT_PPTX)
+    return OUT_PPTX
+
+
+if __name__ == "__main__":
+    p = build_pptx()
+    print("written:", p, os.path.getsize(p) // 1024, "KB")

@@ -1,0 +1,90 @@
+{
+ "1": {
+  "bg": "bg01.jpg",
+  "palette": "night"
+ },
+ "2": {
+  "bg": "bg02.jpg",
+  "palette": "dawn"
+ },
+ "3": {
+  "bg": "bg03.jpg",
+  "palette": "dawn"
+ },
+ "4": {
+  "bg": "bg04.jpg",
+  "palette": "dawn"
+ },
+ "5": {
+  "bg": "bg05.jpg",
+  "palette": "dawn"
+ },
+ "6": {
+  "bg": "bg06.jpg",
+  "palette": "forest"
+ },
+ "7": {
+  "bg": "bg07.jpg",
+  "palette": "forest"
+ },
+ "8": {
+  "bg": "bg08.jpg",
+  "palette": "forest"
+ },
+ "9": {
+  "bg": "bg09.jpg",
+  "palette": "forest"
+ },
+ "10": {
+  "bg": "bg10.jpg",
+  "palette": "forest"
+ },
+ "11": {
+  "bg": "bg11.jpg",
+  "palette": "forest"
+ },
+ "12": {
+  "bg": "bg12.jpg",
+  "palette": "rose"
+ },
+ "13": {
+  "bg": "bg13.jpg",
+  "palette": "rose"
+ },
+ "14": {
+  "bg": "bg14.jpg",
+  "palette": "rose"
+ },
+ "15": {
+  "bg": "bg15.jpg",
+  "palette": "rose"
+ },
+ "16": {
+  "bg": "bg16.jpg",
+  "palette": "rose"
+ },
+ "17": {
+  "bg": "bg17.jpg",
+  "palette": "violet"
+ },
+ "18": {
+  "bg": "bg18.jpg",
+  "palette": "violet"
+ },
+ "19": {
+  "bg": "bg19.jpg",
+  "palette": "violet"
+ },
+ "20": {
+  "bg": "bg20.jpg",
+  "palette": "violet"
+ },
+ "21": {
+  "bg": "bg21.jpg",
+  "palette": "night"
+ },
+ "22": {
+  "bg": "bg22.jpg",
+  "palette": "night"
+ }
+}

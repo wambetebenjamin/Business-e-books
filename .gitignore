@@ -1,2 +1,6 @@
 node_modules/
 .DS_Store
+
+# presentation build caches
+presentations/*/build/graphics/
+presentations/*/preview/slide*.png
