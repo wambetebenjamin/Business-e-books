@@ -1,12 +1,23 @@
 """
 scenes.py
-Backgrounds for the deck, deliberately quiet.
+Backgrounds for the deck, copied from the new book template.
 
-Each slide gets one smooth dark gradient, a soft accent glow and a single low
-ridge line along the bottom edge so the composition has a floor without
-introducing any clutter, tree, figure or prop. Five accent families run across
-the talk: night, dawn, forest, rose and violet. Nothing here draws attention
-away from the text.
+The template's theme is an almost white page, big soft white "petal" curves
+with a gentle drop shadow so they read as curved surfaces, a pale blue wash
+drifting in from one side, the striped disc motif in a corner, and photography
+sitting quietly behind the layout. Its palette is #4595C2, #5DC5E6 and #006AAD
+on white.
+
+This module repaints that theme for our own deck:
+
+  light scenes   white page, one pale blue wash, a white petal with a soft
+                 shadow, a faint striped disc, and a whisper of one of our two
+                 photographs: only the dark shapes of the empty chairs or of two
+                 people talking, dropped in as a faint blue silhouette
+  blue scenes    the cover and the closing slide: the template's blue field with
+                 white petals and the same silhouette whisper
+
+Everything is deliberately low contrast so the type keeps all of the attention.
 
   python scenes.py      rewrites assets/bg01.jpg ... assets/bg22.jpg
 """
@@ -14,157 +25,251 @@ away from the text.
 import json
 import math
 import os
+
 import numpy as np
 from PIL import Image, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.abspath(os.path.join(HERE, "..", "assets"))
+ART = os.path.join(HERE, "art")
 W, H = 2400, 1350
 
 # ---------------------------------------------------------------------------
-# one shared deep base, five accent families
+# the template palette
 # ---------------------------------------------------------------------------
 
-BASE = [(0.00, "#070A14"), (0.42, "#0C1224"), (0.78, "#121A31"), (1.00, "#182140")]
-
-# a small hue shift per family, blended over the shared base
-TINT = {
-    "night": [(0.00, "#060911"), (0.45, "#0B1122"), (1.00, "#1A2344")],
-    "dawn": [(0.00, "#0A0A12"), (0.45, "#151224"), (1.00, "#2A2233")],
-    "forest": [(0.00, "#050D11"), (0.45, "#0A1720"), (1.00, "#122B33")],
-    "rose": [(0.00, "#0A080F"), (0.45, "#150F1D"), (1.00, "#2C1C2C")],
-    "violet": [(0.00, "#080810"), (0.45, "#101128"), (1.00, "#1F2350")],
-}
+BLUE = "#4595C2"          # the template's heading blue
+DEEP = "#006AAD"          # its dark blue
+SKY = "#5DC5E6"           # its light blue
+PAPER_TOP = "#FFFFFF"
+PAPER_BOTTOM = "#F1F7FB"
+BLUE_TOP = "#5AA4CC"
+BLUE_BOTTOM = "#2A78A9"
 
 FAMILIES = {
-    "night": dict(accent="#E2B95F", glow="#C79A45", ridge="#04060C", glow_at=(0.68, 0.34), glow_r=0.46,
-                  glow_a=0.16),
-    "dawn": dict(accent="#E8A45C", glow="#CE8340", ridge="#05060F", glow_at=(0.72, 0.40), glow_r=0.44,
-                 glow_a=0.17),
-    "forest": dict(accent="#6FCBB4", glow="#3E9C8A", ridge="#04070D", glow_at=(0.30, 0.36), glow_r=0.44,
-                   glow_a=0.15),
-    "rose": dict(accent="#E9A184", glow="#C4765C", ridge="#06050E", glow_at=(0.70, 0.38), glow_r=0.44,
-                 glow_a=0.16),
-    "violet": dict(accent="#B7A8F2", glow="#7A66C9", ridge="#04060F", glow_at=(0.34, 0.34), glow_r=0.46,
-                   glow_a=0.17),
+    "light": dict(accent=BLUE, base=(PAPER_TOP, PAPER_BOTTOM), sail="#FFFFFF", shade="#D8E4EF",
+                  disc="#C6E0F2", disc_a=0.40, ink="#7C9FBC", ink_a=0.072,
+                  fill=0.90, shadow=0.55, grain=1.6, vignette=0.035),
+    "blue": dict(accent=BLUE, base=(BLUE_TOP, BLUE_BOTTOM), sail="#FFFFFF", shade="#1C6A99",
+                 disc="#EAF5FC", disc_a=0.20, ink="#0B4E78", ink_a=0.22,
+                 fill=1.00, shadow=0.42, grain=1.5, vignette=0.070),
 }
 
-# the cover and the closing slides carry a slightly stronger glow
-BOOST = {1: 1.45, 21: 1.30, 22: 1.10}
+PHOTOS = ("empty_chair.jpg", "conversation.jpg")
 
 
 def hx(c):
     c = c.lstrip("#")
-    return np.array([int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)], dtype=float)
+    return np.array([int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)], dtype=np.float32)
 
 
-def ramp(stops, n):
-    stops = sorted(stops, key=lambda s: s[0])
-    pos = np.linspace(0, 1, n)
-    cols = np.zeros((n, 3))
-    for i in range(len(stops) - 1):
-        p0, c0 = stops[i]
-        p1, c1 = stops[i + 1]
-        c0, c1 = hx(c0), hx(c1)
-        m = (pos >= p0) & (pos <= p1)
-        t = (pos[m] - p0) / max(1e-6, p1 - p0)
-        cols[m] = c0[None, :] + (c1 - c0)[None, :] * t[:, None]
-    cols[pos < stops[0][0]] = hx(stops[0][1])
-    cols[pos > stops[-1][0]] = hx(stops[-1][1])
-    return cols
+# ---------------------------------------------------------------------------
+# small painting helpers
+# ---------------------------------------------------------------------------
+
+def smoothstep(t):
+    t = np.clip(t, 0.0, 1.0)
+    return t * t * (3.0 - 2.0 * t)
 
 
-def gradient(stops):
-    band = ramp(stops, H)[:, None, :]
-    return np.repeat(band, W, axis=1).astype(np.float32)
+def grid():
+    return np.mgrid[0:H, 0:W].astype(np.float32)
 
 
-def halo(cx, cy, radius, color, alpha, power=2.0):
-    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-    # a wide ellipse rather than a circle, so the light feels like sky light
-    d = np.sqrt(((xx - cx * W) / (radius * W)) ** 2 + ((yy - cy * H) / (radius * W * 0.86)) ** 2)
-    fall = np.clip(1.0 - d, 0, 1) ** power
-    return fall[:, :, None] * hx(color)[None, None, :] * alpha
+def diagonal(a, b, tilt=0.42):
+    """A soft diagonal wash from colour a (top left) to colour b."""
+    yy, xx = grid()
+    t = smoothstep(np.clip((1 - tilt) * (xx / W) + tilt * (yy / H), 0, 1))[:, :, None]
+    return hx(a)[None, None, :] * (1 - t) + hx(b)[None, None, :] * t
 
 
-def ridge_curve(seed, base, amp, tilt=0.0, octaves=3, rough=0.45):
-    """One calm, low ridge line across the foot of the slide."""
+def wash(color, at=(0.5, 0.5), radius=(0.7, 0.6), alpha=0.5, power=1.6):
+    """A wide elliptical wash of colour, strongest at `at`."""
+    yy, xx = grid()
+    d = np.sqrt(((xx / W - at[0]) / radius[0]) ** 2 + ((yy / H - at[1]) / radius[1]) ** 2)
+    return (np.clip(1.0 - d, 0, 1) ** power)[:, :, None] * hx(color)[None, None, :] * alpha
+
+
+def mask_blur(mask, radius, offset=(0, 0)):
+    """Gaussian blur of a 0..1 float mask, optionally slid before blurring."""
+    if offset != (0, 0):
+        mask = np.roll(np.roll(mask, int(offset[1]), axis=0), int(offset[0]), axis=1)
+    im = Image.fromarray(np.clip(mask * 255, 0, 255).astype(np.uint8), "L")
+    im = im.filter(ImageFilter.GaussianBlur(radius))
+    return np.asarray(im, dtype=np.float32) / 255.0
+
+
+def petal(y0=1.00, amp=0.16, x0=0.10, x1=1.05, depth=0.20, tilt=0.0, round_=0.55):
+    """One of the template's petals: a band between two smooth curves.
+
+    Returns (fill, shadow), both 0..1. `fill` lifts the band towards white with
+    its brightest part deep inside the band, `shadow` is the soft grounding
+    shadow that sits just outside the leading edge.
+    """
+    yy, xx = grid()
+    u = smoothstep((xx / W - x0) / max(1e-6, (x1 - x0)))
+    edge = (y0 - amp * u - tilt * (xx / W - 0.5)) * H
+    deep = edge + depth * H * ((1 - round_) + round_ * (1 - u))
+    span = np.maximum(8.0, deep - edge)
+    t = np.clip((yy - edge) / span, 0, 1)
+    inside = ((yy >= edge) & (yy <= deep)).astype(np.float32)
+    fill = inside * smoothstep(np.minimum(t, 1 - t) * 3.2)
+    sh = mask_blur(inside, 46, offset=(-10, 26))
+    shadow = np.clip(sh - inside, 0, 1)
+    shadow += inside * (1 - smoothstep(t * 2.6)) * 0.55
+    return fill, np.clip(shadow, 0, 1)
+
+
+def striped_disc(cx, cy, r, period=30.0, angle=math.radians(45), alpha=0.4, color="#C6E0F2",
+                 fade=0.24):
+    """The template's striped disc, faded at the rim so it never looks pasted on."""
+    yy, xx = grid()
+    dx, dy = xx - cx * W, yy - cy * H
+    d = np.sqrt(dx * dx + dy * dy)
+    u = dx * math.cos(angle) + dy * math.sin(angle)
+    stripes = ((np.floor(u / period) % 2) == 0).astype(np.float32)
+    rim = smoothstep(np.clip((1.0 - d / r) / fade, 0, 1))
+    m = (d < r).astype(np.float32) * stripes * rim * alpha
+    return m[:, :, None] * hx(color)[None, None, :]
+
+
+def silhouette(name, at=(0.55, 0.72), radius=(0.86, 0.50), cut=0.035, span=0.13, blur=22):
+    """Only the shapes of one relevant photograph, as a soft 0..1 mask.
+
+    Whatever stands in the photograph compares darker than the room around it,
+    so comparing each pixel with a heavily blurred copy of the frame lifts out
+    the two empty chairs, or the two people in conversation, on their own. That
+    silhouette is then feathered away at the edges so on the page it reads as a
+    faint shadow rather than as a picture.
+    """
+    path = os.path.join(ART, name)
+    if not os.path.exists(path):
+        return np.zeros((H, W), np.float32)
+    im = Image.open(path).convert("L")
+    scale = max(W / im.size[0], H / im.size[1]) * 1.04
+    im = im.resize((int(round(im.size[0] * scale)), int(round(im.size[1] * scale))),
+                   Image.LANCZOS)
+    left = int((im.size[0] - W) * at[0])
+    top = int((im.size[1] - H) * at[1])
+    im = im.crop((left, top, left + W, top + H))
+    arr = np.asarray(im.filter(ImageFilter.GaussianBlur(1.8)), dtype=np.float32) / 255.0
+    room = np.asarray(im.filter(ImageFilter.GaussianBlur(42)), dtype=np.float32) / 255.0
+    m = np.clip((room - arr - cut) / span, 0, 1) ** 1.25
+    yy, xx = grid()
+    d = np.sqrt(((xx / W - at[0]) / radius[0]) ** 2 + ((yy / H - at[1]) / radius[1]) ** 2)
+    m *= np.clip(1.0 - d, 0, 1) ** 1.2
+    return mask_blur(m, blur)
+
+
+def grain(seed, amount):
     rng = np.random.default_rng(seed)
-    x = np.linspace(0, 1, W)
-    y = np.zeros(W)
-    f, a = 1.0, amp
-    for _ in range(octaves):
-        y += a * np.sin(2 * math.pi * f * x + rng.uniform(0, 6.28))
-        f *= 2.1 + rng.uniform(0, 0.4)
-        a *= rough
-    return base - y + tilt * (x - 0.5)
+    return np.repeat(rng.normal(0, amount, (H, W, 1)), 3, axis=2).astype(np.float32)
 
 
-def paint_ridge(img, curve, color, alpha=1.0):
-    col = hx(color)
-    yy = np.arange(H)[:, None]
-    mask = (yy >= curve[None, :]).astype(np.float32) * alpha
-    img[:] = img * (1 - mask[:, :, None]) + col[None, None, :] * mask[:, :, None]
-    return img
-
-
-def vignette(strength=0.30, power=1.5):
-    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+def vignette(strength):
+    yy, xx = grid()
     x = (xx / W - 0.5) * 2
     y = (yy / H - 0.5) * 2
-    return np.clip(1 - strength * (np.sqrt(x * x * 0.82 + y * y) ** power), 0, 1)[:, :, None]
+    return np.clip(1 - strength * (x * x * 0.65 + y * y), 0, 1)[:, :, None]
 
 
-def grain(seed, amount=2.4):
-    rng = np.random.default_rng(seed)
-    return np.repeat(rng.normal(0, amount, (H, W, 1)), 3, axis=2)
+# ---------------------------------------------------------------------------
+# the scenes
+# ---------------------------------------------------------------------------
 
+PETALS = {
+    "low": [dict(y0=1.02, amp=0.20, x0=0.05, x1=1.05, depth=0.20, tilt=0.06, round_=0.45)],
+    "corner": [dict(y0=0.94, amp=0.13, x0=0.48, x1=1.20, depth=0.13, tilt=-0.05, round_=0.7)],
+    "wide": [dict(y0=1.04, amp=0.26, x0=0.18, x1=1.08, depth=0.24, tilt=0.04, round_=0.6)],
+    "broad": [dict(y0=0.99, amp=0.16, x0=0.60, x1=1.25, depth=0.22, tilt=0.05, round_=0.5)],
+}
 
 SCENES = {
-    #            family     ridge base / amplitude, second faint ridge
-    1: dict(fam="night", seed=11, ridges=[(0.985, 0.030, 0.0), (0.955, 0.020, 0.012)]),
-    2: dict(fam="dawn", seed=23, ridges=[(0.980, 0.034, 0.0), (0.950, 0.018, 0.010)]),
-    3: dict(fam="dawn", seed=31, ridges=[(0.985, 0.026, 0.0), (0.958, 0.016, 0.010)]),
-    4: dict(fam="dawn", seed=41, ridges=[(0.982, 0.030, 0.0), (0.952, 0.018, 0.012)]),
-    5: dict(fam="dawn", seed=53, ridges=[(0.988, 0.022, 0.0), (0.962, 0.014, 0.008)]),
-    6: dict(fam="forest", seed=61, ridges=[(0.980, 0.032, 0.0), (0.950, 0.020, 0.012)]),
-    7: dict(fam="forest", seed=71, ridges=[(0.985, 0.024, 0.0), (0.956, 0.016, 0.010)]),
-    8: dict(fam="forest", seed=83, ridges=[(0.980, 0.030, 0.0), (0.948, 0.019, 0.012)]),
-    9: dict(fam="forest", seed=93, ridges=[(0.984, 0.026, 0.0), (0.954, 0.017, 0.010)]),
-    10: dict(fam="forest", seed=103, ridges=[(0.981, 0.032, 0.0), (0.951, 0.019, 0.012)]),
-    11: dict(fam="forest", seed=113, ridges=[(0.986, 0.022, 0.0), (0.958, 0.015, 0.008)]),
-    12: dict(fam="rose", seed=123, ridges=[(0.982, 0.028, 0.0), (0.952, 0.018, 0.012)]),
-    13: dict(fam="rose", seed=133, ridges=[(0.986, 0.022, 0.0), (0.958, 0.015, 0.010)]),
-    14: dict(fam="rose", seed=143, ridges=[(0.982, 0.030, 0.0), (0.950, 0.019, 0.012)]),
-    15: dict(fam="rose", seed=153, ridges=[(0.987, 0.020, 0.0), (0.960, 0.014, 0.008)]),
-    16: dict(fam="rose", seed=163, ridges=[(0.983, 0.028, 0.0), (0.953, 0.018, 0.012)]),
-    17: dict(fam="violet", seed=173, ridges=[(0.985, 0.026, 0.0), (0.956, 0.016, 0.010)]),
-    18: dict(fam="violet", seed=183, ridges=[(0.981, 0.032, 0.0), (0.951, 0.019, 0.012)]),
-    19: dict(fam="violet", seed=193, ridges=[(0.986, 0.024, 0.0), (0.957, 0.015, 0.010)]),
-    20: dict(fam="violet", seed=203, ridges=[(0.983, 0.028, 0.0), (0.953, 0.018, 0.012)]),
-    21: dict(fam="night", seed=213, ridges=[(0.984, 0.028, 0.0), (0.954, 0.018, 0.012)]),
-    22: dict(fam="night", seed=223, ridges=[(0.988, 0.020, 0.0), (0.962, 0.013, 0.008)]),
+    # fam    seed  petals          disc (corner)                         photo
+    1: dict(fam="blue", seed=11, photo="conversation.jpg", photo_at=(0.52, 0.86),
+            disc=dict(cx=0.115, cy=0.135, r=215), petals="low"),
+    2: dict(fam="light", seed=23, photo="empty_chair.jpg", photo_at=(0.52, 0.78),
+            disc=None, petals="low"),
+    3: dict(fam="light", seed=31, photo="conversation.jpg", photo_at=(0.60, 0.78),
+            disc=dict(cx=0.905, cy=0.175, r=185, alpha=0.34), petals="corner"),
+    4: dict(fam="light", seed=41, photo="empty_chair.jpg", photo_at=(0.45, 0.80),
+            disc=dict(cx=0.10, cy=0.86, r=175, alpha=0.30), petals="wide"),
+    5: dict(fam="light", seed=53, photo="conversation.jpg", photo_at=(0.65, 0.78),
+            disc=None, petals="broad"),
+    6: dict(fam="light", seed=61, photo="empty_chair.jpg", photo_at=(0.38, 0.80),
+            disc=dict(cx=0.92, cy=0.80, r=195, alpha=0.32), petals="low"),
+    7: dict(fam="light", seed=71, photo="conversation.jpg", photo_at=(0.58, 0.82),
+            disc=None, petals="corner"),
+    8: dict(fam="light", seed=83, photo="empty_chair.jpg", photo_at=(0.62, 0.79),
+            disc=dict(cx=0.115, cy=0.20, r=175, alpha=0.32), petals="wide"),
+    9: dict(fam="light", seed=93, photo="conversation.jpg", photo_at=(0.45, 0.80),
+            disc=None, petals="low"),
+    10: dict(fam="light", seed=103, photo="empty_chair.jpg", photo_at=(0.60, 0.78),
+             disc=dict(cx=0.90, cy=0.24, r=190, alpha=0.30), petals="broad"),
+    11: dict(fam="light", seed=113, photo="conversation.jpg", photo_at=(0.52, 0.81),
+             disc=None, petals="wide"),
+    12: dict(fam="light", seed=123, photo="empty_chair.jpg", photo_at=(0.66, 0.79),
+             disc=dict(cx=0.10, cy=0.78, r=180, alpha=0.32), petals="corner"),
+    13: dict(fam="light", seed=133, photo="conversation.jpg", photo_at=(0.40, 0.79),
+             disc=None, petals="low"),
+    14: dict(fam="light", seed=143, photo="empty_chair.jpg", photo_at=(0.55, 0.81),
+             disc=dict(cx=0.915, cy=0.82, r=190, alpha=0.32), petals="broad"),
+    15: dict(fam="light", seed=153, photo="conversation.jpg", photo_at=(0.62, 0.80),
+             disc=None, petals="wide"),
+    16: dict(fam="light", seed=163, photo="empty_chair.jpg", photo_at=(0.44, 0.78),
+             disc=dict(cx=0.105, cy=0.82, r=170, alpha=0.30), petals="corner"),
+    17: dict(fam="light", seed=173, photo="conversation.jpg", photo_at=(0.58, 0.81),
+             disc=None, petals="low"),
+    18: dict(fam="light", seed=183, photo="empty_chair.jpg", photo_at=(0.62, 0.79),
+             disc=dict(cx=0.90, cy=0.20, r=180, alpha=0.32), petals="wide"),
+    19: dict(fam="light", seed=193, photo="conversation.jpg", photo_at=(0.50, 0.81),
+             disc=None, petals="broad"),
+    20: dict(fam="light", seed=203, photo="empty_chair.jpg", photo_at=(0.64, 0.80),
+             disc=dict(cx=0.10, cy=0.20, r=170, alpha=0.30), petals="corner"),
+    21: dict(fam="blue", seed=213, photo="empty_chair.jpg", photo_at=(0.50, 0.86),
+             disc=dict(cx=0.905, cy=0.165, r=195, alpha=0.16), petals="wide"),
+    22: dict(fam="light", seed=223, photo="conversation.jpg", photo_at=(0.55, 0.80),
+             disc=dict(cx=0.92, cy=0.84, r=175, alpha=0.32), petals="low"),
 }
 
 
 def build_scene(n, spec):
     fam = FAMILIES[spec["fam"]]
-    img = gradient(BASE) * 0.45 + gradient(TINT[spec["fam"]]) * 0.55
-    boost = BOOST.get(n, 1.0)
-    gx, gy = fam["glow_at"]
-    img += halo(gx, gy, fam["glow_r"], fam["glow"], fam["glow_a"] * 1.35 * boost)
-    img += halo(0.18 if gx > 0.5 else 0.82, 0.86, 0.42, fam["glow"], fam["glow_a"] * 0.35 * boost)
-    img += halo(0.5, 0.10, 0.75, "#FFFFFF", 0.020)      # a whisper of light at the top
-    # ridges, back to front
-    for i, (base, amp, lighten) in enumerate(spec["ridges"][::-1]):
-        curve = ridge_curve(spec["seed"] + i * 7, base * H, amp * H, tilt=(0.012 if i % 2 else -0.010))
-        col = fam["ridge"]
-        if lighten:
-            col = "#%02X%02X%02X" % tuple(
-                int(v) for v in (hx(fam["ridge"]) + hx(fam["glow"]) * lighten * 0.5))
-        paint_ridge(img, curve, col)
-    img *= vignette(0.30 * (1.0 if n not in (1, 21) else 0.75), 1.5)
-    img += grain(spec["seed"] + 3, 2.4)
+    top, bottom = fam["base"]
+    img = diagonal(top, bottom, tilt=0.42)
+
+    if spec["fam"] == "light":
+        # the template's pale blue wash drifting in from the upper right
+        img += wash(SKY, at=(0.90, 0.08), radius=(0.80, 0.95), alpha=0.10, power=1.5)
+        img += wash(BLUE, at=(0.04, 0.98), radius=(0.70, 0.70), alpha=0.035, power=1.3)
+
+    # the petals, with their soft grounding shadows
+    fill = np.zeros((H, W), np.float32)
+    shadow = np.zeros((H, W), np.float32)
+    for sp in PETALS[spec["petals"]]:
+        f, sh = petal(**sp)
+        fill = np.maximum(fill, f)
+        shadow = np.maximum(shadow, sh)
+    fill = mask_blur(fill, 3)
+    shadow = mask_blur(shadow, 22)
+
+    img = img + (hx(fam["shade"])[None, None, :] - img) * (shadow[:, :, None] * fam["shadow"])
+    img = img + (hx(fam["sail"])[None, None, :] - img) * (fill[:, :, None] * fam["fill"])
+
+    # the striped disc motif
+    if spec.get("disc"):
+        d = dict(spec["disc"])
+        d.setdefault("color", fam["disc"])
+        d["alpha"] = d.get("alpha", fam["disc_a"])
+        img = img + striped_disc(**d)
+
+    # the relevant photograph, reduced to a whisper of its own shapes
+    m = silhouette(spec["photo"], at=spec["photo_at"])
+    if m.any():
+        img = img + (hx(fam["ink"])[None, None, :] - img) * (m[:, :, None] * fam["ink_a"])
+
+    img *= vignette(fam["vignette"])
+    img += grain(spec["seed"] + 3, fam["grain"])
     return Image.fromarray(np.clip(img, 0, 255).astype(np.uint8))
 
 
@@ -174,8 +279,9 @@ def build_assets():
     for n, spec in sorted(SCENES.items()):
         name = "bg%02d.jpg" % n
         im = build_scene(n, spec)
-        im.save(os.path.join(OUT, name), "JPEG", quality=88, subsampling=0, optimize=True)
-        manifest[n] = dict(bg=name, family=spec["fam"], accent=FAMILIES[spec["fam"]]["accent"])
+        im.save(os.path.join(OUT, name), "JPEG", quality=90, subsampling=0, optimize=True)
+        manifest[n] = dict(bg=name, family=spec["fam"], accent=FAMILIES[spec["fam"]]["accent"],
+                           photo=spec["photo"])
     json.dump(manifest, open(os.path.join(OUT, "manifest.json"), "w"), indent=1)
     return manifest
 

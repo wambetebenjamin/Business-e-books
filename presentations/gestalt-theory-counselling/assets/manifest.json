@@ -1,112 +1,134 @@
 {
  "1": {
   "bg": "bg01.jpg",
-  "family": "night",
-  "accent": "#E2B95F"
+  "family": "blue",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "2": {
   "bg": "bg02.jpg",
-  "family": "dawn",
-  "accent": "#E8A45C"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "3": {
   "bg": "bg03.jpg",
-  "family": "dawn",
-  "accent": "#E8A45C"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "4": {
   "bg": "bg04.jpg",
-  "family": "dawn",
-  "accent": "#E8A45C"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "5": {
   "bg": "bg05.jpg",
-  "family": "dawn",
-  "accent": "#E8A45C"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "6": {
   "bg": "bg06.jpg",
-  "family": "forest",
-  "accent": "#6FCBB4"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "7": {
   "bg": "bg07.jpg",
-  "family": "forest",
-  "accent": "#6FCBB4"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "8": {
   "bg": "bg08.jpg",
-  "family": "forest",
-  "accent": "#6FCBB4"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "9": {
   "bg": "bg09.jpg",
-  "family": "forest",
-  "accent": "#6FCBB4"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "10": {
   "bg": "bg10.jpg",
-  "family": "forest",
-  "accent": "#6FCBB4"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "11": {
   "bg": "bg11.jpg",
-  "family": "forest",
-  "accent": "#6FCBB4"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "12": {
   "bg": "bg12.jpg",
-  "family": "rose",
-  "accent": "#E9A184"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "13": {
   "bg": "bg13.jpg",
-  "family": "rose",
-  "accent": "#E9A184"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "14": {
   "bg": "bg14.jpg",
-  "family": "rose",
-  "accent": "#E9A184"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "15": {
   "bg": "bg15.jpg",
-  "family": "rose",
-  "accent": "#E9A184"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "16": {
   "bg": "bg16.jpg",
-  "family": "rose",
-  "accent": "#E9A184"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "17": {
   "bg": "bg17.jpg",
-  "family": "violet",
-  "accent": "#B7A8F2"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "18": {
   "bg": "bg18.jpg",
-  "family": "violet",
-  "accent": "#B7A8F2"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "19": {
   "bg": "bg19.jpg",
-  "family": "violet",
-  "accent": "#B7A8F2"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  },
  "20": {
   "bg": "bg20.jpg",
-  "family": "violet",
-  "accent": "#B7A8F2"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "21": {
   "bg": "bg21.jpg",
-  "family": "night",
-  "accent": "#E2B95F"
+  "family": "blue",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
  },
  "22": {
   "bg": "bg22.jpg",
-  "family": "night",
-  "accent": "#E2B95F"
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
  }
 }

@@ -6,7 +6,8 @@ Structure of every slide:
   * one full bleed background picture (the painted silhouette scene)
   * one transparent "graphics" picture holding the halos and chevrons
   * the Word style tick marks as transparent pictures
-  * text boxes, one per text block, using Verdana / Playfair Display / Consolas
+  * text boxes, one per text block, set in the template's Poppins and Raleway,
+    which are then embedded into the finished file so it travels intact
 
 Entrance animations are written into the slide timing tree: a soft fade for
 text, a small rise for headlines and a grow plus fade for the ticks. Every
@@ -35,7 +36,11 @@ OUT_PPTX = os.path.abspath(os.path.join(HERE, "..",
 GRAPHICS_DIR = os.path.abspath(os.path.join(HERE, "..", "build", "graphics"))
 
 PX_PER_INCH = S.STAGE_W / 13.3333          # 120 stage pixels per inch
-PPT_SINGLE = 1.21                          # PowerPoint's single line spacing for Verdana
+EMBED_DIR = os.path.join(HERE, "embed")    # the template's own embedded font parts
+
+# family -> (regular part, bold part), lifted straight out of the template
+EMBEDDED = [("Poppins", "font17.fntdata", "font19.fntdata", "00000500000000000000"),
+            ("Raleway", "font18.fntdata", "font16.fntdata", "00000000000000000000")]
 
 NS = ('xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
       'xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
@@ -165,7 +170,10 @@ def add_text_simple(slide, el, palette):
         align = p.get("align") or el.get("align", "l")
         para.alignment = {"l": PP_ALIGN.LEFT, "c": PP_ALIGN.CENTER, "r": PP_ALIGN.RIGHT}[align]
         lf = p.get("line") or el.get("line") or 1.32
-        para.line_spacing = lf * S.LH / PPT_SINGLE
+        # exact line spacing in points, so the file lays out line for line the
+        # way the previews and the measuring code above do
+        size_px = max(r["size"] for r in p["runs"])
+        para.line_spacing = Pt(round(lf * S.LH * size_px * S.PT_PER_PX, 1))
         if p.get("space_before"):
             para.space_before = Pt(round(p["space_before"] * S.PT_PER_PX, 1))
         # no bullet glyphs anywhere in this deck
@@ -241,6 +249,78 @@ def build_pptx():
     return OUT_PPTX
 
 
+def embed_template_fonts(path):
+    """Embed the template's Poppins and Raleway into the built file.
+
+    The parts are lifted from the template untouched, so the deck carries the
+    same type it was measured in: a machine without Poppins installed still
+    shows the design as intended.
+    """
+    import re
+    import shutil
+    import zipfile
+
+    with zipfile.ZipFile(path) as z:
+        items = {n: z.read(n) for n in z.namelist()}
+
+    rels = items["ppt/_rels/presentation.xml.rels"].decode("utf-8")
+    fonts_xml = []
+    for i, (family, regular, bold, panose) in enumerate(EMBEDDED, start=1):
+        rid_r, rid_b = "rIdFont%da" % i, "rIdFont%db" % i
+        items["ppt/fonts/%s" % regular] = open(os.path.join(EMBED_DIR, regular), "rb").read()
+        items["ppt/fonts/%s" % bold] = open(os.path.join(EMBED_DIR, bold), "rb").read()
+        rels = rels.replace("</Relationships>",
+                            '<Relationship Id="%s" Type="http://schemas.openxmlformats.org/'
+                            'officeDocument/2006/relationships/font" Target="fonts/%s"/>'
+                            '<Relationship Id="%s" Type="http://schemas.openxmlformats.org/'
+                            'officeDocument/2006/relationships/font" Target="fonts/%s"/>'
+                            "</Relationships>" % (rid_r, regular, rid_b, bold))
+        fonts_xml.append(
+            '<p:embeddedFont><p:font typeface="%s" charset="1" panose="%s"/>'
+            '<p:regular r:id="%s"/><p:bold r:id="%s"/></p:embeddedFont>' % (family, panose, rid_r, rid_b))
+    items["ppt/_rels/presentation.xml.rels"] = rels.encode("utf-8")
+
+    pres = items["ppt/presentation.xml"].decode("utf-8")
+    pres = pres.replace("<p:embeddedFontLst>", "").replace("</p:embeddedFontLst>", "")
+    lst = "<p:embeddedFontLst>%s</p:embeddedFontLst>" % "".join(fonts_xml)
+    # the list belongs straight after the notes size, whether that element is
+    # self closing or not
+    m = re.search(r"<p:notesSz[^>]*/>", pres)
+    if m:
+        pres = pres[:m.end()] + lst + pres[m.end():]
+    else:
+        pres = re.sub(r"(</p:notesSz>)", r"\1" + lst, pres, count=1)
+    def set_root_attr(xml, name, value):
+        """Set an attribute on <p:presentation> whether or not it is already there."""
+        m = re.search(r"<p:presentation\b[^>]*>", xml)
+        tag = m.group(0)
+        if re.search(r'\b%s="[^"]*"' % name, tag):
+            tag = re.sub(r'\b%s="[^"]*"' % name, '%s="%s"' % (name, value), tag, count=1)
+        else:
+            tag = tag[:-1] + ' %s="%s">' % (name, value)
+        return xml[:m.start()] + tag + xml[m.end():]
+
+    # PowerPoint only keeps an embedded font if the file asks it to
+    pres = set_root_attr(pres, "embedTrueTypeFonts", "1")
+    pres = set_root_attr(pres, "saveSubsetFonts", "1")
+    items["ppt/presentation.xml"] = pres.encode("utf-8")
+
+    ct = items["[Content_Types].xml"].decode("utf-8")
+    if "fntdata" not in ct:
+        ct = ct.replace("</Types>",
+                        '<Default Extension="fntdata" ContentType="application/x-fontdata"/>'
+                        "</Types>")
+    items["[Content_Types].xml"] = ct.encode("utf-8")
+
+    tmp = path + ".embed"
+    with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as z:
+        for name, data in items.items():
+            z.writestr(name, data)
+    shutil.move(tmp, path)
+    return [f[0] for f in EMBEDDED]
+
+
 if __name__ == "__main__":
     p = build_pptx()
-    print("written:", p, os.path.getsize(p) // 1024, "KB")
+    faces = embed_template_fonts(p)
+    print("written:", p, os.path.getsize(p) // 1024, "KB, embedded fonts:", ", ".join(faces))

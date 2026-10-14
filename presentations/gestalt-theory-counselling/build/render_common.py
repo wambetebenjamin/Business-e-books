@@ -15,24 +15,29 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.abspath(os.path.join(HERE, "..", "assets"))
 DEJAVU = "/usr/share/fonts/truetype/dejavu/"
 
-# colour tokens per palette (kept in step with scenes.PALETTES)
+# the template's two colourways, light pages and blue pages
 TOKENS = {
-    "night": dict(text="#F7F4EC", muted="#B4BDD3", dim="#8B95AE", accent="#F0CA84",
-                  accent2="#A9BCF0", ink="#03050C", soft="#0B1230"),
-    "dawn": dict(text="#FAF5EC", muted="#D3C9D4", dim="#A79CB0", accent="#F4C57E",
-                 accent2="#F0A868", ink="#0A0A1E", soft="#1F1E44"),
-    "forest": dict(text="#F2F7F4", muted="#ADC4C7", dim="#84A3AA", accent="#84DCC6",
-                   accent2="#A8E6D6", ink="#041013", soft="#0A1F25"),
-    "rose": dict(text="#FBF3EE", muted="#D2B9BC", dim="#A98B93", accent="#F2A98A",
-                 accent2="#F5C6A8", ink="#0D0714", soft="#281130"),
-    "violet": dict(text="#F6F4FD", muted="#BCB8DA", dim="#928FB5", accent="#C3B4F5",
-                   accent2="#A191E6", ink="#060815", soft="#151738"),
+    "light": dict(heading="#4595C2", text="#33506B", muted="#5F7E97", dim="#8FA9BC",
+                  accent="#4595C2", accent2="#5DC5E6", ink="#0E2A3D", soft="#DCEAF4",
+                  ghost="#D8E6F2"),
+    "blue": dict(heading="#FFFFFF", text="#FFFFFF", muted="#D8EBF7", dim="#B7D6E9",
+                 accent="#CFE9F8", accent2="#A7DCF3", ink="#0A3550", soft="#3C86B4",
+                 ghost="#67A9CE"),
 }
 
-TICK_FILES = {"night": "tick_night.png", "dawn": "tick_dawn.png", "forest": "tick_forest.png",
-              "rose": "tick_rose.png", "violet": "tick_violet.png", "muted": "tick_muted.png",
-              "light": "tick_light.png", "cross": "mark_cross.png", "ember": "mark_cross.png",
-              "gold": "tick_night.png", "mint": "tick_forest.png", "lilac": "tick_violet.png"}
+TICK_FILES = {"deep": "tick_deep.png", "light": "tick_white.png", "muted": "tick_muted.png",
+              "cross": "mark_cross.png", "ember": "mark_cross.png", "gold": "tick_deep.png",
+              "mint": "tick_deep.png", "lilac": "tick_deep.png", "blue": "tick_deep.png",
+              "night": "tick_deep.png", "dawn": "tick_deep.png", "forest": "tick_deep.png",
+              "rose": "tick_deep.png", "violet": "tick_deep.png"}
+
+# the template's own faces; it ships no italics, so a slanted run is set upright
+FONT_FILES = {
+    ("Poppins", False): "Poppins-Regular.ttf",
+    ("Poppins", True): "Poppins-Bold.ttf",
+    ("Raleway", False): "Raleway-Regular.ttf",
+    ("Raleway", True): "Raleway-Bold.ttf",
+}
 
 _FONT_CACHE = {}
 
@@ -53,20 +58,12 @@ def rgba(hexcolor, alpha=1.0):
 
 def _font(font, bold, italic, size_px):
     """size_px is expressed in stage pixels (the preview canvas is 1:1 with the stage)."""
-    key = (font, bold, italic, int(round(size_px)))
+    key = (font, bold, int(round(size_px)))
     if key not in _FONT_CACHE:
-        family = S.FONTS.get(font, "Calibri")
-        office = os.path.join(HERE, "fonts")
-        if family == "Calibri":
-            name = "Carlito-Bold.ttf" if bold else ("Carlito-Italic.ttf" if italic
-                                                    else "Carlito-Regular.ttf")
-            path = os.path.join(office, name)
-        elif family == "Cambria":
-            name = "Caladea-Bold.ttf" if bold else ("Caladea-Italic.ttf" if italic
-                                                    else "Caladea-Regular.ttf")
-            path = os.path.join(office, name)
-        else:
-            path = DEJAVU + ("DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf")
+        family = S.FONTS.get(font, "Poppins")
+        name = FONT_FILES.get((family, bool(bold)))
+        path = os.path.join(HERE, "fonts", name) if name else (
+            DEJAVU + ("DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf"))
         _FONT_CACHE[key] = ImageFont.truetype(path, int(size_px))
     return _FONT_CACHE[key]
 

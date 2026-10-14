@@ -6,10 +6,14 @@ checkmark with squared ends, sitting on the same baseline as the first line of
 text.
 
 Writes, into assets/:
-  tick_<family>.png   one per accent family (night, dawn, forest, rose, violet)
+  tick_deep.png       the tick used all over the light pages (#006AAD)
+  tick_white.png      the tick for the two blue pages
   tick_muted.png      a quieter tick for secondary lists
-  tick_light.png      near white, for use over the lightest artwork
   mark_cross.png      Wingdings "x" style cross, used only for the "avoid" line
+  chevron_light.png   the flow chevrons, light pages and blue pages
+  chevron_blue.png
+  medallion1..3.png   the three theorist roundels, in the template's blues
+  figure_ground.png   the figure and ground diagram
 """
 
 import os
@@ -19,16 +23,14 @@ from PIL import Image, ImageDraw
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.abspath(os.path.join(HERE, "..", "assets"))
 
+# the template's palette
 FAMILY_ACCENT = {
-    "night": "#E2B95F",
-    "dawn": "#E8A45C",
-    "forest": "#6FCBB4",
-    "rose": "#E9A184",
-    "violet": "#B7A8F2",
+    "light": "#006AAD",     # the working tick on the light pages
+    "blue": "#FFFFFF",      # and on the two blue ones
 }
-MUTED = "#9AA3B8"
-LIGHT = "#F2F4F8"
-CROSS = "#D98C86"
+MUTED = "#8FA9BC"
+LIGHT = "#FFFFFF"
+CROSS = "#C9736A"
 
 SS = 4          # supersample
 WIDTH = 512
@@ -99,10 +101,9 @@ def cross(color, stroke=0.20, width=WIDTH):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    for fam, col in FAMILY_ACCENT.items():
-        tick(col).save(os.path.join(OUT, "tick_%s.png" % fam))
+    tick(FAMILY_ACCENT["light"]).save(os.path.join(OUT, "tick_deep.png"))
+    tick(FAMILY_ACCENT["blue"]).save(os.path.join(OUT, "tick_white.png"))
     tick(MUTED).save(os.path.join(OUT, "tick_muted.png"))
-    tick(LIGHT).save(os.path.join(OUT, "tick_light.png"))
     cross(CROSS).save(os.path.join(OUT, "mark_cross.png"))
     print("marks written to", OUT)
 
@@ -133,12 +134,12 @@ def ring_medallion(initials, color, size=420, ring=0.028, font_path=None):
     im = Image.new("RGBA", (w, w), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     col = _hex(color)
-    d.ellipse([w * 0.02, w * 0.02, w * 0.98, w * 0.98], outline=col + (110,),
+    d.ellipse([w * 0.02, w * 0.02, w * 0.98, w * 0.98], outline=col + (165,),
               width=max(2, int(w * ring)))
-    fp = font_path or os.path.join(os.path.dirname(OUT), "build", "fonts", "Carlito-Bold.ttf")
+    fp = font_path or os.path.join(os.path.dirname(OUT), "build", "fonts", "Raleway-Bold.ttf")
     if not os.path.exists(fp):
         fp = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-    font = ImageFont.truetype(fp, int(w * 0.30))
+    font = ImageFont.truetype(fp, int(w * 0.34))
     bb = d.textbbox((0, 0), initials, font=font)
     d.text(((w - (bb[2] - bb[0])) / 2 - bb[0], (w - (bb[3] - bb[1])) / 2 - bb[1] - w * 0.01),
            initials, font=font, fill=col + (235,))
@@ -164,16 +165,16 @@ def figure_ground(color, size=760):
 
 def build_marks():
     os.makedirs(OUT, exist_ok=True)
-    for fam, col in FAMILY_ACCENT.items():
-        tick(col).save(os.path.join(OUT, "tick_%s.png" % fam))
-        chevron(col).save(os.path.join(OUT, "chevron_%s.png" % fam))
+    tick(FAMILY_ACCENT["light"]).save(os.path.join(OUT, "tick_deep.png"))
+    tick(FAMILY_ACCENT["blue"]).save(os.path.join(OUT, "tick_white.png"))
     tick(MUTED).save(os.path.join(OUT, "tick_muted.png"))
-    tick(LIGHT).save(os.path.join(OUT, "tick_light.png"))
+    chevron("#4595C2").save(os.path.join(OUT, "chevron_light.png"))
+    chevron("#CFE9F8").save(os.path.join(OUT, "chevron_blue.png"))
     cross(CROSS).save(os.path.join(OUT, "mark_cross.png"))
-    ring_medallion("FP", FAMILY_ACCENT["night"]).save(os.path.join(OUT, "medallion1.png"))
-    ring_medallion("LP", FAMILY_ACCENT["dawn"]).save(os.path.join(OUT, "medallion2.png"))
-    ring_medallion("PG", FAMILY_ACCENT["violet"]).save(os.path.join(OUT, "medallion3.png"))
-    figure_ground(FAMILY_ACCENT["forest"]).save(os.path.join(OUT, "figure_ground.png"))
+    ring_medallion("FP", "#4595C2").save(os.path.join(OUT, "medallion1.png"))
+    ring_medallion("LP", "#2E8AB8").save(os.path.join(OUT, "medallion2.png"))
+    ring_medallion("PG", "#006AAD").save(os.path.join(OUT, "medallion3.png"))
+    figure_ground("#4595C2").save(os.path.join(OUT, "figure_ground.png"))
     print("marks and quiet graphics written to", OUT)
 
 

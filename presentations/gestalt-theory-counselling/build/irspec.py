@@ -10,8 +10,9 @@ House rules encoded here:
   * no bullet points and no dashes of any kind
   * every list item is introduced by the tick mark Word itself uses for its
     tick bullet, drawn as an image so it looks identical everywhere
-  * type is the standard Microsoft Office set: Calibri for running text,
-    Cambria for headings, Consolas for labels and figures. Nothing exotic.
+  * type is the new book template's own set: Poppins for running text and
+    labels, Raleway for headings and figures, both embedded in the template and
+    both re-embedded into our file.
 
 Layout is measured, never guessed: helpers below wrap text with the same
 metrics the renderers use, so nothing can collide.
@@ -25,12 +26,16 @@ PT_PER_PX = 13.3333 * 72.0 / STAGE_W          # 0.6 : points per stage pixel
 LH = 1.25                                      # line box, as a multiple of the em
 WIDTH_SAFETY = 1.02   # the preview face runs a shade wider than Word's
 
-FONTS = {"sans": "Calibri", "display": "Cambria", "mono": "Consolas"}
+FONTS = {"sans": "Poppins", "display": "Raleway", "mono": "Poppins"}
 
 # One global type scale. The stage is 1600 x 900 px mapped onto a 13.33 x 7.5 inch
-# slide, so one stage pixel is 0.6 pt. Body copy lands near 15 pt and list lines
-# near 16 pt, which reads from the back of a room.
-SCALE_TYPE = 1.62
+# slide, so one stage pixel is 0.6 pt. Headings keep the generous round two scale;
+# Poppins sets about a quarter wider than the Calibri it replaces and stands
+# taller on the line, so running text is set smaller and still reads larger.
+SCALE_TYPE = 1.62                       # Raleway, headings and figures
+BODY_SCALE = 0.86                       # Poppins, running text and labels
+SCALE_BY_FONT = {"sans": SCALE_TYPE * BODY_SCALE, "display": SCALE_TYPE,
+                 "mono": SCALE_TYPE * BODY_SCALE}
 MARK_SCALE = 1.30      # ticks and their gaps grow more slowly than the type
 
 MARGIN = 104.0
@@ -64,8 +69,15 @@ def line(x1, y1, x2, y2, color="#FFFFFF", width=1.2, alpha=0.35, anim="fade", de
 
 def run(s, size=15, color="text", font="sans", bold=False, italic=False, spacing=0.0,
         alpha=1.0):
-    return dict(s=s, size=size * SCALE_TYPE, color=color, font=font, bold=bold, italic=italic,
-                spacing=spacing * MARK_SCALE, alpha=alpha)
+    # the template carries regular and bold only, so emphasis comes from colour
+    # and weight rather than from a synthesised slant
+    return dict(s=s, size=size * SCALE_BY_FONT.get(font, SCALE_TYPE), color=color, font=font,
+                bold=bold, italic=False, spacing=spacing * MARK_SCALE, alpha=alpha)
+
+
+def scaled(size, font="sans"):
+    """A size exactly as run() will set it, for laying out ticks and boxes."""
+    return size * SCALE_BY_FONT.get(font, SCALE_TYPE)
 
 
 def P(*runs, align=None, space_before=0, line=None):
@@ -99,16 +111,16 @@ def _fonts():
     if _FONTS is None:
         from PIL import ImageFont
         office = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
-        dejavu = "/usr/share/fonts/truetype/dejavu/"
         _FONTS = {
-            # Carlito is metric compatible with Calibri, Caladea with Cambria,
-            # so these measurements match what Word and PowerPoint will do.
-            ("sans", False): ImageFont.truetype(os.path.join(office, "Carlito-Regular.ttf"), 100),
-            ("sans", True): ImageFont.truetype(os.path.join(office, "Carlito-Bold.ttf"), 100),
-            ("display", False): ImageFont.truetype(os.path.join(office, "Caladea-Regular.ttf"), 100),
-            ("display", True): ImageFont.truetype(os.path.join(office, "Caladea-Bold.ttf"), 100),
-            ("mono", False): ImageFont.truetype(dejavu + "DejaVuSansMono.ttf", 100),
-            ("mono", True): ImageFont.truetype(dejavu + "DejaVuSansMono-Bold.ttf", 100),
+            # The template's own faces, lifted out of the template and used both
+            # to measure every line here and to embed in the finished file, so
+            # PowerPoint sets the deck in exactly the type we measure.
+            ("sans", False): ImageFont.truetype(os.path.join(office, "Poppins-Regular.ttf"), 100),
+            ("sans", True): ImageFont.truetype(os.path.join(office, "Poppins-Bold.ttf"), 100),
+            ("display", False): ImageFont.truetype(os.path.join(office, "Raleway-Regular.ttf"), 100),
+            ("display", True): ImageFont.truetype(os.path.join(office, "Raleway-Bold.ttf"), 100),
+            ("mono", False): ImageFont.truetype(os.path.join(office, "Poppins-Regular.ttf"), 100),
+            ("mono", True): ImageFont.truetype(os.path.join(office, "Poppins-Bold.ttf"), 100),
         }
     return _FONTS
 
@@ -168,7 +180,7 @@ def block_text(x, y, w, paras, align="l", anim="fade", delay=0.0, name=None, lin
         block_height(paras, w, line)
 
 
-def block_label(x, y, s, color="accent", size=11, delay=0.0, align="l", w=800):
+def block_label(x, y, s, color="accent", size=12, delay=0.0, align="l", w=760):
     return [t(x, y, w, [P(run(s, size=size, color=color, font="mono", bold=True, spacing=2.6))],
               align=align, anim="fade", delay=delay)], line_height(size, 1.4)
 
@@ -181,8 +193,8 @@ def item(x, y, w, s, size=15.5, color="text", tick_color="gold", tick_size=25, g
     h = block_height(paras, max(60.0, w - gap - 4), 1.34)
     # the tick sits on the first line, optically centred with it
     els = [
-        tick(x, y + (line_height(size, 1.34) - tick_size) * 0.5 - 1, size=tick_size,
-             color=tick_color, anim="pop", delay=delay),
+        tick(x, y + (line_height(scaled(size, font), 1.34) - tick_size) * 0.5 - 1,
+             size=tick_size, color=tick_color, anim="pop", delay=delay),
         t(x + gap, y, w - gap, paras, anim=anim, delay=delay + 0.07),
     ]
     return els, h
@@ -240,9 +252,12 @@ def chain(x, y, labels, gapx=190, size=17, font="sans", bold=True, color="text",
     If the labels would wrap at the requested gap, the gap opens up so every
     word always sits on a single line.
     """
-    ts = size * SCALE_TYPE
+    ts = scaled(size, font)
     maxw = max(text_width(s, ts, font, bold, 1.0) for s in labels)
     gapx = max(gapx, maxw + chev_w + 34)
+    room = STAGE_W - MARGIN - x
+    if len(labels) > 1:
+        gapx = min(gapx, (room - chev_w - 60) / (len(labels) - 1))
     els = []
     for i, s in enumerate(labels):
         els.append(t(x + i * gapx, y, gapx - 8, [P(run(s, size=size, color=color, font=font,
@@ -259,33 +274,37 @@ def chain(x, y, labels, gapx=190, size=17, font="sans", bold=True, color="text",
 # ---------------------------------------------------------------------------
 
 def title_size(title):
-    if len(title) <= 21:
-        return 44
-    if len(title) <= 27:
-        return 39
-    return 34
+    """The largest size at which the heading still sets on a single line."""
+    for size in (58, 52, 46, 41, 36, 32, 28):
+        if text_width(title.upper(), size, "display", True) <= 1270:
+            return size
+    return 26
 
 
 def chrome(section, title, folio, lead=None, lead_w=1180, lead_size=17.5):
-    """Kicker, heading, optional lead line, institution tag and folio."""
-    tsize = title_size(title) * 0.92
+    """The template's header: a numbered section line, a large caps heading in the
+    template blue, an optional lead line, the institution tag and a folio."""
+    tsize = title_size(title)
     els = [
-        t(MARGIN, 50, 900, [P(run(section.upper(), size=10.5, color="accent", font="mono",
-                                  bold=True, spacing=3.2))], anim="fade", delay=0.05),
+        t(MARGIN, 44, 1000, [P(run("%02d" % folio, size=15, color="accent", font="display",
+                                   bold=True),
+                                run("     " + section.upper(), size=11, color="muted",
+                                    font="mono", bold=True, spacing=2.6))],
+          anim="fade", delay=0.05),
     ]
-    title_paras = [P(run(title, size=tsize, color="text", font="display", bold=True), line=1.04)]
-    th = block_height(title_paras, 1240, 1.04)
-    els.append(t(MARGIN, 80, 1260, title_paras, anim="rise", delay=0.18))
-    y = 80 + th
+    title_paras = [P(run(title.upper(), size=tsize, color="heading", font="display", bold=True),
+                     line=1.05)]
+    th = block_height(title_paras, 1270, 1.05)
+    els.append(t(MARGIN, 76, 1270, title_paras, anim="rise", delay=0.18))
+    y = 76 + th
     if lead:
-        lead_paras = [P(run(lead, size=lead_size, color="muted", font="display", italic=True),
-                        line=1.28)]
-        els.append(t(MARGIN, y + 10, lead_w, lead_paras, anim="fade", delay=0.34))
-        y += 10 + block_height(lead_paras, lead_w, 1.28)
-    y += 26
+        lead_paras = [P(run(lead, size=lead_size, color="muted", font="sans"), line=1.30)]
+        els.append(t(MARGIN, y + 14, lead_w, lead_paras, anim="fade", delay=0.34))
+        y += 14 + block_height(lead_paras, lead_w, 1.30)
+    y += 30
     els += [
-        t(STAGE_W - MARGIN - 380, 50, 380,
-          [P(run("PAN AFRICAN CHRISTIAN UNIVERSITY", size=8.5, color="dim", font="mono",
+        t(STAGE_W - MARGIN - 380, 44, 380,
+          [P(run("PAN AFRICAN CHRISTIAN UNIVERSITY", size=10, color="dim", font="mono",
                  bold=True, spacing=1.4), align="r")], anim="fade", delay=0.1),
         t(STAGE_W - MARGIN - 300, STAGE_H - 62, 300,
           [P(run("%02d" % folio, size=12, color="dim", font="mono", bold=True, spacing=2.0),
@@ -295,7 +314,7 @@ def chrome(section, title, folio, lead=None, lead_w=1180, lead_size=17.5):
 
 
 def citation(s, delay=0.7):
-    return t(MARGIN, STAGE_H - 56, 1100, [P(run(s, size=10.5, color="dim", font="mono",
+    return t(MARGIN, STAGE_H - 56, 1100, [P(run(s, size=11.5, color="dim", font="mono",
                                                 spacing=0.2))], anim="fade", delay=delay,
              name="cite")
 
@@ -305,12 +324,12 @@ def citation(s, delay=0.7):
 # ---------------------------------------------------------------------------
 
 BG = {n: "bg%02d.jpg" % n for n in range(1, 23)}
-PALETTE = {1: "night", 2: "dawn", 3: "dawn", 4: "dawn", 5: "dawn", 6: "forest", 7: "forest",
-           8: "forest", 9: "forest", 10: "forest", 11: "forest", 12: "rose", 13: "rose",
-           14: "rose", 15: "rose", 16: "rose", 17: "violet", 18: "violet", 19: "violet",
-           20: "violet", 21: "night", 22: "night"}
-TICK_BY_PALETTE = {"night": "night", "dawn": "dawn", "forest": "forest", "rose": "rose",
-                   "violet": "violet"}
+# light pages and the two blue ones, exactly the template's own light and blue
+PALETTE = {1: "blue", 2: "light", 3: "light", 4: "light", 5: "light", 6: "light", 7: "light",
+           8: "light", 9: "light", 10: "light", 11: "light", 12: "light", 13: "light",
+           14: "light", 15: "light", 16: "light", 17: "light", 18: "light", 19: "light",
+           20: "light", 21: "blue", 22: "light"}
+TICK_BY_PALETTE = {"light": "deep", "blue": "light"}
 
 
 def slide(n):
@@ -324,22 +343,22 @@ def build():
     s = slide(1)
     tk = TICK_BY_PALETTE[s["palette"]]
     s["els"] += [glow(40, 70, 900, 700, color="accent", alpha=0.22)]
-    y = 88.0
+    y = 78.0
     e, h = block_text(MARGIN, y, 900,
                       [P(run("GROUP 4 PRESENTATION", size=12, color="accent", font="mono",
                              bold=True, spacing=3.6))], anim="fade", delay=0.1)
     s["els"] += e
     y += h + 12
-    for word, d in (("Gestalt", 0.30), ("Theory", 0.46)):
-        e, h = block_text(MARGIN, y, 1020,
-                          [P(run(word, size=72, color="text", font="display", bold=True), line=1.0)],
-                          anim="rise", delay=d)
+    for word, d in (("GESTALT", 0.30), ("THEORY", 0.46)):
+        e, h = block_text(MARGIN, y, 1120,
+                          [P(run(word, size=68, color="heading", font="display", bold=True),
+                             line=1.0)], anim="rise", delay=d)
         s["els"] += e
         y += h - 20
     y += 12
     e, h = block_text(MARGIN, y, 1020,
-                      [P(run("AND ITS APPLICATION TO COUNSELLING", size=14, color="accent",
-                             font="mono", bold=True, spacing=3.4))], anim="fade", delay=0.62)
+                      [P(run("AND ITS APPLICATION TO COUNSELLING", size=13, color="accent",
+                             font="display", bold=True, spacing=3.0))], anim="fade", delay=0.62)
     s["els"] += e
     y += h + 30
     s["els"] += [
@@ -441,9 +460,10 @@ def build():
         x = MARGIN + i * 470
         s["els"] += [
             img(med, x, y + 8, 104, anim="pop", delay=0.45 + i * 0.16),
-            t(x + 122, y + 16, 300, [P(run(nm, size=22, color="text", font="display", bold=True))],
-              anim="rise", delay=0.55 + i * 0.16),
-            t(x + 122, y + 52, 300, [P(run(dates, size=11.5, color="muted", font="mono"))],
+            t(x + 122, y + 16, 320, [P(run(nm.upper(), size=20, color="heading", font="display",
+                                           bold=True))], anim="rise", delay=0.55 + i * 0.16),
+            t(x + 122, y + 52, 320, [P(run(dates.upper(), size=12, color="accent", font="display",
+                                           bold=True, spacing=1.4))],
               anim="fade", delay=0.62 + i * 0.16),
             t(x, y + 134, 440, [P(run(role, size=15.5, color="text", bold=True), line=1.3)],
               anim="fade", delay=0.7 + i * 0.16),
@@ -509,7 +529,7 @@ def build():
                          "Includes thoughts, emotions, bodily sensations and behaviour"],
                         size=16, item_gap=24, anim_delay=0.58, fill_to=y + 300)
     s["els"] += e
-    s["els"] += block_label(MARGIN + 720, y, "THE PAST", delay=0.9)[0]
+    s["els"] += block_label(MARGIN + 720, y, "THE PAST", delay=0.9, w=560)[0]
     e, y2 = bullet_list(MARGIN + 720, y + 34, 580,
                         ["Past experiences are explored through their current impact",
                          "The therapeutic relationship offers present moment awareness"],
@@ -543,7 +563,7 @@ def build():
     yy = y - 4
     for word, sub, d in (("FIGURE", "What is most prominent in awareness", 0.7),
                          ("GROUND", "The surrounding context and experiences", 1.0)):
-        e, h = block_text(x2, yy, 560, [P(run(word, size=27, color="text", font="display",
+        e, h = block_text(x2, yy, 560, [P(run(word, size=25, color="heading", font="display",
                                               bold=True))], anim="rise", delay=d)
         s["els"] += e
         yy += h + 6
@@ -806,13 +826,14 @@ def build():
     for ci, (num, head, items_) in enumerate(cols):
         x = MARGIN + ci * 474
         s["els"] += [
-            t(x, y - 4, 300, [P(run(num, size=12.5, color="accent", font="mono", bold=True,
-                                    spacing=2.6))], anim="fade", delay=0.4 + ci * 0.12),
-            t(x, y + 24, 440, [P(run(head, size=14, color="text", font="mono", bold=True,
-                                     spacing=1.4), line=1.3)], anim="rise", delay=0.48 + ci * 0.12),
+            t(x, y - 6, 300, [P(run(num, size=17, color="accent", font="display", bold=True))],
+              anim="fade", delay=0.4 + ci * 0.12),
+            t(x, y + 26, 440, [P(run(head, size=12.5, color="heading", font="mono", bold=True,
+                                     spacing=1.2), line=1.3)], anim="rise",
+              delay=0.48 + ci * 0.12),
         ]
         e, _ = bullet_list(x, y + 62, 430, items_, size=14.5, tick_size=23, gap=34, item_gap=15,
-                           anim_delay=0.6 + ci * 0.12)
+                           anim_delay=0.6 + ci * 0.12, fill_to=780)
         s["els"] += e
     S.append(s)
 
@@ -822,7 +843,7 @@ def build():
                     lead="What the theory contributes and what it asks of the therapist.")
     s["els"] += els
     s["els"] += block_label(MARGIN, y, "CONTRIBUTIONS", delay=0.45)[0]
-    s["els"] += block_label(MARGIN + 700, y, "CONSIDERATIONS", delay=0.7)[0]
+    s["els"] += block_label(MARGIN + 700, y, "CONSIDERATIONS", delay=0.7, w=560)[0]
     e, _ = bullet_list(MARGIN, y + 34, 600,
                        ["Holistic understanding of human experience",
                         "Strong emphasis on awareness",
@@ -851,9 +872,9 @@ def build():
                                       ("Responsibility and choice", 21), ("Growth", 25)]):
         last = size == 25
         ts = 34 if last else 26
-        e, h = block_text(MARGIN + 54, yy, 640,
-                          [P(run(word, size=size, color="text", font="display", bold=True),
-                             line=1.25)], anim="rise", delay=0.52 + i * 0.16)
+        e, h = block_text(MARGIN + 54, yy, 700,
+                          [P(run(word.upper(), size=size, color="heading", font="display",
+                                 bold=True), line=1.25)], anim="rise", delay=0.52 + i * 0.16)
         s["els"] += [tick(MARGIN, yy + (h - ts) * 0.5, size=ts, color=tk, anim="pop",
                           delay=0.45 + i * 0.16)] + e
         if not last:

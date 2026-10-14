@@ -5,3 +5,4 @@ node_modules/
 presentations/*/build/graphics/
 presentations/*/preview/slide*.png
 presentations/*/preview/*.pptx
+presentations/*/build/__pycache__/
