@@ -410,12 +410,13 @@ def citation(s, delay=0.7):
 # slides
 # ---------------------------------------------------------------------------
 
-BG = {n: "bg%02d.jpg" % n for n in range(1, 23)}
+BG = {n: "bg%02d.jpg" % n for n in range(1, 32)}
 # light pages and the two blue ones, exactly the template's own light and blue
 PALETTE = {1: "blue", 2: "light", 3: "light", 4: "light", 5: "light", 6: "light", 7: "light",
            8: "light", 9: "light", 10: "light", 11: "light", 12: "light", 13: "light",
            14: "light", 15: "light", 16: "light", 17: "light", 18: "light", 19: "light",
-           20: "light", 21: "blue", 22: "light"}
+           20: "light", 21: "light", 22: "light", 23: "light", 24: "light", 25: "light",
+           26: "light", 27: "light", 28: "light", 29: "light", 30: "blue", 31: "light"}
 TICK_BY_PALETTE = {"light": "deep", "blue": "light"}
 
 
@@ -693,9 +694,250 @@ def build():
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 10 unfinished business
+    # ===================================================================== 10 contact boundary disturbances overview
     s = slide(10)
-    els, y = chrome("Core Concepts", "Unfinished Business", 10,
+    els, y = chrome("Core Concepts", "Contact Boundary Disturbances", 10,
+                    lead="How awareness, contact and the self environment connection become restricted.",
+                    lead_w=1180)
+    s["els"] += els
+    e, y1 = bullet_list(MARGIN, y, 600,
+                        ["Patterns through which awareness or contact becomes restricted",
+                         "Also described as interruptions or resistances to contact",
+                         "May develop as coping and serve a protective function"],
+                        size=15, item_gap=18, anim_delay=0.5, fill_to= y + 210)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, y, 620,
+                        ["Not diagnoses or permanent personality characteristics",
+                         "Significance depends on context, flexibility and whether they restrict choice",
+                         "Five patterns are most commonly discussed"],
+                        size=15, item_gap=18, anim_delay=0.9, fill_to= y + 210)
+    s["els"] += e
+    s["els"] += block_label(MARGIN, max(y1, y2) + 36, "FIVE PATTERNS FROM PAGE 10", delay=1.1)[0]
+    yy = max(y1, y2) + 68
+    patterns = ["Introjection", "Projection", "Retroflection", "Deflection", "Confluence"]
+    for i, pat in enumerate(patterns):
+        e, hh = item(MARGIN + (i % 3) * 450, yy + (i // 3) * 46, 420, pat, size=15, bold=True,
+                     tick_size=23, gap=34, delay=1.2 + i * 0.1)
+        s["els"] += e
+    s["els"] += chain(MARGIN, yy + 124, ["Experience", "Boundary", "Meaningful contact"],
+                      gapx=320, size=16, anim_delay=1.8)
+    s["cite"] = "Perls et al., 1951   |   Brownell, 2010   |   Wheeler and Axelsson, 2015"
+    S.append(s)
+
+    # ===================================================================== 11 introjection
+    s = slide(11)
+    els, y = chrome("Contact Boundary Disturbances", "Introjection", 11,
+                    lead="Accepting beliefs without examining them.", lead_w=1050)
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "DEFINITION", delay=0.5)[0]
+    e, h = block_text(MARGIN, y + 28, 1240,
+                      [P(run("Taking in rules, beliefs, values or expectations from others without adequately "
+                             "examining whether they fit own experience or circumstances. An external "
+                             "expectation becomes an unquestioned internal rule.", size=15, color="text"), line=1.32)],
+                      anim="fade", delay=0.58)
+    s["els"] += e
+    yy = y + 28 + h + 22
+    s["els"] += block_label(MARGIN, yy, "EXAMPLES", delay=1.0)[0]
+    s["els"] += block_label(MARGIN + 700, yy, "EFFECT AND APPROACH", delay=1.05)[0]
+    yy += 28
+    e, y1 = bullet_list(MARGIN, yy, 600,
+                        ["Everyday: A child taught that a good child must always obey continues "
+                         "to follow family decisions even with legitimate concerns",
+                         "Counselling: \u201cA responsible person must never say no to the supervisor\u201d, "
+                         "accepts every duty even when exhausted"],
+                        size=14, item_gap=16, anim_delay=1.1)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, yy, 620,
+                        ["Effect: struggles to recognise own needs, guilt or anxiety when "
+                         "considering an alternative response",
+                         "Counsellor asks: \u201cWhere did you learn that rule?\u201d \u201cDoes it apply in every situation?\u201d "
+                         "\u201cWhat happens when you consider your own needs?\u201d"],
+                        size=14, item_gap=16, anim_delay=1.25)
+    s["els"] += e
+    s["els"] += [t(MARGIN, max(y1, y2) + 24, 1240,
+                   [P(run("KEY DISTINCTION: Accepting an external rule without sufficient examination. "
+                          "Illustrative statement: \u201cI must never disappoint anyone.\u201d", size=12, color="accent", font="mono", bold=True), line=1.32)],
+                   anim="fade", delay=1.5)]
+    s["cite"] = "Perls et al., 1951   |   Woldt and Toman, 2005"
+    S.append(s)
+
+    # ===================================================================== 12 projection
+    s = slide(12)
+    els, y = chrome("Contact Boundary Disturbances", "Projection", 12,
+                    lead="Attributing one's own experience to others.")
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "DEFINITION", delay=0.5)[0]
+    e, h = block_text(MARGIN, y + 28, 1240,
+                      [P(run("Attributing feelings, intentions or characteristics to someone else without "
+                             "adequately recognising own possible contribution. Finding it difficult to acknowledge "
+                             "a feeling within and instead perceiving it as belonging to another.", size=15, color="text"), line=1.32)],
+                      anim="fade", delay=0.58)
+    s["els"] += e
+    yy = y + 28 + h + 22
+    s["els"] += block_label(MARGIN, yy, "EXAMPLES", delay=1.0)[0]
+    s["els"] += block_label(MARGIN + 700, yy, "EFFECT AND APPROACH", delay=1.05)[0]
+    yy += 28
+    e, y1 = bullet_list(MARGIN, yy, 600,
+                        ["Everyday: A person jealous of a friend's success repeatedly claims the "
+                         "friend is jealous of them",
+                         "Counselling: Client feels angry with a colleague but says \u201cMy colleague hates me "
+                         "and is always looking for a fight\u201d without clear evidence"],
+                        size=14, item_gap=16, anim_delay=1.1)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, yy, 620,
+                        ["Effect: responds to assumptions rather than checking what is actually happening, "
+                         "risking misunderstanding or conflict",
+                         "Counsellor asks: \u201cWhat feelings arise in you as you describe this?\u201d \u201cWhat have you "
+                         "observed directly, and what are you assuming?\u201d"],
+                        size=14, item_gap=16, anim_delay=1.25)
+    s["els"] += e
+    s["els"] += [t(MARGIN, max(y1, y2) + 24, 1240,
+                   [P(run("KEY  Not every perception is inaccurate. Others may genuinely behave in harmful "
+                          "ways. Illustrative: \u201cEveryone here is hostile towards me.\u201d", size=12, color="accent", font="mono", bold=True), line=1.32)],
+                   anim="fade", delay=1.5)]
+    s["cite"] = "Perls et al., 1951   |   Wheeler and Axelsson, 2015"
+    S.append(s)
+
+    # ===================================================================== 13 retroflection
+    s = slide(13)
+    els, y = chrome("Contact Boundary Disturbances", "Retroflection", 13,
+                    lead="Turning an outward response inward.")
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "DEFINITION", delay=0.5)[0]
+    e, h = block_text(MARGIN, y + 28, 1240,
+                      [P(run("Directing towards self feelings, actions or energy that might otherwise be "
+                             "expressed towards another person or into the environment.", size=15, color="text"), line=1.32)],
+                      anim="fade", delay=0.58)
+    s["els"] += e
+    yy = y + 28 + h + 22
+    s["els"] += block_label(MARGIN, yy, "EXAMPLES", delay=1.0)[0]
+    s["els"] += block_label(MARGIN + 700, yy, "EFFECT AND APPROACH", delay=1.05)[0]
+    yy += 28
+    e, y1 = bullet_list(MARGIN, yy, 600,
+                        ["Everyday: Feels angry after unfair treatment but repeatedly criticises self "
+                         "for being weak instead of expressing concern",
+                         "Counselling: Worker frustrated by unreasonable workload does not communicate, "
+                         "says \u201cI am weak and should manage everything\u201d and becomes self critical"],
+                        size=14, item_gap=16, anim_delay=1.1)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, yy, 620,
+                        ["Effect: inhibits direct expression, creates internal tension, turns understandable "
+                         "frustration into self blame",
+                         "Counsellor asks: \u201cWhat would you want to say if you felt safe?\u201d \u201cWhat happens inside "
+                         "when you hold back?\u201d"],
+                        size=14, item_gap=16, anim_delay=1.25)
+    s["els"] += e
+    s["els"] += [t(MARGIN, max(y1, y2) + 24, 1240,
+                   [P(run("KEY  Not all restraint is unhealthy. Withholding can be necessary for safety or "
+                          "professional judgement. Illustrative: \u201cI am angry, so I must be a terrible person.\u201d", size=12, color="accent", font="mono", bold=True), line=1.32)],
+                   anim="fade", delay=1.5)]
+    s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
+    S.append(s)
+
+    # ===================================================================== 14 deflection
+    s = slide(14)
+    els, y = chrome("Contact Boundary Disturbances", "Deflection", 14,
+                    lead="Avoiding direct contact with an experience.")
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "DEFINITION", delay=0.5)[0]
+    e, h = block_text(MARGIN, y + 28, 1240,
+                      [P(run("Reducing intensity or directness of contact through distraction, humour, vague language, "
+                             "changing the subject or other avoidance.", size=15, color="text"), line=1.32)],
+                      anim="fade", delay=0.58)
+    s["els"] += e
+    yy = y + 28 + h + 22
+    s["els"] += block_label(MARGIN, yy, "EXAMPLES", delay=1.0)[0]
+    s["els"] += block_label(MARGIN + 700, yy, "EFFECT AND APPROACH", delay=1.05)[0]
+    yy += 28
+    e, y1 = bullet_list(MARGIN, yy, 600,
+                        ["Everyday: Whenever a difficult family issue arises, makes jokes or quickly "
+                         "introduces another topic",
+                         "Counselling: Client begins discussing death of a close relative but immediately "
+                         "jokes and changes subject whenever grief is approached"],
+                        size=14, item_gap=16, anim_delay=1.1)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, yy, 620,
+                        ["Effect: difficulty remaining with painful feelings long enough to understand "
+                         "or communicate them",
+                         "Counsellor asks gently: \u201cI noticed you laughed as you mentioned the loss, what are "
+                         "you experiencing right now?\u201d"],
+                        size=14, item_gap=16, anim_delay=1.25)
+    s["els"] += e
+    s["els"] += [t(MARGIN, max(y1, y2) + 24, 1240,
+                   [P(run("KEY  Concerns how direct contact is diluted, often through distraction. Illustrative: "
+                          "joking whenever painful feelings arise.", size=12, color="accent", font="mono", bold=True), line=1.32)],
+                   anim="fade", delay=1.5)]
+    s["cite"] = "Perls et al., 1951   |   Brownell, 2010"
+    S.append(s)
+
+    # ===================================================================== 15 confluence
+    s = slide(15)
+    els, y = chrome("Contact Boundary Disturbances", "Confluence", 15,
+                    lead="Difficulty distinguishing self from others.")
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "DEFINITION", delay=0.5)[0]
+    e, h = block_text(MARGIN, y + 28, 1240,
+                      [P(run("The distinction between own feelings, needs, beliefs or preferences and those of "
+                             "another becomes unclear. Agreement or togetherness feels necessary for maintaining "
+                             "the relationship.", size=15, color="text"), line=1.32)],
+                      anim="fade", delay=0.58)
+    s["els"] += e
+    yy = y + 28 + h + 22
+    s["els"] += block_label(MARGIN, yy, "EXAMPLES", delay=1.0)[0]
+    s["els"] += block_label(MARGIN + 700, yy, "EFFECT AND APPROACH", delay=1.05)[0]
+    yy += 28
+    e, y1 = bullet_list(MARGIN, yy, 600,
+                        ["Everyday: Consistently agrees with friends about activities because expressing "
+                         "a different preference feels threatening to friendship",
+                         "Counselling: Woman agrees with partner on major decisions even when privately disagreeing, "
+                         "says \u201cWhatever makes him happy is what I want\u201d"],
+                        size=14, item_gap=16, anim_delay=1.1)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, yy, 620,
+                        ["Effect: loses sight of personal needs, experiences resentment, struggles to make "
+                         "independent decisions while appearing harmonious",
+                         "Counsellor asks: \u201cIf your partner's preference were not part of the decision, what "
+                         "would you want?\u201d"],
+                        size=14, item_gap=16, anim_delay=1.25)
+    s["els"] += e
+    s["els"] += [t(MARGIN, max(y1, y2) + 24, 1240,
+                   [P(run("KEY  Concerns a blurred self other distinction, not simply a rule or avoided topic. "
+                          "Illustrative: \u201cWhatever you want is what I want.\u201d", size=12, color="accent", font="mono", bold=True), line=1.32)],
+                   anim="fade", delay=1.5)]
+    s["cite"] = "Perls et al., 1951   |   Woldt and Toman, 2005"
+    S.append(s)
+
+    # ===================================================================== 16 comparison and clinical significance
+    s = slide(16)
+    els, y = chrome("Contact Boundary Disturbances", "Comparison and Clinical Significance", 16,
+                    lead="From exploratory frameworks to flexible responding.", lead_w=1180)
+    s["els"] += els
+    # table as two columns of ticks
+    s["els"] += block_label(MARGIN, y, "COMPARISON", delay=0.5)[0]
+    comp_left = ["Introjection: Accepting an external rule without examining it, \u201cI must never disappoint anyone\u201d",
+                 "Projection: Attributing own possible feelings to another, \u201cEveryone here is hostile towards me\u201d",
+                 "Retroflection: Directing inward what might be expressed outward, \u201cI am angry so I must be terrible\u201d"]
+    comp_right = ["Deflection: Avoiding direct engagement, joking whenever painful feelings arise",
+                  "Confluence: Losing clarity about own needs, \u201cWhatever you want is what I want\u201d",
+                  "Overlap is common, patterns are best used as exploratory frameworks not fixed labels"]
+    e, y1 = bullet_list(MARGIN, y + 28, 600, comp_left, size=13.5, item_gap=14, anim_delay=0.6, tick_size=22, gap=32)
+    s["els"] += e
+    e, y2 = bullet_list(MARGIN + 700, y + 28, 620, comp_right, size=13.5, item_gap=14, anim_delay=0.8, tick_size=22, gap=32)
+    s["els"] += e
+    yy = max(y1, y2) + 28
+    s["els"] += block_label(MARGIN, yy, "CLINICAL SIGNIFICANCE", delay=1.2)[0]
+    e, _ = bullet_list(MARGIN, yy + 28, 1240,
+                       ["Helps counsellor develop questions that increase awareness collaboratively, not to impose labels",
+                        "Requires attention to environment: fear of retaliation, need for safety and timing before exploring loss",
+                        "Aim is to recognise patterns and develop more flexible ways of responding, not to eliminate every interruption"],
+                       size=14, item_gap=14, anim_delay=1.3, fill_to=760)
+    s["els"] += e
+    s["cite"] = "Brownell, 2010   |   Wheeler and Axelsson, 2015   |   Perls et al., 1951"
+    S.append(s)
+
+    # ===================================================================== 17 unfinished business
+    s = slide(17)
+    els, y = chrome("Core Concepts", "Unfinished Business", 17,
                     lead="Unresolved experience keeps its hold on the present.")
     s["els"] += els
     s["els"] += block_label(MARGIN, y, "MAY INCLUDE", delay=0.5)[0]
@@ -713,9 +955,9 @@ def build():
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 11 responsibility
-    s = slide(11)
-    els, y = chrome("Core Concepts", "Personal Responsibility", 11,
+    # ===================================================================== 18 responsibility
+    s = slide(18)
+    els, y = chrome("Core Concepts", "Personal Responsibility", 18,
                     lead="Owning your choices, without blame.")
     s["els"] += els
     e, y1 = bullet_list(MARGIN, y, 700,
@@ -744,9 +986,9 @@ def build():
     s["cite"] = "Perls et al., 1951   |   Corey, 2024"
     S.append(s)
 
-    # ===================================================================== 12 role of the counsellor
-    s = slide(12)
-    els, y = chrome("Practice", "Role of the Gestalt Counsellor", 12,
+    # ===================================================================== 19 role of the counsellor
+    s = slide(19)
+    els, y = chrome("Practice", "Role of the Gestalt Counsellor", 19,
                     lead="A companion in the client's present experience.", lead_w=1050)
     s["els"] += els
     left = ["Facilitates awareness", "Focuses on present experience",
@@ -764,9 +1006,9 @@ def build():
     s["cite"] = "Joyce and Sills, 2014   |   Brownell, 2010"
     S.append(s)
 
-    # ===================================================================== 13 techniques
-    s = slide(13)
-    els, y = chrome("Practice", "Gestalt Therapeutic Techniques", 13,
+    # ===================================================================== 20 techniques
+    s = slide(20)
+    els, y = chrome("Practice", "Gestalt Therapeutic Techniques", 20,
                     lead="Nine experiments that turn talking into experiencing.", lead_w=1100)
     s["els"] += els
     tech = ["Empty chair technique", "Two chair dialogue", "Exaggeration", "Staying with the feeling",
@@ -784,9 +1026,9 @@ def build():
     s["cite"] = "Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 14 empty chair
-    s = slide(14)
-    els, y = chrome("Practice", "Empty Chair Technique", 14,
+    # ===================================================================== 21 empty chair
+    s = slide(21)
+    els, y = chrome("Practice", "Empty Chair Technique", 21,
                     lead="Speaking to the person who is not in the room.")
     s["els"] += els
     e, y1 = bullet_list(MARGIN, y, 780,
@@ -819,9 +1061,9 @@ def build():
     s["cite"] = "Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 15 other techniques
-    s = slide(15)
-    els, y = chrome("Practice", "Other Experiential Techniques", 15, lead="What each experiment is for.")
+    # ===================================================================== 22 other techniques
+    s = slide(22)
+    els, y = chrome("Practice", "Other Experiential Techniques", 22, lead="What each experiment is for.")
     s["els"] += els
     tech = [("Two chair dialogue", "Explore opposing parts"),
             ("Exaggeration", "Increase awareness"),
@@ -841,9 +1083,9 @@ def build():
     s["cite"] = "Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 16 application
-    s = slide(16)
-    els, y = chrome("Practice", "Application in Counselling", 16,
+    # ===================================================================== 23 application
+    s = slide(23)
+    els, y = chrome("Practice", "Application in Counselling", 23,
                     lead="Gestalt therapy can be applied to the following areas.")
     s["els"] += els
     areas = ["Grief and loss", "Relationship difficulties", "Anxiety and emotional distress",
@@ -864,9 +1106,9 @@ def build():
     s["cite"] = "Brownell, 2010   |   Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 17 strengths
-    s = slide(17)
-    els, y = chrome("Evaluation", "Strengths of Gestalt Therapy", 17,
+    # ===================================================================== 24 strengths
+    s = slide(24)
+    els, y = chrome("Evaluation", "Strengths of Gestalt Therapy", 24,
                     lead="What this approach does particularly well.")
     s["els"] += els
     left = ["Promotes self awareness", "Focuses on lived experience",
@@ -881,9 +1123,9 @@ def build():
     s["els"] += e
     S.append(s)
 
-    # ===================================================================== 18 limitations
-    s = slide(18)
-    els, y = chrome("Evaluation", "Limitations and Criticisms", 18,
+    # ===================================================================== 25 limitations
+    s = slide(25)
+    els, y = chrome("Evaluation", "Limitations and Criticisms", 25,
                     lead="Honest considerations for careful practice.")
     s["els"] += els
     left = ["Some techniques may feel intense",
@@ -901,38 +1143,101 @@ def build():
     s["cite"] = "Corey, 2024   |   Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 19 case application
-    s = slide(19)
-    els, y = chrome("Evaluation", "Case Application", 19,
-                    lead="A 20 year old undergraduate student on a scholarship.", lead_w=1100)
+    # ===================================================================== 26 case study the story of Amina
+    s = slide(26)
+    els, y = chrome("Case Study", "The Story of Amina", 26,
+                    lead="A 32 year old administrative officer overwhelmed by workload.", lead_w=1180)
     s["els"] += els
-    cols = [("01", "PRESENTING CONCERNS",
-             ["Academic anxiety", "Fear of losing the scholarship",
-              "Fear of disappointing family", "Difficulty expressing emotions",
-              "Pressure to maintain high grades"]),
-            ("02", "GESTALT CONCEPTUALISATION",
-             ["Anxiety becomes figure", "Possible introjected expectations",
-              "Limited awareness of personal needs", "Interrupted contact"]),
-            ("03", "POSSIBLE INTERVENTIONS",
-             ["Here and now exploration", "Body awareness", "Staying with the feeling",
-              "\u201cI\u201d statements", "Exploring introjected beliefs"])]
-    for ci, (num, head, items_) in enumerate(cols):
-        x = MARGIN + ci * 474
-        s["els"] += [
-            t(x, y - 6, 300, [P(run(num, size=17, color="accent", font="display", bold=True))],
-              anim="fade", delay=0.4 + ci * 0.12),
-            t(x, y + 26, 440, [P(run(head, size=12.5, color="heading", font="mono", bold=True,
-                                     spacing=1.2), line=1.3)], anim="rise",
-              delay=0.48 + ci * 0.12),
-        ]
-        e, _ = bullet_list(x, y + 62, 430, items_, size=14.5, tick_size=23, gap=34, item_gap=15,
-                           anim_delay=0.6 + ci * 0.12, fill_to=780)
-        s["els"] += e
+    # left story narrative, right key quote and details
+    qx, qy = 860, y
+    s["els"] += [glow(qx - 30, y - 10, 560, 380, color="accent", alpha=0.12)]
+    e, h = block_text(qx, qy, 200, [P(run("\u201c", size=68, color="accent", font="display", bold=True), line=0.78)], anim="fade", delay=0.6)
+    s["els"] += e
+    qy += h + 4
+    e, h = block_text(qx + 10, qy, 520,
+                      [P(run("A good employee should never disappoint the people who depend on her.", size=18, color="text", font="display", italic=True), line=1.34)],
+                      anim="rise", delay=0.7)
+    s["els"] += e
+    qy += h + 14
+    s["els"] += block_text(qx + 10, qy, 520, [P(run("AMINA'S OWN WORDS", size=10.5, color="dim", font="mono", bold=True, spacing=2.6))], anim="fade", delay=0.85)[0]
+    qy += 26
+    s["els"] += block_text(qx + 10, qy, 520,
+                           [P(run("Supervisor frequently assigns additional duties, she usually accepts "
+                                  "even when she has insufficient time.", size=13, color="muted"), line=1.32)], anim="fade", delay=0.9)[0]
+    # left bullets - presenting concerns story
+    e, _ = bullet_list(MARGIN, y, 700,
+                       ["Amina, 32, administrative officer seeks counselling for feeling overwhelmed",
+                        "Supervisor frequently assigns additional duties, she accepts even when time is insufficient",
+                        "Fears that refusing will make her appear irresponsible or uncooperative",
+                        "Reports frequent muscle tension, difficulty sleeping and frustration rarely expressed openly",
+                        "When discussing anger she laughs and quickly changes the subject",
+                        "Criticises herself for feeling tired, believes she should be able to manage everything"],
+                       size=14.5, item_gap=16, anim_delay=0.5, fill_to=780)
+    s["els"] += e
+    s["cite"] = "Case adapted from Gestalt Therapy Group Work, MCP504"
     S.append(s)
 
-    # ===================================================================== 20 critical evaluation
-    s = slide(20)
-    els, y = chrome("Evaluation", "Critical Evaluation", 20,
+    # ===================================================================== 27 case formulation
+    s = slide(27)
+    els, y = chrome("Case Study", "Gestalt Formulation", 27,
+                    lead="Reading Amina's experience as an interconnected whole.", lead_w=1180)
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "THROUGH THE GESTALT LENS", delay=0.5)[0]
+    left = ["Awareness and here and now: bodily tension, anxiety, anger and self critical thoughts "
+            "when anticipating disappointing others",
+            "Introjection: belief that a good employee must never disappoint, an internalised rule not fully examined",
+            "Retroflection: directs frustration inward as self criticism rather than exploring workload concerns"]
+    right = ["Deflection: laughter and rapid subject changes when discussing anger, difficulty staying with emotion",
+             "Organismic self regulation: fatigue and tension signal needs for rest and manageable demands not being met",
+             "Field theory: workplace expectations, power differences, job security and organisational culture"]
+    e, y1 = bullet_list(MARGIN, y + 28, 600, left, size=14, item_gap=16, anim_delay=0.6, fill_to=720)
+    s["els"] += e
+    steps = [el["y"] for el in e if el["k"] == "text"]
+    e, y2 = bullet_list(MARGIN + 700, y + 28, 620, right, size=14, item_gap=16, anim_delay=0.85, ys=steps)
+    s["els"] += e
+    s["els"] += [t(MARGIN, max(y1, y2) + 32, 1240,
+                   [P(run("Amina's difficulty cannot be understood solely as an individual problem, "
+                          "the field matters as much as the person.", size=12, color="accent", font="mono", bold=True), line=1.32)],
+                   anim="fade", delay=1.2)]
+    s["cite"] = "Perls et al., 1951   |   Woldt and Toman, 2005   |   Brownell, 2010"
+    S.append(s)
+
+    # ===================================================================== 28 case interventions and outcomes
+    s = slide(28)
+    els, y = chrome("Case Study", "Goals, Interventions and Outcomes", 28,
+                    lead="From awareness to deliberate choice, with attention to workplace realities.")
+    s["els"] += els
+    s["els"] += block_label(MARGIN, y, "THERAPEUTIC GOALS", delay=0.5)[0]
+    e, y1 = bullet_list(MARGIN, y + 28, 600,
+                        ["Help Amina recognise emotional and bodily responses",
+                         "Examine the rule that she must never disappoint others",
+                         "Identify realistic choices for responding to workplace demands"],
+                        size=13.5, item_gap=12, anim_delay=0.6)
+    s["els"] += e
+    s["els"] += block_label(MARGIN + 700, y, "INTERVENTIONS", delay=0.7)[0]
+    e, y2 = bullet_list(MARGIN + 700, y + 28, 620,
+                        ["Body awareness: \u201cWhat happens in your body when you imagine telling "
+                         "your supervisor you cannot take another assignment?\u201d",
+                         "Explore belief: \u201cWhat does responsibility mean to you?\u201d",
+                         "Two chair exercise if willing: part demanding constant performance "
+                         "versus part needing rest and fairness",
+                         "Practical planning: prioritise tasks, clarify deadlines, discuss capacity"],
+                        size=13.5, item_gap=12, anim_delay=0.85)
+    s["els"] += e
+    yy = max(y1, y2) + 24
+    s["els"] += block_label(MARGIN, yy, "EXPECTED OUTCOMES", delay=1.2)[0]
+    e, _ = bullet_list(MARGIN, yy + 24, 1240,
+                       ["Greater ability to recognise needs and evaluate internalised expectations",
+                        "Deliberate decisions based on responsibilities, limits and workplace conditions",
+                        "Shows how Gestalt integrates awareness, contact patterns, self regulation and field"],
+                       size=13.5, item_gap=11, anim_delay=1.3)
+    s["els"] += e
+    s["cite"] = "Joyce and Sills, 2014   |   Brownell, 2010"
+    S.append(s)
+
+    # ===================================================================== 29 critical evaluation
+    s = slide(29)
+    els, y = chrome("Evaluation", "Critical Evaluation", 29,
                     lead="What the theory contributes and what it asks of the therapist.")
     s["els"] += els
     s["els"] += block_label(MARGIN, y, "CONTRIBUTIONS", delay=0.45)[0]
@@ -953,9 +1258,9 @@ def build():
     s["els"] += e
     S.append(s)
 
-    # ===================================================================== 21 conclusion
-    s = slide(21)
-    els, y = chrome("Closing", "Conclusion", 21,
+    # ===================================================================== 30 conclusion
+    s = slide(30)
+    els, y = chrome("Closing", "Conclusion", 30,
                     lead="Greater awareness creates greater possibilities for choice and change.",
                     lead_w=1180)
     s["els"] += els
@@ -980,9 +1285,9 @@ def build():
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
 
-    # ===================================================================== 22 references
-    s = slide(22)
-    els, y = chrome("Closing", "References", 22)
+    # ===================================================================== 31 references
+    s = slide(31)
+    els, y = chrome("Closing", "References", 31)
     s["els"] += els
     refs = ["Brownell, P. (2010). Gestalt therapy: A guide to contemporary practice. Springer.",
             "Corey, G. (2024). Theory and practice of counseling and psychotherapy (11th ed.). Cengage.",

@@ -121,12 +121,66 @@
  },
  "21": {
   "bg": "bg21.jpg",
-  "family": "blue",
+  "family": "light",
   "accent": "#4595C2",
   "photo": "empty_chair.jpg"
  },
  "22": {
   "bg": "bg22.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
+ },
+ "23": {
+  "bg": "bg23.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
+ },
+ "24": {
+  "bg": "bg24.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
+ },
+ "25": {
+  "bg": "bg25.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
+ },
+ "26": {
+  "bg": "bg26.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
+ },
+ "27": {
+  "bg": "bg27.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
+ },
+ "28": {
+  "bg": "bg28.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "conversation.jpg"
+ },
+ "29": {
+  "bg": "bg29.jpg",
+  "family": "light",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
+ },
+ "30": {
+  "bg": "bg30.jpg",
+  "family": "blue",
+  "accent": "#4595C2",
+  "photo": "empty_chair.jpg"
+ },
+ "31": {
+  "bg": "bg31.jpg",
   "family": "light",
   "accent": "#4595C2",
   "photo": "conversation.jpg"

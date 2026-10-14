@@ -1,6 +1,6 @@
 # Gestalt Theory and Its Application to Counselling
 
-A 22 slide presentation for Group 4, MCP504 Theories of Counseling and Psychotherapy,
+A 31 slide presentation for Group 4, MCP504 Theories of Counseling and Psychotherapy,
 Pan African Christian University. Lecturer, Dr. Lucy Gachenia.
 
 | File | What it is |
@@ -54,19 +54,28 @@ Pan African Christian University. Lecturer, Dr. Lucy Gachenia.
 | 07 | The here and now | light |
 | 08 | Figure and ground | light |
 | 09 | Contact and the contact boundary | light |
-| 10 | Unfinished business | light |
-| 11 | Personal responsibility | light |
-| 12 | Role of the Gestalt counsellor | light |
-| 13 | Gestalt therapeutic techniques | light |
-| 14 | Empty chair technique | light |
-| 15 | Other experiential techniques | light |
-| 16 | Application in counselling | light |
-| 17 | Strengths of Gestalt therapy | light |
-| 18 | Limitations and criticisms | light |
-| 19 | Case application | light |
-| 20 | Critical evaluation | light |
-| 21 | Conclusion | blue |
-| 22 | References | light |
+| 10 | Contact boundary disturbances, overview | light |
+| 11 | Introjection, accepting beliefs without examining | light |
+| 12 | Projection, attributing own experience to others | light |
+| 13 | Retroflection, turning outward response inward | light |
+| 14 | Deflection, avoiding direct contact | light |
+| 15 | Confluence, difficulty distinguishing self from others | light |
+| 16 | Comparison and clinical significance | light |
+| 17 | Unfinished business | light |
+| 18 | Personal responsibility | light |
+| 19 | Role of the Gestalt counsellor | light |
+| 20 | Gestalt therapeutic techniques | light |
+| 21 | Empty chair technique | light |
+| 22 | Other experiential techniques | light |
+| 23 | Application in counselling | light |
+| 24 | Strengths of Gestalt therapy | light |
+| 25 | Limitations and criticisms | light |
+| 26 | Case study, the story of Amina | light |
+| 27 | Case study, Gestalt formulation | light |
+| 28 | Case study, goals interventions and outcomes | light |
+| 29 | Critical evaluation | light |
+| 30 | Conclusion | blue |
+| 31 | References | light |
 
 ## Rebuilding
 
