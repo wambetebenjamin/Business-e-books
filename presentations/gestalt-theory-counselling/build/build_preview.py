@@ -85,7 +85,7 @@ def main():
   Pan African Christian University. Lecturer, Dr. Lucy Gachenia.</p>
 </header>
 <p class="bar">
-  <a class="download" href="{deck}">Download the PowerPoint
+  <a class="download" href="download" download>Download the PowerPoint
     <span>the editable file, with the entrance animations and the embedded fonts</span></a>
 </p>
 <div class="grid">
