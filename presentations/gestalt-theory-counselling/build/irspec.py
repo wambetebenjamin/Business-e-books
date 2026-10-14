@@ -36,7 +36,7 @@ SCALE_TYPE = 1.62                       # Raleway, headings and figures
 BODY_SCALE = 0.86                       # Poppins, running text and labels
 SCALE_BY_FONT = {"sans": SCALE_TYPE * BODY_SCALE, "display": SCALE_TYPE,
                  "mono": SCALE_TYPE * BODY_SCALE}
-MARK_SCALE = 1.30      # ticks and their gaps grow more slowly than the type
+MARK_SCALE = 1.00      # ticks sit a touch smaller than the cap height, not larger
 
 MARGIN = 104.0
 MIN_PT = 10.5           # nothing in the deck sets smaller than this
@@ -102,7 +102,7 @@ def t(x, y, w, paras, align="l", anchor="t", anim="fade", delay=0.0, name=None, 
                 anim=anim, delay=delay, name=name, line=line)
 
 
-def tick(x, y, size=26, color="gold", anim="pop", delay=0.0, name=None, kind="tick"):
+def tick(x, y, size=18, color="gold", anim="pop", delay=0.0, name=None, kind="tick"):
     size = size * MARK_SCALE
     return dict(k=kind, x=x, y=y, w=size, h=size, color=color, anim=anim, delay=delay, name=name)
 
@@ -193,7 +193,7 @@ def block_label(x, y, s, color="accent", size=12, delay=0.0, align="l", w=760):
               align=align, anim="fade", delay=delay)], line_height(size, 1.4)
 
 
-def item(x, y, w, s, size=15.5, color="text", tick_color="gold", tick_size=25, gap=34,
+def item(x, y, w, s, size=15.5, color="text", tick_color="gold", tick_size=16, gap=28,
          bold=False, font="sans", italic=False, anim="fade", delay=0.0, tally=None):
     """One 3D tick plus its line of text. Returns (elements, item height)."""
     gap = gap * SCALE_TYPE
@@ -208,8 +208,8 @@ def item(x, y, w, s, size=15.5, color="text", tick_color="gold", tick_size=25, g
     return els, h
 
 
-def bullet_list(x, y, w, items, size=15.5, color="text", tick_color="gold", tick_size=25,
-                gap=34, item_gap=18, anim_delay=0.0, palette=None, font="sans", bold=False,
+def bullet_list(x, y, w, items, size=15.5, color="text", tick_color="gold", tick_size=16,
+                gap=28, item_gap=18, anim_delay=0.0, palette=None, font="sans", bold=False,
                 fill_to=None, ys=None):
     """A vertical list where every line carries its own tick.
 
@@ -242,7 +242,7 @@ def bullet_list(x, y, w, items, size=15.5, color="text", tick_color="gold", tick
     return els, yy - item_gap
 
 
-def contrast_pair(x, y, w, quote, caption, tick_size=30, mark="tick", color="text",
+def contrast_pair(x, y, w, quote, caption, tick_size=18, mark="tick", color="text",
                   tick_color="gold", delay=0.0, size=18):
     """A 3D mark, a quoted line and its small caption, stacked by measurement."""
     qp = [P(run(quote, size=size, color=color, font="display", italic=True), line=1.30)]
@@ -450,7 +450,7 @@ def build():
     s["els"] += e
     y += h + 30
     s["els"] += [
-        tick(MARGIN, y, size=30, color=tk, anim="pop", delay=0.76),
+        tick(MARGIN, y, size=18, color=tk, anim="pop", delay=0.76),
         t(MARGIN + 50, y + 9, 500, [P(run("PRESENTED BY", size=10.5, color="dim", font="mono",
                                           bold=True, spacing=2.6))], anim="fade", delay=0.80),
     ]
@@ -459,7 +459,7 @@ def build():
                                    ("Cynthia Cherono", "MACP/35785/4/26"),
                                    ("Yvonne Juliet Awuor", "MALD/36547/4/26")]):
         s["els"] += [
-            tick(MARGIN, y + 5, size=25, color=tk, anim="pop", delay=0.94 + i * 0.14),
+            tick(MARGIN, y + 5, size=15, color=tk, anim="pop", delay=0.94 + i * 0.14),
             t(MARGIN + 44, y, 430, [P(run(nm, size=16, color="text", bold=True))], anim="fade",
               delay=1.0 + i * 0.14),
             t(MARGIN + 458, y + 3, 300, [P(run(reg, size=11, color="muted", font="mono"))],
@@ -495,7 +495,7 @@ def build():
                           "Understands individuals within their environment and relationships",
                           "Encourages personal responsibility, choice and authentic living",
                           "Focuses on the client's experience in the here and now"],
-                         size=17, gap=36, tick_size=26, item_gap=26, anim_delay=0.5, fill_to=760)
+                         size=17, gap=26, tick_size=16, item_gap=26, anim_delay=0.5, fill_to=760)
     s["els"] += els
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
@@ -521,7 +521,7 @@ def build():
             break
         h = 0
         for i, src in enumerate(rowitems):
-            e, hh = item(MARGIN + i * 400, yy, 380, src, size=15, tick_size=23, gap=32,
+            e, hh = item(MARGIN + i * 400, yy, 380, src, size=15, tick_size=14, gap=22,
                          delay=1.0 + (row * 3 + i) * 0.1)
             s["els"] += e
             h = max(h, hh)
@@ -557,7 +557,7 @@ def build():
             t(x + 178, y + 104, 296, [P(run(role, size=15, color="muted", bold=True), line=1.3)],
               anim="fade", delay=0.7 + i * 0.16),
         ]
-        e, _ = item(x, y + 250, 440, note, size=16, color="text", tick_size=26, gap=36,
+        e, _ = item(x, y + 250, 440, note, size=16, color="text", tick_size=16, gap=26,
                     delay=0.78 + i * 0.16)
         s["els"] += e
     s["stretch"] = False               # each column reads as one object
@@ -591,17 +591,17 @@ def build():
     s["els"] += block_label(MARGIN, y, "NOTICING", delay=0.5)[0]
     notes = ["Thoughts", "Feelings", "Bodily sensations", "Behaviour", "Needs"]
     for i, n in enumerate(notes):
-        e, _ = item(MARGIN + i * 238, y + 34, 220, n, size=15, tick_size=23, gap=32,
+        e, _ = item(MARGIN + i * 238, y + 34, 220, n, size=15, tick_size=14, gap=22,
                     delay=0.58 + i * 0.1)
         s["els"] += e
     s["els"] += block_label(MARGIN, y + 106, "THE PROCESS", delay=1.2)[0]
     yy = y + 140
     e, h = item(MARGIN, yy, 1200, "Focuses on present experience", size=16.5,
-                tick_size=26, delay=1.28)
+                tick_size=16, delay=1.28)
     s["els"] += e
     yy += h + 18
     e, h = item(MARGIN, yy, 1200, "Creates opportunities for choice and change", size=16.5,
-                tick_size=26, delay=1.38)
+                tick_size=16, delay=1.38)
     s["els"] += e
     yy += h + 44
     s["els"] += chain(MARGIN + 14, yy, ["Awareness", "Choice", "Change"], gapx=228, size=20,
@@ -627,7 +627,7 @@ def build():
     s["els"] += e
     e, _ = item(MARGIN, max(y1, y2) + 44, 1250,
                 "Encourages direct experience rather than excessive intellectual analysis",
-                size=17, tick_size=27, delay=1.4)
+                size=17, tick_size=16, delay=1.4)
     s["els"] += e
     s["cite"] = "Perls et al., 1951   |   Brownell, 2010"
     S.append(s)
@@ -717,7 +717,7 @@ def build():
     patterns = ["Introjection", "Projection", "Retroflection", "Deflection", "Confluence"]
     for i, pat in enumerate(patterns):
         e, hh = item(MARGIN + (i % 3) * 450, yy + (i // 3) * 46, 420, pat, size=15, bold=True,
-                     tick_size=23, gap=34, delay=1.2 + i * 0.1)
+                     tick_size=14, gap=24, delay=1.2 + i * 0.1)
         s["els"] += e
     s["els"] += chain(MARGIN, yy + 124, ["Experience", "Boundary", "Meaningful contact"],
                       gapx=320, size=16, anim_delay=1.8)
@@ -920,9 +920,9 @@ def build():
     comp_right = ["Deflection: Avoiding direct engagement, joking whenever painful feelings arise",
                   "Confluence: Losing clarity about own needs, \u201cWhatever you want is what I want\u201d",
                   "Overlap is common, patterns are best used as exploratory frameworks not fixed labels"]
-    e, y1 = bullet_list(MARGIN, y + 28, 600, comp_left, size=13.5, item_gap=14, anim_delay=0.6, tick_size=22, gap=32)
+    e, y1 = bullet_list(MARGIN, y + 28, 600, comp_left, size=13.5, item_gap=14, anim_delay=0.6, tick_size=13, gap=22)
     s["els"] += e
-    e, y2 = bullet_list(MARGIN + 700, y + 28, 620, comp_right, size=13.5, item_gap=14, anim_delay=0.8, tick_size=22, gap=32)
+    e, y2 = bullet_list(MARGIN + 700, y + 28, 620, comp_right, size=13.5, item_gap=14, anim_delay=0.8, tick_size=13, gap=22)
     s["els"] += e
     yy = max(y1, y2) + 28
     s["els"] += block_label(MARGIN, yy, "CLINICAL SIGNIFICANCE", delay=1.2)[0]
@@ -943,7 +943,7 @@ def build():
     s["els"] += block_label(MARGIN, y, "MAY INCLUDE", delay=0.5)[0]
     feels = ["Grief", "Anger", "Guilt", "Resentment", "Unmet needs"]
     for i, f in enumerate(feels):
-        e, _ = item(MARGIN + i * 238, y + 36, 220, f, size=15.5, tick_size=23, gap=32,
+        e, _ = item(MARGIN + i * 238, y + 36, 220, f, size=15.5, tick_size=14, gap=22,
                     delay=0.58 + i * 0.1)
         s["els"] += e
     e, _ = bullet_list(MARGIN, y + 116, 1200,
@@ -1018,7 +1018,7 @@ def build():
         h = 0
         for col in range(3):
             i = row * 3 + col
-            e, hh = item(MARGIN + col * 470, y, 430, tech[i], size=16, tick_size=25, gap=34,
+            e, hh = item(MARGIN + col * 470, y, 430, tech[i], size=16, tick_size=15, gap=24,
                          delay=0.45 + i * 0.09)
             s["els"] += e
             h = max(h, hh)
@@ -1073,10 +1073,10 @@ def build():
             ("Dream work", "Explore present meaning")]
     yy = y
     for i, (name, purpose) in enumerate(tech):
-        e, h1 = item(MARGIN, yy, 520, name, size=16, bold=True, tick_size=25, gap=40,
+        e, h1 = item(MARGIN, yy, 520, name, size=16, bold=True, tick_size=15, gap=26,
                      delay=0.45 + i * 0.1)
         s["els"] += e
-        e, h2 = item(MARGIN + 700, yy, 560, purpose, size=16, color="muted", tick_size=25, gap=40,
+        e, h2 = item(MARGIN + 700, yy, 560, purpose, size=16, color="muted", tick_size=15, gap=26,
                      delay=0.5 + i * 0.1)
         s["els"] += e
         yy += max(h1, h2) + 22
@@ -1095,7 +1095,7 @@ def build():
         h = 0
         for col in range(2):
             i = row * 2 + col
-            e, hh = item(MARGIN + col * 620, y, 580, areas[i], size=16, tick_size=25, gap=34,
+            e, hh = item(MARGIN + col * 620, y, 580, areas[i], size=16, tick_size=15, gap=24,
                          delay=0.45 + i * 0.09)
             s["els"] += e
             h = max(h, hh)
@@ -1269,7 +1269,7 @@ def build():
     for i, (word, size) in enumerate([("Awareness", 21), ("Here and now", 21), ("Contact", 21),
                                       ("Responsibility and choice", 21), ("Growth", 25)]):
         last = size == 25
-        ts = 34 if last else 26
+        ts = 20 if last else 15
         e, h = block_text(MARGIN + 54, yy, 700,
                           [P(run(word.upper(), size=size, color="heading", font="display",
                                  bold=True), line=1.25)], anim="rise", delay=0.52 + i * 0.16)
@@ -1298,7 +1298,7 @@ def build():
             "Yontef, G., and Fuhr, R. (2005). Gestalt therapy theory of change. In Woldt and Toman "
             "(Eds.), Gestalt therapy: History, theory, and practice (pp. 81 to 100). SAGE."]
     e, _ = bullet_list(MARGIN, y - 10, 1240, refs, size=13.5, color="muted", item_gap=13,
-                       anim_delay=0.4, tick_size=22, gap=32, fill_to=790)
+                       anim_delay=0.4, tick_size=13, gap=22, fill_to=790)
     s["els"] += e
     S.append(s)
 

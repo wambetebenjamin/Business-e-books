@@ -113,6 +113,35 @@ def timing_xml(shape_id, kind, delay):
            nid(), shape_id, nid(), dur, shape_id, extra))
 
 
+def install_transition(slide, kind="fade"):
+    """Premium slide transition, inserted before the timing tree. Light theme stays clean, the
+    motion is soft and short so it feels premium without shouting."""
+    NS_P = "http://schemas.openxmlformats.org/presentationml/2006/main"
+    # spd med/slow keeps it calm on light backgrounds
+    trans = etree.Element("{%s}transition" % NS_P, attrib={"spd": "slow", "advOnClk": "1", "advTm": "0"})
+    # choose a subtle effect per section: fade for most pages, push for section openers
+    if kind == "push":
+        etree.SubElement(trans, "{%s}push" % NS_P, attrib={"thruBlk": "0", "dir": "r"})
+    elif kind == "wipe":
+        etree.SubElement(trans, "{%s}wipe" % NS_P, attrib={"dir": "l"})
+    elif kind == "cover":
+        etree.SubElement(trans, "{%s}cover" % NS_P, attrib={"dir": "r"})
+    elif kind == "split":
+        etree.SubElement(trans, "{%s}split" % NS_P, attrib={"orient": "vert"})
+    else:  # fade
+        etree.SubElement(trans, "{%s}fade" % NS_P, attrib={"thruBlk": "1"})
+    # must follow <p:cSld> and precede <p:timing>. Insert after cSld for valid order
+    # find cSld position and insert just after it
+    inserted=False
+    for idx, child in enumerate(list(slide._element)):
+        if child.tag.endswith('}cSld'):
+            slide._element.insert(idx+1, trans)
+            inserted=True
+            break
+    if not inserted:
+        slide._element.append(trans)
+
+
 def install_timing(slide, animated):
     """animated: list of (shape_id, kind, delay). Writes the slide timing tree."""
     if not animated:
@@ -211,6 +240,19 @@ def build_pptx():
     for sl in slides:
         slide = prs.slides.add_slide(blank)
         palette = sl["palette"]
+        # premium light-theme transition: soft fade everywhere, a gentle push at each new section
+        # helps the eye feel the content grouping without leaving light
+        section_openers = {1, 2, 6, 10, 17, 20, 24, 26, 29, 30}
+        if sl["n"] in section_openers:
+            tkind = "push" if sl["n"] not in (1, 30) else "fade"
+        elif sl["n"] % 5 == 0:
+            tkind = "wipe"
+        else:
+            tkind = "fade"
+        # cover and conclusion stay on fade so the blue field blooms softly
+        if palette == "blue":
+            tkind = "fade"
+        install_transition(slide, tkind)
         # 1. background
         bg_path = os.path.join(RC.ASSETS, sl["bg"])
         slide.shapes.add_picture(bg_path, 0, 0, emu(S.STAGE_W), emu(S.STAGE_H))
