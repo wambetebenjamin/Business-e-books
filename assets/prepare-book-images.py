@@ -1,80 +1,83 @@
 #!/usr/bin/env python3
-"""Prepares the booklet photography.
-
-Every source photo is Pexels-licensed (free for commercial use, no attribution
-required, no watermark). The script crops each photo to the exact aspect ratio
-of the frame it will fill in the layout and applies a light 'full of life'
-colour grade (saturation / contrast / crispness).
-
-Run from the repository root:  python3 assets/prepare-book-images.py
 """
+Prepare the photography for the Treasure Tuesday booklet.
+
+Everything here is deliberately conservative about resolution: a panel is only
+ever as large as its pixels allow, so nothing in the book is upscaled and
+nothing prints soft.  Sources are Pexels images (free to use, no attribution
+required, no watermark: https://www.pexels.com/license/).
+
+  python3 assets/prepare-book-images.py
+
+writes assets/img/<name>.jpg plus assets/img/manifest.json (pixel sizes, which
+the generator uses to size every photo box).
+"""
+import json
 import os
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import Image, ImageFilter, ImageOps
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, os.pardir, "image-search")
-OUT = os.path.join(HERE, "img")
-os.makedirs(OUT, exist_ok=True)
+REPO = os.path.dirname(HERE)
+SRC = os.path.join(REPO, 'image-search')
+OUT = os.path.join(HERE, 'img')
 
-# (source file in ../image-search, output name, frame width pt, frame height pt)
-JOBS = [
-    ("pexels-worship-hands-raised-colorful-sta-1.jpg", "cover.jpg", 406.2, 350.0),      # cover hero
-    ("pexels-young-people-friends-laughing-gro-5.jpg", "community.jpg", 406.2, 256.8),   # p2
-    ("pexels-open-bible-holy-scripture-reading-2.jpg", "scripture.jpg", 406.2, 232.0),   # p4
-    ("pexels-two-people-talking-reconciliation-1.jpg", "balance.jpg", 406.2, 232.0),     # p6
-    ("pexels-african-church-choir-singers-wors-1.jpg", "grace.jpg", 406.2, 350.0),       # p7 (cover-style)
-    ("pexels-nairobi-kenya-city-skyline-street-4.jpg", "nairobi.jpg", 406.2, 256.8),     # p8
-    ("pexels-african-church-choir-singers-wors-4.jpg", "reflect.jpg", 406.2, 232.0),     # p9
-    ("pexels-young-african-man-smiling-portrai-1.jpg", "welcome.jpg", 406.2, 256.3),     # back cover
-]
-
-# Pexels photo ids -> licence: https://www.pexels.com/license/
-SOURCES = {
-    "cover.jpg": "pexels.com/photo/36117935",
-    "community.jpg": "pexels.com/photo/8380098",
-    "scripture.jpg": "pexels.com/photo/13172072",
-    "balance.jpg": "pexels.com/photo/7841796",
-    "grace.jpg": "pexels.com/photo/7520074",
-    "nairobi.jpg": "pexels.com/photo/4242550",
-    "reflect.jpg": "pexels.com/photo/7520351",
-    "welcome.jpg": "pexels.com/photo/19518397",
+# name -> source file (relative to the repo). Cropped to 2:3 if needed.
+NEW = {
+    'choir.jpg':     'image-search/pexels-african-church-youth-worship-band-1.jpg',
+    'worship.jpg':   'image-search/pexels-african-church-youth-worship-band-4.jpg',
+    'gathering.jpg': 'image-search/pexels-african-church-youth-worship-band-5.jpg',
 }
+PORTRAIT_AR = 2 / 3
 
 
-def grade(im):
-    im = ImageEnhance.Color(im).enhance(1.18)      # full of colour
-    im = ImageEnhance.Contrast(im).enhance(1.07)
-    im = ImageEnhance.Brightness(im).enhance(1.03)
-    return im.filter(ImageFilter.UnsharpMask(radius=1.3, percent=45, threshold=3))
-
-
-for src, dst, fw, fh in JOBS:
-    path = os.path.join(SRC, src)
-    if not os.path.exists(path):
-        print("!! missing", src)
-        continue
-    im = Image.open(path).convert("RGB")
-    want, w, h = fw / fh, *im.size
-    if w / h > want:                                   # too wide -> trim sides
-        nw = int(round(h * want))
+def crop_to(im, ar):
+    """Centre-crop to an aspect ratio (w/h), keeping every available pixel."""
+    w, h = im.size
+    if abs(w / h - ar) < 0.01:
+        return im
+    if w / h > ar:                      # too wide
+        nw = int(round(h * ar))
         x = (w - nw) // 2
-        im = im.crop((x, 0, x + nw, h))
-    else:                                              # too tall -> keep optical centre
-        nh = int(round(w / want))
-        y = int(round((h - nh) * 0.42))
-        im = im.crop((0, y, w, y + nh))
-    im = grade(im)
-    im.save(os.path.join(OUT, dst), quality=92, optimize=True)
-    print(f"{dst:14s} {im.size[0]}x{im.size[1]}  ar={im.size[0]/im.size[1]:.3f}  <- {SOURCES[dst]}")
+        return im.crop((x, 0, x + nw, h))
+    nh = int(round(w / ar))             # too tall
+    y = (h - nh) // 3                   # bias upward: faces sit high in frame
+    return im.crop((0, y, w, y + nh))
 
-with open(os.path.join(HERE, "README.md"), "w") as f:
-    f.write(
-        "# Booklet assets\n\n"
-        "- `fonts/` — Droid Serif (Apache-2.0), the typeface used by the `topic book.pdf` template.\n"
-        "- `img/` — photography cropped to the layout frames. All images are Pexels-licensed: "
-        "free to use, no attribution required, no watermark (https://www.pexels.com/license/).\n\n"
-        "| file | source |\n|---|---|\n"
-        + "\n".join(f"| `{k}` | {v} |" for k, v in SOURCES.items())
-        + "\n\nRegenerate with `python3 assets/prepare-book-images.py`.\n"
-    )
-print("done")
+
+def finish(im, path, quality=95):
+    """Gentle grade + unsharp, then a high quality save (no resampling)."""
+    im = ImageOps.autocontrast(im, cutoff=0.5)
+    im = im.filter(ImageFilter.UnsharpMask(radius=1.6, percent=78, threshold=2))
+    im.save(path, 'JPEG', quality=quality, subsampling=0, optimize=True)
+    return im.size
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    sizes = {}
+
+    for name, rel in NEW.items():
+        src = os.path.join(REPO, rel)
+        if not os.path.exists(src):
+            print(f'skip {name}: {rel} missing')
+            continue
+        im = crop_to(Image.open(src).convert('RGB'), PORTRAIT_AR)
+        w, h = finish(im, os.path.join(OUT, name))
+        print(f'{name:16s} {w}x{h}  <- {rel}')
+        sizes[name] = (w, h)
+
+    # keep the already prepared frames (they were cropped from Pexels originals)
+    for name in sorted(os.listdir(OUT)):
+        if not name.endswith('.jpg') or name in sizes:
+            continue
+        with Image.open(os.path.join(OUT, name)) as im:
+            sizes[name] = im.size
+            print(f'{name:16s} {im.size[0]}x{im.size[1]}  (kept)')
+
+    with open(os.path.join(OUT, 'manifest.json'), 'w') as f:
+        json.dump({k: {'w': v[0], 'h': v[1]} for k, v in sorted(sizes.items())}, f, indent=1)
+    print('\nwrote manifest.json with', len(sizes), 'entries')
+
+
+if __name__ == '__main__':
+    main()

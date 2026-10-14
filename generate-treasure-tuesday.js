@@ -1,11 +1,15 @@
 /*
- * CHRISCO Central Youth Nairobi — TREASURE TUESDAY SERIES
- * "Cancel Culture vs Grace Culture — creating a balance between them"
+ * CHRISCO Central Youth Nairobi. TREASURE TUESDAY SERIES
+ * "Cancel Culture vs Grace Culture. Creating a balance between them"
  * by Minister Naomi Njoki
  *
- * An A5 booklet that reproduces the geometry, type scale, frame insets and
- * iconography of the supplied Canva template (`topic book.pdf`, 419.25 x 595.5 pt,
- * Droid Serif) and re-casts its muted blue palette as a full-colour one.
+ * An A5 booklet (419.25 x 595.5 pt) that keeps the geometry of the supplied
+ * template `topic book.pdf`: the same frame insets, colour bands, 45 degree
+ * corner pennants, two column and six cell grids, tick lists and back cover.
+ *
+ * Typography is Playfair Display, Lora, Cormorant Garamond and Marcellus SC
+ * (SIL Open Font License). Photography is Pexels licensed, and every panel is
+ * sized from its own pixel count, so nothing in this book is enlarged.
  *
  * Build:  node generate-treasure-tuesday.js
  */
@@ -17,45 +21,64 @@ const OUT = path.join(__dirname, 'Cancel Culture vs Grace Culture - Treasure Tue
 const A = p => path.join(__dirname, 'assets', p);
 
 /* ============================== template geometry ============================== */
-const W = 419.25, H = 595.5;     // A5 portrait — the template's page box
-const FX = 6.7, FW = 405.85;     // outer frame: blocks inset 6.7pt, width 405.85
-const ML = 55.7, MR = 363.6;     // the template's text margins
-const CW = MR - ML;              // 307.9pt
-const C2 = 228.0;                // right column x (template's second column)
-const C2n = 223.6;               // column x used by the two-column pages
-const PHOTO_TOP = 175, PHOTO_BOT = 525;   // cover photo frame
-const PENN_W = 252, PENN_H = 168;         // decoration: 252x168 rect + 45deg point
+const W = 419.25, H = 595.5;             // A5 portrait, the template's page box
+const FX = 6.7, FW = 405.85;             // outer frame: inset 6.7pt, 405.85 wide
+const ML = 55.7, MR = 363.6;             // the template's text margins
+const CW = MR - ML;                      // 307.9pt
+const C2 = 228.0;                        // right column x (template's second column)
+const C2n = 223.6;                       // column x for the two column pages
+const HALF = (CW - 12) / 2;              // 147.95pt column
+const PENN_W = 252, PENN_H = 168;        // pennant body plus a 45 degree point
+const DPI = 190;                         // floor for effective photo resolution
 
-/* ================================ full-colour palette ========================== */
-const white = '#FFFFFF', paper = '#FFFFFF';
-const ink = '#31144A', body = '#5C5470', faint = '#A79FB4';
-const magenta = '#D81B6E', coral = '#FF5A36', orange = '#FF8A1E', gold = '#FFC42E';
-const teal = '#00A9A0', sky = '#2E9BD6', royal = '#2C4BD7', violet = '#7A2BC4';
-const plum = '#3D1170', lime = '#8CC63E', rose = '#F2528E', deep = '#111C44';
-const RAINBOW = [magenta, orange, teal, violet, rose, royal];
-const softPink = '#FDE9F3', softTeal = '#E6F7F5', softGold = '#FFF6DF', softLilac = '#F3EEFB';
+/* ================================ colour palette =============================== */
+const white = '#FFFFFF';
+const ink = '#2E1140', body = '#5A5169', faint = '#A79FB4';
+const magenta = '#D3136B', coral = '#FF5A36', orange = '#F08A0F', gold = '#F5B723';
+const teal = '#00A193', sky = '#2E9BD6', royal = '#2946C4', violet = '#7126BE';
+const plum = '#3A0F6B', lime = '#79C46B', rose = '#F0508E';
+const RAINBOW = [magenta, teal, orange, violet, rose, royal];
+const softPink = '#FCEAF3', softTeal = '#E4F5F3', softGold = '#FFF3D8', softLilac = '#F1ECFA';
+
+/* line height factor per face, from each font's hhea (ascender - descender) / upem */
+const LH = {
+  serif: 1.280, bold: 1.280, italic: 1.280, boldIt: 1.280,
+  display: 1.333, displayMed: 1.333, displayIt: 1.333,
+  quote: 1.211, quoteBold: 1.211, caps: 1.254,
+};
+const lh = f => LH[f] != null ? LH[f] : 1.28;
+
+/* house rule for this book: the copy contains no dashes and no mid dots */
+const DASH = /[—–‒―·•…\-]/;
+const DASH_ALL = /[—–‒―·•…\-]/g;
 
 const doc = new PDFDocument({
   size: [W, H], margin: 0,
   info: {
-    Title: 'Cancel Culture vs Grace Culture — Creating a Balance Between Them',
-    Author: 'Minister Naomi Njoki · CHRISCO Central Youth Nairobi',
-    Subject: 'Treasure Tuesday Series — CHRISCO Central Youth Nairobi',
+    Title: 'Cancel Culture vs Grace Culture. Creating a Balance Between Them',
+    Author: 'Minister Naomi Njoki, CHRISCO Central Youth Nairobi',
+    Subject: 'Treasure Tuesday Series, CHRISCO Central Youth Nairobi',
     Keywords: 'cancel culture, grace, accountability, restoration, youth fellowship, Nairobi'
   }
 });
 doc.pipe(fs.createWriteStream(OUT));
-doc.registerFont('serif', A('fonts/droid-serif-regular.ttf'));
-doc.registerFont('bold', A('fonts/droid-serif-bold.ttf'));
-doc.registerFont('italic', A('fonts/droid-serif-italic.ttf'));
-doc.registerFont('bolditalic', A('fonts/droid-serif-bolditalic.ttf'));
+const F = n => A('fonts/' + n);
+doc.registerFont('serif',      F('lora-400.ttf'));
+doc.registerFont('bold',       F('lora-600.ttf'));
+doc.registerFont('italic',     F('lora-it400.ttf'));
+doc.registerFont('boldIt',     F('lora-it500.ttf'));
+doc.registerFont('display',    F('playfair-700.ttf'));
+doc.registerFont('displayMed', F('playfair-500.ttf'));
+doc.registerFont('displayIt',  F('playfair-it500.ttf'));
+doc.registerFont('quote',      F('cormorant-it500.ttf'));
+doc.registerFont('quoteBold',  F('cormorant-500.ttf'));
+doc.registerFont('caps',       F('marcellussc.ttf'));
 
-const LH = 1.1714;                    // Droid Serif line height factor (hhea 1907/-492)
 let page = 0, warn = [];
 const newpage = () => { page++; if (page > 1) doc.addPage({ size: [W, H], margin: 0 }); };
 
-/* ---------------------------------- primitives --------------------------------- */
-/* colour: '#hex' or [from,to] (diagonal gradient) or a pre-built gradient object */
+/* ---------------------------------- primitives -------------------------------- */
+/* colour is '#hex' or [from,to] for a diagonal gradient, or a gradient object */
 const grad = (x0, y0, x1, y1, c0, c1) => {
   if (Array.isArray(c0)) { c1 = c0[1]; c0 = c0[0]; }
   return doc.linearGradient(x0, y0, x1, y1).stop(0, c0).stop(1, c1);
@@ -63,75 +86,142 @@ const grad = (x0, y0, x1, y1, c0, c1) => {
 const paint = (x, y, w, h, c) => Array.isArray(c) ? grad(x, y, x + w, y + h, c[0], c[1]) : c;
 const fillRect = (x, y, w, h, c) => doc.rect(x, y, w, h).fill(paint(x, y, w, h, c));
 const band = (y, h, c) => fillRect(FX, y, FW, h, c);
-const rule = (y, c = '#EAE3F2', wd = .7, x0 = ML, x1 = MR) =>
+const rule = (y, c = '#E7DFEF', wd = .7, x0 = ML, x1 = MR) =>
   doc.moveTo(x0, y).lineTo(x1, y).lineWidth(wd).strokeColor(c).stroke();
 const hairline = (y, c) => doc.rect(FX, y, FW, 2).fill(c);
-const photo = (f, x, y, w, h) => doc.image(A('img/' + f), x, y, { width: w, height: h });
+const veil = (x, y, w, h, a, c = white, r = 0) => {
+  doc.save(); doc.opacity(a);
+  r ? doc.roundedRect(x, y, w, h, r).fill(c) : doc.rect(x, y, w, h).fill(c);
+  doc.restore();
+};
 
-/* Canva "home-plate" decoration: tip point + 45° chamfers, body runs off the page */
+/** The template's "home plate" corner decoration: a bar with a 45 degree point. */
 function pennant(tipX, tipY, dir, bodyLen, h, c0, c1) {
   const e = h / 2, x0 = tipX + dir * e, x1 = x0 + dir * bodyLen;
   doc.save();
   doc.moveTo(tipX, tipY).lineTo(x0, tipY - e).lineTo(x1, tipY - e)
      .lineTo(x1, tipY + e).lineTo(x0, tipY + e).closePath().clip();
-  /* fill the whole bounding box and let the clip carve the point */
   const gx0 = Math.min(tipX, x0, x1), gx1 = Math.max(tipX, x0, x1);
-  doc.rect(gx0, tipY - e, gx1 - gx0, h)
-     .fill(grad(gx0, tipY - e, gx1, tipY + e, c0, c1));
+  doc.rect(gx0, tipY - e, gx1 - gx0, h).fill(grad(gx0, tipY - e, gx1, tipY + e, c0, c1));
   doc.restore();
 }
 
-/* -------------------------- text: measured, auto-fitting ---------------------- */
-/** Draw `str` at (x,y) inside `width`; shrink the type until it clears `maxY`. */
+/* --------------------------------- photography -------------------------------- */
+/** pixel sizes of the prepared photos, so a panel never exceeds its own pixels */
+const MAN = JSON.parse(fs.readFileSync(A('img/manifest.json'), 'utf8'));
+
+const USED = [];
+/** size in pt for `name` inside a box, capped so it stays at least DPI dpi */
+function boxFor(name, maxW, maxH) {
+  const m = MAN[name] || { w: 500, h: 333 }, ar = m.w / m.h;
+  let w = Math.min(maxW, m.w / DPI * 72), h = w / ar;
+  if (h > maxH) { h = maxH; w = h * ar; }
+  return { w, h, dpi: m.w / (w / 72) };
+}
+/** photo in a white keyline and a hairline frame, placed in a box */
+function panel(name, x, y, maxW, maxH, o = {}) {
+  const b = boxFor(name, maxW, maxH);
+  const px = o.align === 'right' ? x + maxW - b.w : o.align === 'left' ? x : x + (maxW - b.w) / 2;
+  const py = o.valign === 'top' ? y : y + (maxH - b.h) / 2;
+  const k = o.keyline != null ? o.keyline : 4.5;
+  if (k > 0) {
+    doc.rect(px - k, py - k, b.w + k * 2, b.h + k * 2).fill(o.keyFill || white);
+    if (o.frame !== false)
+      doc.rect(px - k, py - k, b.w + k * 2, b.h + k * 2).lineWidth(.7).strokeColor(o.frameColor || gold).stroke();
+  }
+  doc.image(A('img/' + name), px, py, { width: b.w, height: b.h });
+  USED.push({ name, w: +b.w.toFixed(0), h: +b.h.toFixed(0), dpi: Math.round(b.dpi) });
+  return { x: px, y: py, w: b.w, h: b.h, bottom: py + b.h, dpi: Math.round(b.dpi) };
+}
+/** full width photographic strip, height taken from the file's aspect ratio */
+function strip(name, y, o = {}) {
+  const m = MAN[name] || { w: 1000, h: 600 }, ar = m.w / m.h, h = FW / ar;
+  doc.image(A('img/' + name), FX, y, { width: FW, height: h });
+  if (o.edge) doc.rect(FX, y + h, FW, 2.2).fill(o.edge);
+  USED.push({ name, w: Math.round(FW), h: Math.round(h), dpi: Math.round(m.w / (FW / 72)) });
+  return { h, bottom: y + h, dpi: Math.round(m.w / (FW / 72)) };
+}
+
+/* ------------------------- text: measured, auto fitting ------------------------ */
+/** draw `str` at (x,y) inside `width`, shrinking the type until it clears `maxY` */
 function place(str, x, y, o = {}) {
-  const { width = CW, size = 9.7, min, font = 'serif', color = body,
+  const { width = CW, size = 9.6, min, font = 'serif', color = body,
           align = 'left', space = 0, maxY = 588, name = '' } = o;
-  const lead = o.lead != null ? o.lead : size * LH + Math.max(2.4, size * .36);
-  const ratio = lead / size, floor = min != null ? min : size * .74;
+  let text = String(str);
+  if (DASH.test(text)) warn.push(`dash in copy: ${name || text.slice(0, 24)}`);
+  text = text.replace(DASH_ALL, ' ');
+  const L = lh(font);
+  const lead = o.lead != null ? o.lead : size * L + Math.max(2.6, size * .40);
+  const ratio = lead / size, floor = min != null ? min : size * .78;
   const h = sz => { doc.font(font).fontSize(sz);
-    return doc.heightOfString(str, { width, characterSpacing: space, lineGap: sz * ratio - sz * LH }); };
+    return doc.heightOfString(text, { width, characterSpacing: space, lineGap: sz * ratio - sz * L }); };
   let s = size;
   while (y + h(s) > maxY + .6 && s > floor) s = Math.round((s - .2) * 10) / 10;
-  if (y + h(s) > maxY + .6) warn.push(`overflow: ${name || String(str).slice(0, 30)} (needs ${(y + h(s)).toFixed(0)}, limit ${maxY})`);
-  doc.font(font).fontSize(s).fillColor(str.__keep || color)
-     .text(str, x, y, { width, align, characterSpacing: space, lineGap: s * ratio - s * LH });
+  if (y + h(s) > maxY + .6) warn.push(`overflow: ${name || text.slice(0, 28)} (needs ${(y + h(s)).toFixed(0)}, limit ${maxY})`);
+  doc.font(font).fontSize(s).fillColor(color)
+     .text(text, x, y, { width, align, characterSpacing: space, lineGap: s * ratio - s * L });
   return doc.y;
 }
-/* right-aligned inside the text margins, like the template's cover title */
-const right = (str, y, o) => place(str, ML, y, { width: CW, align: 'right', ...o });
-
-/** height a string will occupy at a given size/lead */
+/** height a string would occupy at a given size and lead */
 function hOf(str, size, width, lead, font = 'serif', space = 0) {
   doc.font(font).fontSize(size);
-  return doc.heightOfString(str, { width, characterSpacing: space, lineGap: lead - size * LH });
+  return doc.heightOfString(String(str).replace(DASH_ALL, ' '),
+    { width, characterSpacing: space, lineGap: lead - size * lh(font) });
 }
-/** Pick the largest body size (then gap) that keeps N rows inside a band. */
-function solveRows(rows, startY, endY, { head = 11.7, width = 268, badge = 28 } = {}) {
-  const sizes = [9.4, 9.2, 9.0, 8.8, 8.6, 8.4, 8.2, 8.0], gaps = [15, 13, 11.5, 10, 8.5, 7, 5.5];
+const right = (str, y, o) => place(str, ML, y, { width: CW, align: 'right', ...o });
+/** largest body size (then gap) that keeps N rows of heading plus text in a band */
+function solveRows(rows, startY, endY, { head = 11.4, width = 268, badge = 27 } = {}) {
+  const sizes = [9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.4], gaps = [15, 13, 11.5, 10, 8.5, 7, 5.5];
   for (const b of sizes) for (const g of gaps) {
     let y = startY; const tops = [];
     for (const r of rows) {
-      const hh = hOf(r[0], head, width, head * 1.25, 'bold');
-      const bh = hOf(r[1], b, width, b * 1.35);
-      tops.push(y); y += Math.max(badge, hh + 3 + bh) + g;
+      const hh = hOf(r[0], head, width, head * 1.30, 'bold');
+      const bh = hOf(r[1], b, width, b * 1.44);
+      tops.push(y); y += Math.max(badge, hh + 3.4 + bh) + g;
     }
-    if (y - g <= endY) return { size: b, gap: g, headLead: head * 1.25, bodyLead: b * 1.35, tops };
+    if (y - g <= endY) return { size: b, gap: g, headLead: head * 1.30, bodyLead: b * 1.44, tops };
   }
-  warn.push(`rows do not fit ${startY.toFixed(0)}→${endY}`);
+  warn.push(`rows do not fit ${startY.toFixed(0)} to ${endY}`);
   const step = (endY - startY) / rows.length;
-  return { size: 7.8, gap: 5, headLead: 14, bodyLead: 10.4, tops: rows.map((_, i) => startY + i * step) };
+  return { size: 8.2, gap: 5, headLead: 14, bodyLead: 11.2, tops: rows.map((_, i) => startY + i * step) };
 }
-/* The template builds type over photography by printing it twice: a solid black
- * pass at the same origin, then the real colour on top — a hard ink outline. */
+/** the template sets type over photography twice: black at the same origin, then
+ *  the real colour on top, which reads as a hard ink outline */
 function shadow(str, x, y, o = {}) {
   if (o.ink !== false) place(str, x, y, { ...o, color: '#000000' });
   return place(str, x, y, o);
 }
 
-/* -------------------------------- line-art icons ------------------------------- */
+/* ---------------------------------- small marks --------------------------------- */
+function disc(cx, cy, r, c, glyph) {
+  doc.circle(cx, cy, r).fill(paint(cx - r, cy - r, r * 2, r * 2, c));
+  if (glyph) icon(glyph, cx, cy, white, r / 10.8);
+}
+function letterDisc(cx, cy, r, ch, c) {
+  doc.circle(cx, cy, r).fill(paint(cx - r, cy - r, r * 2, r * 2, c));
+  doc.font('caps').fontSize(r * 1.12).fillColor(white)
+     .text(ch, cx - r, cy - r * .78, { width: r * 2, align: 'center' });
+}
+function checkBadge(x, y, c, size = 27) {
+  doc.roundedRect(x, y, size, size, 5).lineWidth(1.7).strokeColor(c).stroke();
+  doc.save().lineCap('round').lineJoin('round').lineWidth(2.4).strokeColor(c);
+  const k = size / 27;
+  doc.moveTo(x + 7.2 * k, y + 14.2 * k).lineTo(x + 11.9 * k, y + 19 * k)
+     .lineTo(x + 20.4 * k, y + 9.2 * k).stroke();
+  doc.restore();
+}
+function numberBadge(x, y, r, n, c) {
+  doc.circle(x + r, y + r, r).fill(c);
+  doc.font('displayMed').fontSize(r * 1.2).fillColor(white)
+     .text(String(n), x, y + r * .30, { width: r * 2, align: 'center' });
+}
+const kicker = (str, x, y, c, o = {}) =>
+  place(str, x, y, { size: 8.8, font: 'caps', color: c, space: 2.6, lead: 11.5, ...o });
+
+/* ------------------------------------ icons ----------------------------------- */
 function icon(kind, cx, cy, c = white, s = 1) {
   doc.save();
-  doc.lineWidth(1.75 * s).strokeColor(c).fillColor(c).lineCap('round').lineJoin('round');
+  doc.lineWidth(1.6 * s).strokeColor(c).fillColor(c).lineCap('round').lineJoin('round');
   const line = pts => {
     doc.moveTo(pts[0][0] * s + cx, pts[0][1] * s + cy);
     for (let i = 1; i < pts.length; i++) doc.lineTo(pts[i][0] * s + cx, pts[i][1] * s + cy);
@@ -171,8 +261,7 @@ function icon(kind, cx, cy, c = white, s = 1) {
       doc.circle(cx, cy, 2.3 * s).fill(c); break;
     case 'bubble':
       doc.roundedRect(cx - 8 * s, cy - 7.2 * s, 16 * s, 11 * s, 3 * s).stroke();
-      line([[-2.6, 3.8], [-1.2, 7.4], [1.4, 3.8]]);
-      doc.moveTo(cx - 5.4 * s, cy + 5.4 * s).lineTo(cx + 5.4 * s, cy - 5.4 * s).stroke(); break;
+      line([[-2.6, 3.8], [-1.2, 7.4], [1.4, 3.8]]); break;
     case 'sun':
       doc.circle(cx, cy, 4.2 * s).stroke();
       for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4;
@@ -203,280 +292,313 @@ function icon(kind, cx, cy, c = white, s = 1) {
   }
   doc.restore();
 }
-function disc(cx, cy, r, c, glyph) {
-  doc.circle(cx, cy, r).fill(paint(cx - r, cy - r, r * 2, r * 2, c));
-  if (glyph) icon(glyph, cx, cy, white, r / 10.8);
-}
-function letterDisc(cx, cy, r, ch, c) {
-  doc.circle(cx, cy, r).fill(paint(cx - r, cy - r, r * 2, r * 2, c));
-  doc.font('bold').fontSize(r * 1.12).fillColor(white)
-     .text(ch, cx - r, cy - r * .79, { width: r * 2, align: 'center' });
-}
-function checkBadge(x, y, c, size = 28) {
-  doc.roundedRect(x, y, size, size, 6).lineWidth(1.9).strokeColor(c).stroke();
-  doc.save().lineCap('round').lineJoin('round').lineWidth(2.7).strokeColor(c);
-  const k = size / 28;
-  doc.moveTo(x + 7.4 * k, y + 14.6 * k).lineTo(x + 12.2 * k, y + 19.4 * k)
-     .lineTo(x + 21 * k, y + 9.4 * k).stroke();
-  doc.restore();
-}
-function kicker(str, x, y, c, o = {}) {
-  place(str, x, y, { size: 8.4, font: 'bold', color: c, space: 1.7, lead: 11, ...o });
-}
 
 /* ============================================================================= */
-/*  PAGE 1 — COVER (template page 1: colour field, centred photo, pennants,
- *  brand top-left, title bottom-right of the photo, small print on the band)   */
+/*  PAGE 1 — front cover                                                        */
 /* ============================================================================= */
 newpage();
-fillRect(0, 0, W, H, grad(0, 0, W, H, [plum, '#8E1450']));
-photo('cover.jpg', FX, PHOTO_TOP, FW, PHOTO_BOT - PHOTO_TOP);
-/* corner ribbons, exactly where the template puts them */
-pennant(324, 172, 1, 252, 168, gold, coral);
-fillRect(0, 444, 86, H - 444, [teal, royal]);
-doc.rect(FX, 525, FW, 1.8).fill(gold);
+fillRect(0, 0, W, H, grad(0, 0, W, H, [plum, '#8A1150']));
+pennant(324, 166, 1, PENN_W, PENN_H, gold, coral);
+fillRect(0, 452, 86, H - 452, [teal, royal]);
 
-/* emblem: open book + flame inside a diamond (template's mark sits at 55.7,38.5) */
-const ex = 79.9, ey = 60.9;
-doc.save();
-doc.moveTo(ex, ey - 25).lineTo(ex + 25, ey).lineTo(ex, ey + 25).lineTo(ex - 25, ey).closePath()
-   .fill(grad(ex - 25, ey - 25, ex + 25, ey + 25, [white, '#FFE7AE']));
-doc.restore();
-icon('book', ex, ey + 2, plum, 1.3);
-doc.save().lineWidth(2.1).strokeColor(magenta).lineCap('round')
-   .moveTo(ex, ey - 16).lineTo(ex, ey - 8.4).stroke().restore();
+kicker('TREASURE TUESDAY SERIES', ML, 52, gold);
+place('CHRISCO', ML, 90, { size: 22, font: 'caps', color: white, space: 4.6, lead: 26 });
+place('Central Youth, Nairobi', ML, 119, { size: 10.6, font: 'italic', color: '#FFD3E7', space: 1.4, lead: 13.6 });
 
-place('CHRISCO', ML, 90.6, { size: 19.4, font: 'bold', color: white, space: 3.9, lead: 23.4 });
-place('CENTRAL YOUTH · NAIROBI', ML, 116, { size: 10.6, color: '#FFD9EC', space: 2.2, lead: 13 });
-right('TREASURE TUESDAY SERIES', 56.5, { size: 9.2, font: 'bold', color: gold, space: 1.9, lead: 12 });
-right('Accountability, forgiveness and\nthe long road back — for the whole church', 71.5,
-  { size: 8.6, font: 'italic', color: '#FFCFE4', lead: 11.6 });
+const coverPhoto = panel('cover.jpg', ML, 172, CW, 246, { frameColor: gold });
 
-shadow('Cancel Culture\nvs Grace Culture', ML, 429,
-  { size: 28.4, font: 'bold', color: white, width: CW, align: 'right', lead: 33 });
-shadow('creating a balance between them', ML, 500,
-  { size: 13.6, font: 'italic', color: '#FFF0BF', width: CW, align: 'right', lead: 16 });
-place('BY MINISTER NAOMI NJOKI', ML, 540.5, { size: 11.7, font: 'bold', color: white, space: .9, lead: 14, align: 'right', width: CW });
-place('FULL OF LIFE · FULL OF COLOUR', ML, 560, { size: 9.4, font: 'bold', color: gold, space: 1.2, lead: 14, align: 'right', width: CW });
+place('Cancel Culture\nvs Grace Culture', ML, coverPhoto.bottom + 15,
+  { size: 33, font: 'display', color: white, width: CW, align: 'right', lead: 38, maxY: 526, name: 'cover title' });
+place('Creating a balance between them', ML, 528,
+  { size: 14, font: 'displayIt', color: gold, width: CW, align: 'right', lead: 18, maxY: 548, name: 'cover sub' });
+rule(556, '#A03568', .8, ML, MR);
+right('By Minister Naomi Njoki, CHRISCO Central Youth Nairobi', 566,
+  { size: 8.2, font: 'caps', color: '#F3CFE2', space: 1.6, lead: 11 });
 
 /* ============================================================================= */
-/*  PAGE 2 — the opening (template page 2: photo, colour band with heading and   */
-/*  lead paragraph, then two columns where the clinic put Mission / Vision)      */
+/*  PAGE 2 — the opening: band, photograph, two columns, pull quote              */
 /* ============================================================================= */
 newpage();
-photo('community.jpg', FX, -1, FW, 256.5);
-band(256.5, 168, [magenta, orange]);
-pennant(330.9, 256.5, 1, PENN_W, PENN_H, '#FFD166', coral);
-place('The Question\nWe Cannot Dodge', ML, 275.9, { size: 23.3, font: 'bold', color: white, lead: 27.7 });
-place('How do we hold people accountable for wrong doing, without denying them the possibility of redemption? Culture is the shared beliefs, values and customs of a group — and the way a group treats someone who has fallen says more about it than any statement of faith.',
-  ML, 345.1, { size: 9.7, color: '#FFF1F7', width: 301, lead: 13.15, maxY: 419, name: 'p2 lead' });
+band(0, 192, [magenta, orange]);
+hairline(192, gold);
+place('The Question\nWe Cannot Dodge', ML, 30, { size: 29, font: 'display', color: white, lead: 34,
+  width: 190, maxY: 104 });
+place('Culture is the shared beliefs, values and customs of a group, and the way a group treats someone who has fallen tells you more than any statement of faith.',
+  255.7, 30, { size: 9.4, font: 'italic', color: '#FFEFF6', width: 108, lead: 13.2, maxY: 132, name: 'p2 side note' });
+place('How do we hold one another accountable for wrong doing without denying the possibility of redemption? That is the question this series keeps returning to.',
+  ML, 144, { size: 9.6, color: '#FFF1F8', width: CW, lead: 13.6, maxY: 186, name: 'p2 lead' });
 
-const c1h = place('Cancel Culture:', ML, 442.8, { size: 15.6, font: 'bold', color: magenta, width: 150, lead: 18.2 });
-place('A collective boycotting — a community withdrawing support from someone because of what they said or did. At institutional level it can serve public accountability. Left unchecked it turns into a crowd that enjoys the fall.',
-  ML, c1h + 9, { size: 9.7, min: 8.6, width: 150, lead: 13.15, maxY: 584, name: 'p2 left' });
-const c2h = place('Grace Culture:', C2n, 442.8, { size: 15.6, font: 'bold', color: teal, width: 150, lead: 18.2 });
-place('The free, unmerited favour of God. Grace never licenses sin without consequences; it opens the way back to whoever is willing to walk it — and it keeps that way open far longer than our patience does.',
-  C2n, c2h + 9, { size: 9.7, min: 8.6, width: 150, lead: 13.15, maxY: 584, name: 'p2 right' });
+const p2Photo = panel('community.jpg', ML, 212, CW, 120, { keyline: 5 });
 
+const p2h1 = place('Cancel Culture', ML, p2Photo.bottom + 24, { size: 15.5, font: 'display', color: magenta, width: HALF, lead: 19 });
+place('A collective withdrawing of support from someone because of what they said or what they did. At institutional level it can serve public accountability. Left unchecked it becomes a crowd that enjoys the fall.',
+  ML, p2h1 + 8, { size: 9.6, width: HALF, lead: 13.6, maxY: 480, name: 'p2 left' });
+doc.moveTo(C2n - 12, p2Photo.bottom + 22).lineTo(C2n - 12, 480).lineWidth(.6).strokeColor('#E4DCEC').stroke();
+const p2h2 = place('Grace Culture', C2, p2Photo.bottom + 24, { size: 15.5, font: 'display', color: teal, width: HALF, lead: 19 });
+place('The free, unmerited favour of God. Grace does not excuse sin and does not cancel consequence. It opens the way back for whoever will walk it, and it keeps that way open longer than our patience does.',
+  C2, p2h2 + 8, { size: 9.6, width: HALF, lead: 13.6, maxY: 480, name: 'p2 right' });
 
+rule(498, gold, 1.1);
+place('Truth about the sin. Mercy for the sinner.', ML, 508,
+  { size: 16, font: 'quoteBold', color: ink, width: CW, align: 'center', lead: 20, maxY: 532 });
+place('Scripture never lets us keep one and forget the other. It exposes the works of darkness and still refuses to make a spectacle of the person standing in it.',
+  ML, 532, { size: 9.6, font: 'italic', color: body, width: 260, lead: 13.6, maxY: 574, name: 'p2 pull' });
 
 /* ============================================================================= */
-/*  PAGE 3 — icon grid of six (the template's "Our Services" page)                */
+/*  PAGES 3 and 5 — six cell grids (template's services and framework pages)     */
 /* ============================================================================= */
-function gridPage(head, deck, items, top = [violet, royal], accent = gold, sub = RAINBOW) {
+function gridPage(head, deck, items, top, accent, sub) {
   newpage();
   band(-16.5, 126, top);
   hairline(109.5, accent);
-  /* heading: shrink only enough that its widest line clears the deck column */
-  const DX = C2 + 35, DW = MR - DX;
-  let hs = 31.1;
-  for (const cand of [31.1, 30, 28.8, 27.6, 26.4]) {
-    doc.font('bold').fontSize(cand);
+  const DX = C2 + 30, DW = MR - DX;
+  let hs = 29;
+  for (const cand of [29, 27.4, 26, 24.6, 23.2]) {
+    doc.font('display').fontSize(cand);
     if (Math.max(...head.split('\n').map(l => doc.widthOfString(l))) + ML + 10 <= DX) { hs = cand; break; }
   }
-  place(head, ML, 24.3, { size: hs, font: 'bold', color: white, lead: hs * 1.194 });
-  if (deck) place(deck, DX, 44, { size: 8.8, color: '#EDE7FA', width: DW, lead: 11.6, maxY: 101, name: head.replace(/\n/g,' ') + ' deck' });
+  const he = place(head, ML, 26, { size: hs, font: 'display', color: white, lead: hs * 1.20, maxY: 100 });
+  if (deck) place(deck, DX, 34, { size: 9.2, font: 'italic', color: '#F3E9F7', width: DW, lead: 12.6,
+    maxY: 102, name: head.replace(/\n/g, ' ') + ' deck' });
   const rows = [133.5, 279.5, 425.5];
   items.forEach((it, i) => {
     const x = i % 2 ? C2 : ML, y = rows[Math.floor(i / 2)], c = sub[i % sub.length];
     if (it.l) letterDisc(x + 22.4, y + 22.4, 22.4, it.l, c);
     else disc(x + 22.4, y + 22.4, 22.4, c, it.g);
-    const hy = y + 46;
-    const he = place(it.h, x, hy, { size: 11.7, font: 'bold', color: c, width: 150, lead: 16.1,
-         maxY: y + 84, name: 'heading ' + i });
-    const by = Math.max(y + 78, he + 6);
-    const limit = rows[Math.floor(i / 2) + 1] ? rows[Math.floor(i / 2) + 1] - 5 : 580;
-    place(it.b, x, by, { size: 9.4, min: 8.2, width: 152, lead: 12.6,
-         maxY: limit, name: 'body “' + it.h.replace(/\n/g, ' ') + '”' });
+    const hEnd = place(it.h, x, y + 52, { size: 12.4, font: 'display', color: c, width: 150, lead: 16.4,
+      maxY: y + 86, name: 'heading ' + i });
+    const limit = rows[Math.floor(i / 2) + 1] ? rows[Math.floor(i / 2) + 1] - 5 : 578;
+    place(it.b, x, Math.max(y + 82, hEnd + 6), { size: 9.5, min: 8.4, width: 152, lead: 13.4,
+      maxY: limit, name: 'body ' + it.h.replace(/\n/g, ' ') });
   });
 }
 gridPage('Six Things\nWe Must Hold', 'Distinctions the church loses at its own cost.', [
   { g: 'key', h: 'Forgiveness Is\nNot Trust', b: 'You can forgive someone who betrayed you without handing them access to your life again. Trust is rebuilt over time.' },
-  { g: 'scales', h: 'Grace Is Not the\nAbsence of Consequence', b: 'The one who steals may be forgiven and still have to return the money. Repentant leaders can still face discipline.' },
-  { g: 'loop', h: 'Restoration Is Not\nAutomatic Reinstatement', b: 'Being received back is not the same as being handed the old position, platform or keys on the same afternoon.' },
+  { g: 'scales', h: 'Grace Is Not the\nAbsence of Consequence', b: 'The one who steals may be forgiven and still return what was taken. A repentant leader may still face discipline.' },
+  { g: 'loop', h: 'Restoration Is Not\nReinstatement', b: 'Being received back is not the same as being handed the old position, the old platform or the keys that afternoon.' },
   { g: 'heart', h: 'Mercy Must Not\nErase the Victim', b: 'Care for the person who was hurt belongs in the same sentence as mercy for the one who hurt them.' },
   { g: 'shield', h: 'Safety, Justice and\nBoundaries Matter', b: 'Boundaries are not a failure of love. Protection and honest process are how love behaves in public.' },
-  { g: 'venn', h: 'Discipline and Mercy\nMust Coexist', b: 'Forgiveness and justice are compatible. The cross is the proof — and there is a thin line between accountability and bullying.' },
-]);
+  { g: 'venn', h: 'Discipline and Mercy\nMust Coexist', b: 'Forgiveness and justice are compatible. The cross is the proof. The line between accountability and bullying is thin.' },
+], [violet, royal], gold, RAINBOW);
 
 /* ============================================================================= */
-/*  PAGE 4 — photo header + check list (the template's "Why Choose" page)        */
+/*  PAGE 4 — what the scriptures say: a tick list with a closing card            */
 /* ============================================================================= */
-function checkPage(img, head, intro, rows, photoH, edge) {
+function checkPage(head, intro, rows, bandH, edge, card) {
   newpage();
-  photo(img, FX, -1, FW, photoH + 1);
-  if (edge) doc.rect(FX, photoH, FW, 2.2).fill(edge);
-  shadow(head, ML, 136.5, { size: 31.1, font: 'bold', color: white, lead: 37.15, width: 300, maxY: photoH - 6 });
-  const introEnd = place(intro, ML, photoH + 15, { size: 9.7, lead: 13.15, maxY: 274, name: 'intro' });
-  const startY = Math.max(introEnd + 14, photoH + 38);
-  const L = solveRows(rows, startY, 580);
+  band(0, bandH, edge);
+  hairline(bandH, gold);
+  const he = place(head, ML, 26, { size: 29, font: 'display', color: white, lead: 34, maxY: bandH - 46 });
+  if (intro) place(intro, ML, he + 10, { size: 9.7, font: 'italic', color: '#F1E7F7',
+    width: CW, lead: 13.6, maxY: bandH - 8, name: 'intro' });
+  const L = solveRows(rows, bandH + 28, card ? 496 : 578);
   rows.forEach((r, i) => {
     const y = L.tops[i], c = RAINBOW[i % RAINBOW.length];
     checkBadge(ML, y, c);
-    const hy = place(r[0], ML + 40, y - .8, { size: 11.7, font: 'bold', color: c, width: 268, lead: L.headLead });
-    place(r[1], ML + 40, hy + 3, { size: L.size, width: 268, lead: L.bodyLead });
+    const hy = place(r[0], ML + 40, y - 1, { size: 11.4, font: 'bold', color: c, width: 268,
+      lead: L.headLead, maxY: L.tops[i + 1] ? L.tops[i + 1] - 4 : 590 });
+    place(r[1], ML + 40, hy + 3.4, { size: L.size, width: 268, lead: L.bodyLead,
+      maxY: L.tops[i + 1] ? L.tops[i + 1] - 6 : 590 });
   });
-  return startY;
+  if (card) {
+    doc.roundedRect(ML, 508, CW, 72, 7).fill(softLilac);
+    place(card[0], ML + 18, 518, { size: 12.4, font: 'display', color: ink, width: CW - 36, lead: 16, maxY: 536 });
+    place(card[1], ML + 18, 538, { size: 9.4, font: 'italic', color: body, width: CW - 36, lead: 13.2, maxY: 572 });
+  }
+  return L;
 }
-checkPage('scripture.jpg', 'What the\nScriptures Say',
-  'Grace is not the absence of correction, and correction is not the absence of grace. Scripture exposes the works of darkness — and refuses to make a spectacle of the person.',
+checkPage('What the Scriptures Say',
+  'Grace is not the absence of correction and correction is not the absence of grace. God\'s word exposes wrongdoing and still protects the person.',
   [
-    ['Matthew 18:15–17', '“Go and point out the fault, just between the two of you.” Private first, witnesses only then, the wider circle last — every step aimed at winning them back.'],
-    ['1 Corinthians 5:1–13', 'Paul removes the unrepentant sinner from the community so that his spirit may be saved in the day of the Lord. Discipline with a redemptive end, never a spiteful one.'],
-    ['Ephesians 5:11', '“Have nothing to do with the unfruitful works of darkness, but instead expose them.” Grace does not tolerate serious wrong doing indefinitely.'],
-    ['Proverbs 28:13', 'Whoever conceals their transgressions does not prosper, but whoever confesses and forsakes them finds mercy. Confession is the doorway mercy walks through.'],
-    ['2 Corinthians 2:6–8', 'Paul then urges the church to forgive and comfort the disciplined person, so that he is not overwhelmed by excessive sorrow. Discipline that never ends was never discipline.'],
-  ], 232, gold);
+    ['Matthew 18:15 to 17', 'Point out the fault between the two of you alone. Private first, witnesses only then, the wider circle last, and every step aimed at winning them back.'],
+    ['1 Corinthians 5:1 to 13', 'The unrepentant sinner is removed from the assembly so that his spirit may be saved. Discipline with a redemptive end, never a spiteful one.'],
+    ['Ephesians 5:11', 'Have nothing to do with the unfruitful works of darkness, but instead expose them. Grace does not tolerate serious wrong indefinitely.'],
+    ['Proverbs 28:13', 'Whoever conceals transgressions does not prosper; whoever confesses and forsakes them finds mercy. Confession is the doorway mercy walks through.'],
+    ['2 Corinthians 2:6 to 8', 'Forgive and comfort the person who has been disciplined, so that he is not overwhelmed by excessive sorrow.'],
+  ], 126, [plum, magenta],
+  ['Two commands, one church', 'The God who says remove that person also says forgive and comfort him. Read them together, or you will keep a discipline that cannot restore and a mercy that cannot correct.']);
 
 /* ============================================================================= */
-/*  PAGE 5 — the GRACE framework (same grid archetype, letter badges)             */
+/*  PAGE 5 — the framework                                                        */
 /* ============================================================================= */
-gridPage('The G·R·A·C·E\nFramework', 'Practical steps for accountability with grace — a shape you can use on a Tuesday night.', [
-  { l: 'G', h: 'Get the Facts', b: 'Before you speak, before you post, before you withdraw. Proverbs 18:13 — to answer before listening is folly and shame. Hear both sides first.' },
-  { l: 'R', h: 'Recognise the Harm', b: 'Name what was actually done, and who it cost. Do not minimise it for comfort, and do not inflate it for effect.' },
-  { l: 'A', h: 'Accountability Remains', b: 'Appropriate consequences still apply. Love does not waive them; it walks with the person through them.' },
-  { l: 'C', h: 'Choose Compassion', b: 'Challenge the wrong doing without dehumanising the wrong doer. Nobody is the worst thing they have ever done.' },
-  { l: 'E', h: 'Encourage Genuine Change', b: 'Is there evidence of repentance — changed behaviour, and a willingness to make amends? Not just a well-written apology.' },
-  { l: '+', h: 'Make Room for Restoration', b: 'Without rushing it. Restoration is a road, not an event, and it is not ours to set the pace of.' },
+gridPage('The G R A C E\nFramework', 'Six practical steps for accountability with grace, usable on a Tuesday night.', [
+  { l: 'G', h: 'Get the Facts', b: 'Before you speak, before you post, before you withdraw. Answering before you listen is folly (Proverbs 18:13). Hear both sides.' },
+  { l: 'R', h: 'Recognise the Harm', b: 'Name what was done and who it cost. Do not minimise it for comfort and do not inflate it for effect.' },
+  { l: 'A', h: 'Accountability Remains', b: 'Appropriate consequences still apply to everyone. Love does not waive them; it walks through them with you.' },
+  { l: 'C', h: 'Choose Compassion', b: 'Challenge the wrong doing without dehumanising the wrong doer. Nobody is the worst thing they have done.' },
+  { l: 'E', h: 'Encourage Genuine Change', b: 'Look for evidence of repentance: changed behaviour and a willingness to make amends.' },
+  { l: '+', h: 'Make Room for\nRestoration', b: 'Without rushing it. Restoration is a road, not an event, and the pace of it is not ours to set.' },
 ], [orange, magenta], teal, [magenta, orange, teal, violet, rose, royal]);
-/* swap the pictograms on this page for the G·R·A·C·E letters */
 
 /* ============================================================================= */
-/*  PAGE 6 — balance in practice                                                  */
+/*  PAGE 6 — balance in practice: photographic strip, then a tick list            */
 /* ============================================================================= */
-checkPage('balance.jpg', 'Balance\nin Practice',
-  'We need to learn the difference between public shaming and public accountability. These are the checks we keep applying to ourselves.',
-  [
+newpage();
+const p6 = strip('balance.jpg', 0, { edge: teal });
+shadow('Balance\nin Practice', ML, p6.bottom - 80,
+  { size: 30, font: 'display', color: white, lead: 35, width: 220, maxY: p6.bottom - 8 });
+place('We must learn the difference between public shaming and public accountability. These are the checks we keep applying to ourselves.',
+  ML, p6.bottom + 14, { size: 9.7, font: 'italic', color: body, width: CW, lead: 13.4,
+  maxY: p6.bottom + 50, name: 'p6 intro' });
+{
+  const rows = [
     ['Private First, Public Last', 'Confrontation follows Matthew 18: one person, then two or three, then the church. Skipping to the crowd is not courage.'],
-    ['Exposing Is Not a Licence for Rumour', 'Calling wrongdoing into the light never authorises gossip, screenshots for sport, or a half story told loudly.'],
-    ['Do Not Be Selective', 'Do not be selective about what you count as moral. The standard that convicts your rival must also convict you.'],
+    ['Exposing Is Not a Licence for Rumour', 'Calling wrongdoing into the light never authorises gossip, screenshots shared for sport, or half a story told loudly.'],
+    ['Do Not Be Selective', 'Do not be picky about what you count as moral. The standard that convicts your rival must also convict you.'],
     ['The Goal Is Restoration', 'Not the satisfaction of watching someone fall. If you are quietly hoping for the fall, check your own heart first.'],
-    ['Do Not Repay Evil for Evil', 'Romans 12:17. The cycle stops with us: no answering a wrong with a bigger wrong and calling the excess justice.'],
-    ['Truth and Grace, Together', 'We serve a God who calls sin what it is, who confronts wrongdoing, and who still offers mercy to those who repent.'],
-  ], 232, teal);
+    ['Do Not Repay Evil for Evil', 'Romans 12:17. The cycle stops with us. Refuse to answer a wrong with a bigger wrong and call that justice.'],
+    ['Truth and Grace Together', 'We serve a God who calls sin what it is, who confronts wrongdoing, and who still offers mercy to those who repent.'],
+  ];
+  const L = solveRows(rows, p6.bottom + 58, 580);
+  rows.forEach((r, i) => {
+    const y = L.tops[i], c = RAINBOW[i % RAINBOW.length];
+    checkBadge(ML, y, c);
+    const hy = place(r[0], ML + 40, y - 1, { size: 11.4, font: 'bold', color: c, width: 268, lead: L.headLead,
+      maxY: L.tops[i + 1] ? L.tops[i + 1] - 4 : 590 });
+    place(r[1], ML + 40, hy + 3.4, { size: L.size, width: 268, lead: L.bodyLead,
+      maxY: L.tops[i + 1] ? L.tops[i + 1] - 6 : 590 });
+  });
+}
 
 /* ============================================================================= */
-/*  PAGE 7 — full-bleed divider (cover archetype reused for the turning point)   */
-/* ============================================================================= */
-newpage();
-fillRect(0, 0, W, H, grad(0, 0, W, H, [deep, teal]));
-photo('grace.jpg', FX, PHOTO_TOP, FW, 350);
-pennant(319.2, PHOTO_TOP, 1, PENN_W, PENN_H, gold, rose);
-pennant(100 + PENN_H / 2, 525, -1, PENN_W, PENN_H, violet, royal);
-doc.rect(FX, 525, FW, 1.8).fill(gold);
-kicker('THE HEART OF THE MATTER', ML, 90.6, gold, { size: 9.2 });
-place('What would\nJesus do?', ML, 112, { size: 31.1, font: 'bold', color: white, lead: 37.15, maxY: 168 });
-shadow('We are more than\nour worst moment', ML, 401,
-  { size: 26.4, font: 'bold', color: white, width: CW, align: 'right', lead: 31, maxY: 470 });
-shadow('He ate with the people the crowd had already written off — and told them to go and sin no more.',
-  ML, 474, { size: 11, font: 'italic', color: '#FFE6A8', width: CW, align: 'right', lead: 14, maxY: 520 });
-rule(545, '#2F6B73', .8);
-place('The same grace we celebrate when God extends it to us must shape how we treat other people.', ML, 549.6,
-  { size: 9.4, font: 'bold', color: white, width: CW, lead: 12.4, maxY: 578, name: 'p7 strap' });
-
-/* ============================================================================= */
-/*  PAGE 8 — the "hidden in Christ" page (page-2 archetype again)                */
+/*  PAGE 7 — divider: the heart of the matter                                     */
 /* ============================================================================= */
 newpage();
-photo('nairobi.jpg', FX, -1, FW, 197);
-band(196, 184, [royal, violet]);
-pennant(330.9, 196, 1, PENN_W, PENN_H, '#6FD36B', teal);
-place('Set Your Mind\non Things Above', ML, 214.5, { size: 23.3, font: 'bold', color: white, lead: 27.7 });
-place('“Set your minds on things above, not on earthly things. For you have died, and your life is hidden with Christ in God.” — Colossians 3:2–3',
-  ML, 292.5, { size: 10.4, font: 'italic', color: '#E7EAFF', width: 301, lead: 14.4, maxY: 366, name: 'p8 quote' });
-const h1p8 = place('Hidden —\nnot from others', ML, 400, { size: 15.6, font: 'bold', color: royal, width: 150, lead: 18.2 });
-place('When your identity is rooted in who Jesus is and what He has done — not in what you dig up inside yourself — you live life to its truest, undistracted by whatever momentary message is dictating how you feel about yourself.',
-  ML, h1p8 + 9, { size: 9.7, min: 8.6, width: 150, lead: 13.15, maxY: 570, name: 'p8 left' });
-const h2p8 = place('Protected —\nby Christ', C2n, 400, { size: 15.6, font: 'bold', color: violet, width: 150, lead: 18.2 });
-place('When you hide your identity in Christ it is not hidden from others; it is protected by Christ. No verdict, no viral moment and no committee of one gets to write the final sentence about you.',
-  C2n, h2p8 + 9, { size: 9.7, min: 8.6, width: 150, lead: 13.15, maxY: 570, name: 'p8 right' });
+fillRect(0, 0, W, H, grad(0, 0, W, H, [royal, violet]));
+pennant(378, 104, 1, PENN_W, PENN_H, gold, coral);
+const p7Photo = panel('choir.jpg', FX + 20, 42, 156, 238, { align: 'left', valign: 'top', keyline: 5 });
+const p7x = p7Photo.x + p7Photo.w + 20, p7w = MR - p7x;
+kicker('THE HEART OF THE MATTER', p7x, 42, gold);
+place('What would\nJesus do?', p7x, 70, { size: 28, font: 'display', color: white, lead: 33, width: p7w, maxY: 160 });
+place('He ate with the people the crowd had already written off, and He told them to go and sin no more. He did not pretend the sin was small and He did not make an example of the sinner.',
+  p7x, 172, { size: 11.4, font: 'quote', color: '#DDE9FF', width: p7w, lead: 15.6, maxY: 276, name: 'p7 quote' });
 
-
+rule(300, '#8E7CD8', .8);
+place('We are more than\nour worst moment', ML, 314,
+  { size: 26, font: 'display', color: white, lead: 31, width: 250, maxY: 384 });
+place('The same grace we celebrate when God extends it to us must shape how we treat one another. That is the balance this series argues for: honest about the sin, open to the sinner, slow to join the crowd.',
+  ML, 390, { size: 9.7, color: '#E3DDF6', width: CW, lead: 14, maxY: 448, name: 'p7 body' });
+doc.roundedRect(ML, 462, CW, 92, 8).fill('#2C0B52');
+doc.roundedRect(ML, 462, CW, 92, 8).lineWidth(.8).strokeColor(gold).stroke();
+place('For the youth church, and for anyone who has been counted out', ML + 18, 476,
+  { size: 12.6, font: 'displayIt', color: gold, width: CW - 36, lead: 16, maxY: 500 });
+place('Bring the whole story on Tuesday. Nothing you have done disqualifies you from this teaching, and nothing done to you excuses it.',
+  ML + 18, 502, { size: 9.5, color: '#EDE7FA', width: CW - 36, lead: 13.6, maxY: 546, name: 'p7 card' });
 
 /* ============================================================================= */
-/*  PAGE 9 — reflection & assignment (band header + questions + cards)            */
+/*  PAGE 8 — set your mind on things above                                        */
+/* ============================================================================= */
+newpage();
+band(0, 170, [royal, violet]);
+hairline(170, teal);
+pennant(318, 170, 1, PENN_W, PENN_H, lime, teal);
+place('Set Your Mind\non Things Above', ML, 28, { size: 28, font: 'display', color: white, lead: 33,
+  width: 196, maxY: 106 });
+place('Set your minds on things above, not on earthly things. For you have died, and your life is hidden with Christ in God.',
+  255.7, 28, { size: 11, font: 'quote', color: '#DDEBFF', width: 108, lead: 14.6, maxY: 122, name: 'p8 verse' });
+place('Colossians 3:2 to 3', ML, 130, { size: 8.6, font: 'caps', color: '#A8C9EE', space: 1.8, lead: 11 });
+place('To set your mind on things above is to stop letting a fluctuating, noisy and contradictory world dictate how you feel about yourself.',
+  ML, 146, { size: 9.5, font: 'italic', color: '#E7EAFF', width: CW, lead: 13.4, maxY: 166, name: 'p8 strap' });
+
+const p8Photo = panel('nairobi.jpg', ML, 188, CW, 98, { keyline: 5 });
+const p8h1 = place('Hidden, not\nfrom others', ML, p8Photo.bottom + 26, { size: 15.5, font: 'display', color: teal, width: HALF, lead: 19 });
+place('When your identity is rooted in who Jesus is and what He has done, rather than in what you dig up inside yourself, you live life to its truest.',
+  ML, p8h1 + 8, { size: 9.6, width: HALF, lead: 13.6, maxY: 408, name: 'p8 left' });
+doc.moveTo(C2n - 12, p8Photo.bottom + 24).lineTo(C2n - 12, 412).lineWidth(.6).strokeColor('#E4DCEC').stroke();
+const p8h2 = place('Protected\nby Christ', C2, p8Photo.bottom + 26, { size: 15.5, font: 'display', color: violet, width: HALF, lead: 19 });
+place('When you hide your identity in Christ it is not hidden from other people; it is protected by Christ. No verdict and no committee of one writes the final sentence about you.',
+  C2, p8h2 + 8, { size: 9.6, width: HALF, lead: 13.6, maxY: 412, name: 'p8 right' });
+
+doc.roundedRect(ML, 420, CW, 84, 7).fill(softLilac);
+place('Two places to live', ML + 18, 430, { size: 12.4, font: 'display', color: ink, width: CW - 36, lead: 16, maxY: 450 });
+place('In the verdict of the crowd, or in the verdict of God. The crowd changes its mind by Thursday. The Father has already said what He says about you, and He does not revisit it for applause.',
+  ML + 18, 452, { size: 9.5, color: body, width: CW - 36, lead: 13.6, maxY: 498, name: 'p8 card' });
+rule(516, gold, 1.1);
+place('You are not cancelled by your worst chapter.', ML, 528,
+  { size: 15, font: 'quoteBold', color: magenta, width: CW, align: 'center', lead: 19, maxY: 552 });
+place('Confession is how the chapter ends. Restoration is what follows it.', ML, 554,
+  { size: 9.4, font: 'italic', color: body, width: CW, align: 'center', lead: 13, maxY: 578 });
+
+/* ============================================================================= */
+/*  PAGE 9 — over to you: reflection, assignment, memory, prayer                 */
 /* ============================================================================= */
 newpage();
 band(0, 109.5, [plum, violet]);
 hairline(109.5, gold);
-place('Over to You', ML, 34, { size: 31.1, font: 'bold', color: white, lead: 37.15 });
-place('A few gems to carry into the week — kila mtu aende a reflect.', ML, 78,
-  { size: 9.7, font: 'italic', color: '#E4D6F7', lead: 12.4 });
-place('Reflect', ML, 126, { size: 15.6, font: 'bold', color: magenta, lead: 18.2 });
+place('Over to You', ML, 28, { size: 29, font: 'display', color: white, lead: 34, maxY: 66 });
+place('A few things to carry into the week.', ML, 74, { size: 10.4, font: 'italic', color: '#E7DAF6', maxY: 100 });
+
+place('Reflect', ML, 128, { size: 15.5, font: 'display', color: magenta, lead: 19 });
 [
-  ['If the Bible calls us to confront sin, at what point does confrontation become condemnation?', magenta],
-  ['When someone falls, what do I feel first — grief for them, or the small pleasure of being proved right?', orange],
-  ['Who have I already written off that God is still pursuing — and what would it cost me to believe He can still reach them?', royal],
-].forEach(([q, c], i) => {
-  const y = 152 + i * 34;
-  doc.circle(ML + 8.4, y + 6, 8.4).fill(c);
-  doc.font('bold').fontSize(10).fillColor(white).text(String(i + 1), ML, y - .6, { width: 16.8, align: 'center' });
-  place(q, ML + 26, y - 1.6, { size: 9.9, width: 282, lead: 13, maxY: y + 30, name: 'q' + i });
+  'If the Bible calls us to confront sin, at what point does confrontation become condemnation?',
+  'When someone falls, what do I feel first: grief for them, or the small pleasure of being proved right?',
+  'Who have I already written off that God is still pursuing, and what would it cost me to believe He can still reach them?',
+].forEach((q, i) => {
+  const y = 154 + i * 40;
+  numberBadge(ML, y - 3, 10.5, i + 1, RAINBOW[i]);
+  place(q, ML + 30, y, { size: 9.7, width: CW - 30, lead: 13.6, maxY: y + 32, name: 'reflect ' + (i + 1) });
 });
-doc.roundedRect(FX, 258, FW, 74, 8).fill(softGold);
-place('Assignment · for next Tuesday', ML, 272, { size: 11.7, font: 'bold', color: orange, lead: 14, space: .4 });
-place('Answer all three in writing, in one page. Then do one of these before you meet again: send the message you should have sent, restore the thing you took, or sit with the person nobody else is speaking to.',
-  ML, 290, { size: 9.4, width: CW, lead: 12.6, maxY: 326, name: 'assignment' });
-place('This we believe', C2n, 352, { size: 15.6, font: 'bold', color: teal, lead: 18.2 });
-doc.roundedRect(C2n - 6, 378, 162, 106, 8).fill(grad(C2n - 6, 378, C2n + 156, 484, [teal, royal]));
-place('Grace is not the absence of consequences, and consequences are not the absence of grace.',
-  C2n + 6, 392, { size: 10.2, font: 'bolditalic', color: white, width: 142, lead: 13.6, maxY: 472, name: 'p9 card' });
-doc.roundedRect(ML, 378, 150, 106, 8).fill(softTeal);
-place('Memorise', ML + 12, 392, { size: 9, font: 'bold', color: teal, lead: 11.6, width: 126, space: 1.2 });
-place('“The goal is restoration, not the satisfaction of watching another person fall.”',
-  ML + 12, 412, { size: 10, font: 'italic', color: ink, width: 126, lead: 13, maxY: 472, name: 'memory' });
-doc.roundedRect(FX, 500, FW, 88.5, 8).fill(grad(FX, 500, FX + FW, 588.5, [plum, magenta]));
-place('Pray for both of them', ML, 516, { size: 11.7, font: 'bold', color: gold, lead: 14, space: .6 });
-place('Pray for the one who did the wrong, that God would really change them. Pray for the one who was hurt, that God would really heal them. Leave the verdict where it belongs.',
-  ML, 534, { size: 9.7, color: '#FFD9EC', width: 300, lead: 12.6, maxY: 580, name: 'p9 pray' });
+
+doc.roundedRect(ML, 280, CW, 72, 7).fill(softGold);
+place('Assignment for next Tuesday', ML + 18, 290, { size: 12.4, font: 'display', color: orange, width: CW - 36, lead: 16, maxY: 310 });
+place('Answer all three in writing, in one page. Then do one of these before you meet again: send the message you should have sent, return what you took, or sit with the person nobody else is speaking to.',
+  ML + 18, 310, { size: 9.4, color: body, width: CW - 36, lead: 13.2, maxY: 346, name: 'assignment' });
+
+doc.roundedRect(ML, 366, CW, 26, 5).fill(teal);
+place('This we believe, and this we will keep saying', ML, 373,
+  { size: 11, font: 'caps', color: white, space: 1.4, width: CW, align: 'center', lead: 14, maxY: 388 });
+
+doc.roundedRect(ML, 402, HALF, 100, 7).fill(softTeal);
+place('Memorise', ML, 414, { size: 9.4, font: 'caps', color: teal, space: 1.8, width: HALF, align: 'center', lead: 12 });
+place('The goal is restoration, not the satisfaction of watching another person fall.',
+  ML + 14, 434, { size: 10, font: 'italic', color: ink, width: HALF - 28, lead: 14, maxY: 494, name: 'memorise' });
+doc.roundedRect(C2n, 402, HALF, 100, 7).fill(grad(C2n, 402, C2n + HALF, 502, [violet, royal]));
+place('Grace is not the absence of consequence, and consequence is not the absence of grace.',
+  C2n + 14, 420, { size: 11, font: 'quoteBold', color: white, width: HALF - 28, lead: 15, maxY: 494, name: 'believe' });
+
+doc.roundedRect(ML, 516, CW, 64, 7).fill(grad(ML, 516, MR, 580, [plum, magenta]));
+place('Pray for both of them', ML + 18, 524, { size: 12, font: 'display', color: gold, width: CW - 36, lead: 15, maxY: 542 });
+place('Pray for the one who did the wrong, that God would really change them. Pray for the one who was hurt, that God would really heal them.',
+  ML + 18, 542, { size: 9.3, color: '#F6E6F0', width: CW - 36, lead: 13, maxY: 574, name: 'pray' });
 
 /* ============================================================================= */
-/*  PAGE 10 — back cover (template page 5: colour field, heading, details, photo,*/
-/*  contact lines and the small square block in the bottom right)                */
+/*  PAGE 10 — back cover                                                          */
 /* ============================================================================= */
 newpage();
-fillRect(FX, 0, FW, 448, grad(FX, 0, FX + FW, 448, [plum, violet]));
-pennant(300, 148, 1, 252, 168, '#9B4DDE', violet);
-place('You Are\nWelcome Here', ML, 38.1, { size: 31.1, font: 'bold', color: white, lead: 37.15 });
-place('Treasure Tuesdays:', ML, 135.9, { size: 11.7, font: 'bold', color: gold, lead: 14 });
-place('Every Tuesday · youth fellowship at CHRISCO Central, Nairobi\nAll are welcome — doors open fifteen minutes before we start',
-  ML, 157.4, { size: 9.7, color: '#EADBFB', lead: 13.15, maxY: 188, name: 'p10 details' });
-photo('welcome.jpg', FX, 191.5, FW, 256.3);
-doc.rect(FX, 191.5, FW, 2).fill(gold);
-place('Written and taught by\nMinister Naomi Njoki', ML, 462, { size: 9.7, color: ink, lead: 13.15 });
-place('Series · Treasure Tuesday, 2026\nTitle · Cancel Culture vs Grace Culture\nBalance · truth that refuses to destroy, grace that refuses to excuse',
-  ML, 494.9, { size: 9.2, color: body, width: 224, lead: 13.15, maxY: 566, name: 'p10 contact' });
-doc.roundedRect(293.6, 486.4, 70, 70, 8).fill(grad(293.6, 486.4, 363.6, 556.4, [magenta, orange]));
-place('FULL OF\nLIFE', 293.6, 502, { size: 12.4, font: 'bold', color: white, width: 70, align: 'center', lead: 15 });
-rule(570, '#EAE3F2', .7);
-place('Let this book be full of life and full of colour.', ML, 576, { size: 9.2, font: 'italic', color: magenta, lead: 11.8, width: 190 });
-right('CHRISCO Central Youth Nairobi', 576.6, { size: 7.6, color: faint, lead: 11.8 });
+fillRect(FX, 0, FW, 428, grad(FX, 0, FX + FW, 428, [plum, violet]));
+pennant(296, 148, 1, 252, 168, '#9B4DDE', violet);
+place('You Are\nWelcome Here', ML, 34, { size: 29, font: 'display', color: white, lead: 34,
+  width: 200, maxY: 110 });
+place('Treasure Tuesdays', ML, 124, { size: 11.6, font: 'display', color: gold, lead: 15, width: 200 });
+place('Every Tuesday, youth fellowship at CHRISCO Central, Nairobi. All are welcome, and the doors open fifteen minutes before we start.',
+  ML, 144, { size: 9.7, color: '#EBDEF9', width: 196, lead: 13.6, maxY: 208, name: 'p10 details' });
+panel('worship.jpg', ML, 226, 128, 186, { align: 'left', valign: 'top', keyline: 5 });
+doc.roundedRect(215, 226, MR - 215, 186, 8).fill(grad(215, 226, MR, 412, [magenta, orange]));
+const p10t = place('The balance this book argues for', 231, 240, { size: 12, font: 'display', color: white,
+  width: MR - 247, lead: 15.4, maxY: 268 });
+place('Honest about the sin and open to the sinner. Slow to join the crowd, quick to restore, serious about wrong doing and more serious about the person who made the mistake.',
+  231, p10t + 7, { size: 9.2, color: '#FFF0F6', width: MR - 247, lead: 13, maxY: 400, name: 'p10 plate' });
 
-/* -------------------------------------- finish ------------------------------- */
+place('Written and taught by', ML, 442, { size: 9.4, color: body, lead: 13 });
+place('Minister Naomi Njoki', ML, 456, { size: 14, font: 'display', color: ink, lead: 18, maxY: 478 });
+place('Treasure Tuesday Series, 2026\nCancel Culture vs Grace Culture\nCreating a balance between them',
+  ML, 484, { size: 9.4, color: body, width: 190, lead: 13.4, maxY: 530, name: 'p10 series' });
+doc.roundedRect(293.6, 442, 70, 70, 7).fill(grad(293.6, 442, 363.6, 512, [magenta, orange]));
+place('Grace\nand\nTruth', 293.6, 456, { size: 11.4, font: 'caps', color: white, space: 1.2, width: 70, align: 'center', lead: 13.6 });
+place('John 1:17', 293.6, 518, { size: 8, font: 'caps', color: faint, space: 1.4, width: 70, align: 'center', lead: 10.5 });
+rule(540, '#E7DFEF', .7);
+place('Truth that refuses to destroy. Grace that refuses to excuse.', ML, 550,
+  { size: 11.4, font: 'quoteBold', color: magenta, width: CW, align: 'center', lead: 15, maxY: 568 });
+right('CHRISCO Central Youth Nairobi', 572, { size: 7.8, font: 'caps', color: faint, space: 1.4, lead: 10.5 });
+
+/* -------------------------------------- finish -------------------------------- */
 doc.end();
 doc.on('end', () => {
   console.log(`\nwritten: ${path.basename(OUT)}`);
   console.log(`pages:   ${page}   size: ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
+  console.log('photos (every panel is at least ' + DPI + ' dpi):');
+  USED.forEach(u => console.log(`   ${u.name.padEnd(16)} ${String(u.w).padStart(3)} x ${String(u.h).padStart(3)} pt   ${u.dpi} dpi`));
+  const fonts = doc._fontFamilies || null; void fonts;
   if (warn.length) { console.log('\nLAYOUT WARNINGS:'); warn.forEach(w => console.log('  ! ' + w)); }
-  else console.log('layout:   all text fits');
+  else console.log('layout:  every block fits, no dashes in the copy');
 });
