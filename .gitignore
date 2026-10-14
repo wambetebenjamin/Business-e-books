@@ -5,3 +5,7 @@ image-search/
 
 # matting weights (40 MB, fetched with assets/make-silhouettes.py --fetch)
 assets/sil/model/*.onnx
+
+# Local verification tools and rendered previews
+.venv/
+.cache/

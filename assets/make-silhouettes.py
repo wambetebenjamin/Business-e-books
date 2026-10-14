@@ -9,7 +9,7 @@ book lays silhouettes onto the page instead of full colour pictures.
 
 Two tones are produced for every shape:
 
-  ink/     near black plum, for cream pages
+  ink/     charcoal, for cream pages
   paper/   cream, for the ink pages
 
   python3 assets/make-silhouettes.py             # cut every shape
@@ -45,7 +45,7 @@ SRC = os.path.join(HERE, 'img')
 OUT = os.path.join(HERE, 'sil')
 MODEL = os.path.join(OUT, 'model', 'isnet.onnx')
 
-TONE = {'ink': (34, 16, 58), 'paper': (251, 247, 241)}
+TONE = {'ink': (41, 37, 44), 'paper': (251, 247, 241)}
 MIN_W = 900            # every shape is written at least this wide (about 155 dpi full bleed)
 BLUR_STEPS = [0.35, 0.5, 0.7]    # soft edge, in pixels, one per pass
 

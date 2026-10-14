@@ -1,87 +1,77 @@
-# Booklet assets
+# Treasure Tuesday booklet assets
 
-Support files for `../generate-treasure-tuesday.js`.
+Build the revised ebook with `npm ci && npm run build:booklet`. Run `npm test`
+for PDF style and build checks. The output is
+`Cancel Culture vs Grace Culture - Treasure Tuesday.pdf` in the repository root.
 
-## fonts/
+## Typography
 
-One family: **Droid Serif**, the typeface of the supplied template
-(`../topic book.pdf`, which embeds DroidSerif and DroidSerif-Bold), in its four
-real styles. Apache License 2.0.
+The booklet uses classic **Times**, the standard PDF text family:
 
-| file | face | used for |
+| Face | Role |
+|---|---|
+| Times-Roman | Body copy |
+| Times-Bold | Headings, labels and emphasis |
+| Times-Italic | Introductions, quotes and scripture |
+| Times-BoldItalic | Available for bold italic emphasis |
+
+These are conventional fonts, not generated lettering. Text remains selectable.
+PDF viewers provide the standard Times faces; no font download is needed.
+The earlier Droid Serif files in `fonts/` are retained as template assets but
+are not used by the revised booklet. Droid Serif is also a conventional font;
+neither it nor the earlier Google font families should be described as
+AI-generated merely because of their source or appearance.
+
+## Restrained palette
+
+Only three base colors are used for text, shapes and page backgrounds:
+
+| Color | Value | Role |
 |---|---|---|
-| `droid-serif-regular.ttf` | Droid Serif 400 | body copy |
-| `droid-serif-bold.ttf` | Droid Serif 700 | headlines, section heads, kickers, labels |
-| `droid-serif-italic.ttf` | Droid Serif Italic | intros, notes, pull quotes, scripture |
-| `droid-serif-bolditalic.ttf` | Droid Serif Bold Italic | emphasis inside body copy |
+| Charcoal | `#29252C` | Body copy, headings and dark panels |
+| Warm paper | `#FBF7F1` | Light pages and text on dark panels |
+| Muted gold | `#997440` | Rules, borders and dark-page accents |
 
-Earlier drafts of this booklet set its display type in Playfair Display, Lora,
-Cormorant Garamond and Marcellus SC. Those four Google families were
-machine-generated descendants, so they were removed from the repository and the
-book is now set in the template's own face.
+Legacy role names in the generator share these values. There are no multicolor
+gradients or alternating colored list markers. Subtle panels and watermarks
+use transparency of the same colors rather than additional swatches.
 
-## img/
+## Faint silhouette backgrounds
 
-The photo pool, 784 KB. Photography is from Pexels: free to use, no attribution
-required, no watermark (<https://www.pexels.com/license/>). These files are the
-*source* for the silhouettes below; the booklet no longer places them on a page.
+Every page starts with a flat charcoal image silhouette at **4.5% opacity**,
+behind the text. Dark panels cover that background and, where called for by
+the layout, receive warm-paper silhouettes at **14% opacity**. No original
+full-color photograph is placed in the PDF. Image transparency is applied with
+PDFKit's saved graphics state and restored immediately after drawing, so it
+does not fade subsequent text. Silhouettes remain at least 150 dpi.
 
-`prepare-book-images.py` centre crops each source, grades it slightly and
-unsharps it, then writes `manifest.json`.
+`sil/` contains five flat shapes in two tones, with transparent backgrounds:
+`worship`, `community`, `reflect`, `cover` and `choir`. The manifest records
+pixel dimensions. The image pixels contain only the appropriate flat palette
+color; all photographic interior detail has been removed.
 
-## sil/
+## Source images and optional regeneration
 
-What the booklet actually draws. Every picture is matted, cleaned up, and
-written out as a single flat tone with a soft edge, so a page carries a shape
-rather than a photograph.
+`img/` contains the original Pexels source photo pool, not page artwork.
+Pexels license: <https://www.pexels.com/license/>.
+`prepare-book-images.py` crops and prepares the source photographs.
 
-    python3 assets/make-silhouettes.py            # cut every shape
-    python3 assets/make-silhouettes.py cover worship
+The committed silhouettes are sufficient to build the ebook. To regenerate
+their outlines, `make-silhouettes.py` uses IS-Net segmentation, cleans the matte,
+and retains only a single-tone outline. This is image processing, not font
+generation. Install Pillow, NumPy and ONNX Runtime in a Python virtual
+environment first. Model weights are not committed.
 
-| shape | source | appears |
-|---|---|---|
-| `worship` | hands raised in worship | front cover, page 6 |
-| `cover` | a young worshipper, arm raised | back cover |
-| `community` | the youth group | page 2, page 6 |
-| `choir` | the choir in robes | page 7 |
-| `reflect` | two people listening | page 9 |
-| `nairobi` | the city skyline | page 8, as a horizon |
+```sh
+npm pack @imgly/background-removal-node@1.4.5
+tar xzf imgly-background-removal-node-1.4.5.tgz
+python3 assets/make-silhouettes.py --fetch package
+python3 assets/make-silhouettes.py
+# Or regenerate selected outlines:
+python3 assets/make-silhouettes.py cover worship
+```
 
-**How the cut is made.** `make-silhouettes.py` runs IS-Net (an MIT licensed
-segmentation network, <https://github.com/xuebinqin/DIS>) over each picture,
-thresholds the matte, drops specks, keeps the biggest blobs, fills interior
-holes, closes ragged edges and feathers the outline by about a pixel. The
-subject's own organic outline survives; every pixel of detail inside it is
-gone. Shapes are written at 900 px on the long edge or more, so no panel prints
-below 150 dpi, and in two tones: `ink/` (near black plum, for cream pages) and
-`paper/` (cream, for the ink pages). `manifest.json` carries the pixel sizes.
-
-**Weights.** IS-Net is redistributed inside the `@imgly/background-removal-node`
-npm bundle (the package itself is AGPL, the model is MIT; only the weights are
-used here, never that package's code, inference is written against onnxruntime
-direct). The 44 MB file is not committed, so fetch it once:
-
-    npm pack @imgly/background-removal-node@1.4.5
-    tar xzf imgly-background-removal-node-1.4.5.tgz
-    python3 assets/make-silhouettes.py --fetch package
-
-which reassembles `package/dist` chunks into `assets/sil/model/isnet.onnx` using
-`package/dist/resources.json`. Requires `pillow`, `numpy` and `onnxruntime`.
-
-## palette
-
-The book uses six colours and three tints of one of them, all defined at the
-top of the generator:
-
-| constant | value | role |
-|---|---|---|
-| `ink` | `#2E1140` | body type, dark shapes |
-| `plum` | `#3A0F6B` | dark panels, second gradient stop |
-| `accent` | `#C1126B` | the one accent |
-| `gold` | `#E0A32E` | rules, kickers, the metal |
-| `white` | `#FFFFFF` | the template's page |
-| `paper` | `#FBF7F1` | warm paper: tints, and type on dark |
-
-plus `tint`, `tint2` and `edge`, three tints of plum for panels and hairlines.
-Secondary copy is set in `ink` at reduced opacity rather than in a grey, which
-keeps the page inside the same six colours.
+The model weights are MIT licensed (IS-Net:
+<https://github.com/xuebinqin/DIS>). They are distributed in the IMG.LY npm
+bundle; its package code is not used by this script. Inference uses ONNX Runtime
+directly. Generated model files are ignored by Git.

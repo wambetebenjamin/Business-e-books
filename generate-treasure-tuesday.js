@@ -8,20 +8,14 @@
  * corner pennants, two column and six cell grids, tick lists and back cover.
  *
  * Three house rules shape the design:
+ *   1. Images are flat silhouettes, drawn as faint background watermarks.
+ *      PDF graphics-state opacity (not an image option) keeps them subdued.
+ *   2. Three base colours only: charcoal, warm paper and muted gold. Panels
+ *      are solid, not multicolour gradients; light tints use transparency.
+ *   3. Classic standard PDF Times faces, with real bold and italic styles.
+ *      Text is selectable, never generated or baked into an image.
  *
- *   1. Photography appears as flat silhouettes, never as colour pictures.  The
- *      shapes in assets/sil are cut from the photo pool by
- *      assets/make-silhouettes.py, which mattes each picture and throws away
- *      everything except the outline.  A silhouette is one flat tone with a
- *      soft edge, so a page reads as type plus shape plus one accent.
- *   2. The palette is six colours: ink, plum, the magenta accent, the gold
- *      metal, white and a warm paper.  No other hue is mixed anywhere, and
- *      secondary copy is set in ink at reduced opacity instead of in grey.
- *   3. The type is Droid Serif, the face of the supplied template, in its four
- *      real styles.  Nothing machine generated is used.
- *
- * Build:  python3 assets/make-silhouettes.py   (once, needs the matting model)
- *         node generate-treasure-tuesday.js
+ * Build: npm ci && node generate-treasure-tuesday.js
  */
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
@@ -42,23 +36,23 @@ const PENN_W = 252, PENN_H = 168;        // pennant body plus a 45 degree point
 const DPI = 150;                         // floor for a silhouette's effective resolution
 
 /* ================================ the colour set ===============================
- * Six colours and nothing else.  The only other values in the book are three
- * tints of plum, used for panels and hairlines, and reduced opacity of ink.
+ * Exactly three base colours. Legacy role names deliberately share these
+ * values so all existing layouts stay inside the restrained palette.
  */
-const white = '#FFFFFF';                 // the paper the template prints on
-const paper = '#FBF7F1';                 // warm paper: tints, and type on dark
-const ink = '#2E1140';                   // body type, dark shapes
-const plum = '#3A0F6B';                  // dark panels and shapes
-const accent = '#C1126B';                // the one accent
-const gold = '#E0A32E';                  // rules, kickers, the metal
-const tint = '#F4EFF7', tint2 = '#E9DFEF', edge = '#E6DBEA';   // three tints of plum
-const BAND = [plum, accent];             // the band gradient, two tones
-const RAINBOW = [accent, plum, gold];    // rotation for numbered and ticked rows
+const paper = '#FBF7F1';
+const ink = '#29252C';
+const gold = '#997440';
+const white = paper, plum = ink, accent = ink;
+const tint = paper, tint2 = paper, edge = gold;
+const BAND = ink;
+const ROW_COLORS = [ink];
+const BACKGROUND_OPACITY = { light: .045, dark: .14 };
 
-/* line height factor per face, from each font's hhea (ascender - descender) / upem.
- * Droid Serif measures 1907 + 492 over 2048 = 1.1714 for all four styles. */
-const LH = 1.1714;
-const lh = () => LH;
+// Measure each standard face rather than retaining the old font's metrics.
+const lh = (font = 'serif') => {
+  doc.font(font).fontSize(10);
+  return doc.currentLineHeight(true) / 10;
+};
 
 /* house rule for this book: the copy contains no dashes and no mid dots */
 const DASH = /[—–‒―·•…\-]/;
@@ -74,29 +68,30 @@ const doc = new PDFDocument({
   }
 });
 doc.pipe(fs.createWriteStream(OUT));
-const F = n => A('fonts/' + n);
-/* one family, four real styles.  The display and quote roles are the same face
- * at different weights, which is how the template sets its own pages. */
-doc.registerFont('serif',     F('droid-serif-regular.ttf'));
-doc.registerFont('bold',      F('droid-serif-bold.ttf'));
-doc.registerFont('italic',    F('droid-serif-italic.ttf'));
-doc.registerFont('boldIt',    F('droid-serif-bolditalic.ttf'));
-doc.registerFont('display',   F('droid-serif-bold.ttf'));
-doc.registerFont('displayIt', F('droid-serif-italic.ttf'));
-doc.registerFont('quote',     F('droid-serif-italic.ttf'));
-doc.registerFont('quoteBold', F('droid-serif-bold.ttf'));
-doc.registerFont('caps',      F('droid-serif-bold.ttf'));
+// Conventional PDF core fonts: no custom display font or generated lettering.
+const FONT_ROLES = {
+  serif: 'Times-Roman', bold: 'Times-Bold', italic: 'Times-Italic',
+  boldIt: 'Times-BoldItalic', display: 'Times-Bold', displayIt: 'Times-Italic',
+  quote: 'Times-Italic', quoteBold: 'Times-Bold', caps: 'Times-Bold'
+};
+Object.entries(FONT_ROLES).forEach(([role, font]) => doc.registerFont(role, font));
 
 let page = 0, warn = [];
-const newpage = () => { page++; if (page > 1) doc.addPage({ size: [W, H], margin: 0 }); };
+const BACKGROUNDS = ['worship', 'community', 'reflect', 'cover', 'choir'];
+const newpage = () => {
+  page++;
+  if (page > 1) doc.addPage({ size: [W, H], margin: 0 });
+  fillRect(0, 0, W, H, paper);
+  // Always underneath the copy. Dark bands painted later cover this watermark
+  // and receive their own light silhouette where the layout calls for one.
+  shape(BACKGROUNDS[(page - 1) % BACKGROUNDS.length], 20, 150, W - 40, H - 180,
+    { tone: 'ink', opacity: BACKGROUND_OPACITY.light, valign: 'bottom' });
+};
 
 /* ---------------------------------- primitives -------------------------------- */
-/* colour is '#hex' or [from,to] for a diagonal gradient */
-const grad = (x0, y0, x1, y1, c0, c1) => {
-  if (Array.isArray(c0)) { c1 = c0[1]; c0 = c0[0]; }
-  return doc.linearGradient(x0, y0, x1, y1).stop(0, c0).stop(1, c1);
-};
-const paint = (x, y, w, h, c) => Array.isArray(c) ? grad(x, y, x + w, y + h, c[0], c[1]) : c;
+// Existing calls keep their geometry, but all fills are now solid colours.
+const grad = (x0, y0, x1, y1, c0) => Array.isArray(c0) ? c0[0] : c0;
+const paint = (x, y, w, h, c) => Array.isArray(c) ? c[0] : c;
 const fillRect = (x, y, w, h, c) => doc.rect(x, y, w, h).fill(paint(x, y, w, h, c));
 const band = (y, h, c) => fillRect(FX, y, FW, h, c);
 const rule = (y, c = edge, wd = .7, x0 = ML, x1 = MR) =>
@@ -133,10 +128,13 @@ function shape(name, x, y, maxW, maxH, o = {}) {
     opts.align = o.align || 'center';
     opts.valign = o.valign || 'bottom';
   }
-  if (o.opacity != null) opts.opacity = o.opacity;
-  if (o.clip) { doc.save(); doc.rect(...o.clip).clip(); }
-  doc.image(A('sil/' + (o.tone || 'ink') + '/' + name + '.png'), px, py, opts);
-  if (o.clip) doc.restore();
+  // PDFKit does not apply an `opacity` image option. Set the graphics state
+  // explicitly, then restore it so text and subsequent panels stay opaque.
+  doc.save();
+  doc.opacity(Math.min(o.opacity ?? BACKGROUND_OPACITY.dark, BACKGROUND_OPACITY.dark));
+  if (o.clip) doc.rect(...o.clip).clip();
+  doc.image(A('sil/' + (o.tone || 'ink') + '/' + name + '.png'), o.fill ? x : px, o.fill ? y : py, opts);
+  doc.restore();
   USED.push({ name, tone: o.tone || 'ink', w: +(o.fill ? maxW : w).toFixed(0), h: +(o.fill ? maxH : h).toFixed(0),
               dpi: Math.round(m.w / ((o.fill ? maxW : w) / 72)) });
   return { x: px, y: py, w, h, bottom: py + h, dpi: Math.round(m.w / (w / 72)) };
@@ -207,7 +205,9 @@ function shadow(str, x, y, o = {}) {
 }
 
 /* ---------------------------------- small marks --------------------------------- */
-const paperCard = (x, y, w, h, r = 7, fill = tint) => doc.roundedRect(x, y, w, h, r).fill(fill);
+const paperCard = (x, y, w, h, r = 7, fill = tint) => {
+  doc.save().fillOpacity(.045).roundedRect(x, y, w, h, r).fill(ink).restore();
+};
 function disc(cx, cy, r, c, glyph) {
   doc.circle(cx, cy, r).fill(paint(cx - r, cy - r, r * 2, r * 2, c));
   if (glyph) glyphIcon(glyph, cx, cy, r / 10.4);
@@ -342,7 +342,7 @@ place('CHRISCO', ML, 88, { size: 21, font: 'display', color: paper, space: 4.2, 
 place('Central Youth, Nairobi', ML, 116, { size: 10.2, font: 'italic', color: paper, fade: .8, space: 1.2, lead: 13.4, fit: true });
 
 /* the booklet's shape: hands raised, cut from the photo pool */
-shape('worship', ML, 144, CW, 246, { tone: 'paper', opacity: .92, align: 'center' });
+shape('worship', ML, 144, CW, 246, { tone: 'paper', opacity: BACKGROUND_OPACITY.dark, align: 'center' });
 
 place('Cancel Culture\nvs Grace Culture', ML, 404,
   { size: 27, font: 'display', color: paper, width: CW, align: 'right', lead: 32, maxY: 470, name: 'cover title' });
@@ -363,7 +363,7 @@ place('The Question\nWe Cannot Dodge', ML, 30, { size: 26, font: 'display', colo
 place('How do we hold one another accountable for wrong doing without denying the possibility of redemption? That is the question this series keeps returning to.',
   ML, 112, { size: 9.6, color: paper, fade: .92, width: 186, lead: 13.4, maxY: 186, name: 'p2 lead' });
 /* the crowd, cut from the photograph, darker than the band and bled off the right */
-bleed('community', 250, 68, 218, 124, { tone: 'ink', opacity: .5, valign: 'bottom', clip: [0, 0, W, 192] });
+bleed('community', 250, 68, 218, 124, { tone: 'paper', opacity: BACKGROUND_OPACITY.dark, valign: 'bottom', clip: [0, 0, W, 192] });
 
 place('Culture is the shared beliefs, values and customs of a group, and the way a group treats someone who has fallen tells you more than any statement of faith.',
   ML, 212, { size: 9.8, font: 'italic', color: ink, fade: .72, width: CW, lead: 13.8, maxY: 246, name: 'p2 side note' });
@@ -476,7 +476,7 @@ newpage();
 fillRect(0, 0, W, 206, grad(0, 0, W, 206, BAND));
 hairline(206, gold);
 /* a hand raised, cut from the photograph, bled off the right of the ink strip */
-bleed('worship', 246, -6, 176, 212, { tone: 'paper', opacity: .9, valign: 'top', clip: [0, 0, W, 206] });
+bleed('worship', 246, -6, 176, 212, { tone: 'paper', opacity: BACKGROUND_OPACITY.dark, valign: 'top', clip: [0, 0, W, 206] });
 place('Balance\nin Practice', ML, 62,
   { size: 25, font: 'display', color: paper, lead: 29, width: 210, maxY: 150, name: 'p6 title' });
 place('We must learn the difference between public shaming and public accountability. These are the checks we keep applying to ourselves.',
@@ -493,7 +493,7 @@ place('We must learn the difference between public shaming and public accountabi
   ];
   const L = solveRows(rows, 266, 580);
   rows.forEach((r, i) => {
-    const y = L.tops[i], c = RAINBOW[i % RAINBOW.length];
+    const y = L.tops[i], c = ROW_COLORS[i % ROW_COLORS.length];
     checkBadge(ML, y, accent);
     const hy = place(r[0], ML + 40, y - 1, { size: 11.4, font: 'bold', color: c, width: 268, lead: L.headLead,
       maxY: L.tops[i + 1] ? L.tops[i + 1] - 4 : 590 });
@@ -508,7 +508,7 @@ place('We must learn the difference between public shaming and public accountabi
 newpage();
 fillRect(0, 0, W, H, grad(0, 0, W, H, BAND));
 pennant(378, 104, 1, PENN_W, PENN_H, gold, accent);
-bleed('choir', -26, 44, 218, 232, { tone: 'paper', valign: 'top', opacity: .92 });
+bleed('choir', -26, 44, 218, 232, { tone: 'paper', valign: 'top', opacity: BACKGROUND_OPACITY.dark });
 
 const p7x = 219, p7w = MR - p7x;
 kicker('The Heart of the Matter', p7x, 44, gold, { width: p7w });
@@ -570,7 +570,7 @@ hairline(109.5, gold);
 place('Over to You', ML, 28, { size: 26, font: 'display', color: paper, lead: 31, maxY: 66 });
 place('A few things to carry into the week.', ML, 74, { size: 10.2, font: 'italic', color: paper, fade: .82, width: 170, maxY: 100 });
 /* two people in profile, cut from the photograph, bled off the right of the band */
-bleed('reflect', 262, 16, 200, 92, { tone: 'paper', align: 'right', opacity: .9, clip: [0, 0, W, 109.5] });
+bleed('reflect', 262, 16, 200, 92, { tone: 'paper', align: 'right', opacity: BACKGROUND_OPACITY.dark, clip: [0, 0, W, 109.5] });
 
 place('Reflect', ML, 128, { size: 15, font: 'display', color: accent, lead: 19, fit: true });
 [
@@ -617,7 +617,7 @@ place('Treasure Tuesdays', ML, 124, { size: 11.4, font: 'displayIt', color: gold
 place('Every Tuesday, youth fellowship at CHRISCO Central, Nairobi. All are welcome, and the doors open fifteen minutes before we start.',
   ML, 144, { size: 9.7, color: paper, fade: .84, width: 196, lead: 13.6, maxY: 214, name: 'p10 details' });
 /* hands raised, cut from the photograph, bled off the left of the panel */
-bleed('cover', -26, 246, 244, 170, { tone: 'paper', valign: 'bottom', opacity: .92 });
+bleed('cover', -26, 246, 244, 170, { tone: 'paper', valign: 'bottom', opacity: BACKGROUND_OPACITY.dark });
 doc.roundedRect(232, 240, MR - 232, 176, 8).fill(ink);
 doc.roundedRect(232, 240, MR - 232, 176, 8).lineWidth(.8).strokeColor(gold).stroke();
 const p10t = place('The balance this book argues for', 248, 254, { size: 12, font: 'display', color: gold,
@@ -640,11 +640,10 @@ right('CHRISCO Central Youth Nairobi', 572, { size: 7.6, font: 'caps', color: in
 /* -------------------------------------- finish -------------------------------- */
 doc.end();
 doc.on('end', () => {
-  const fonts = [...new Set(Object.values(doc._fontFamilies || {}).map(f => path.basename(f.file || '')))].filter(Boolean);
   console.log(`\nwritten: ${path.basename(OUT)}`);
   console.log(`pages:   ${page}   size: ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
-  console.log(`palette: ink, plum, accent, gold, white, paper (plus three plum tints)`);
-  console.log(`type:    ${fonts.join(', ') || 'Droid Serif'}`);
+  console.log(`palette: charcoal, warm paper, muted gold (three base colours)`);
+  console.log(`type:    ${[...new Set(Object.values(FONT_ROLES))].join(', ')}`);
   console.log(`shapes (every silhouette is at least ${DPI} dpi):`);
   USED.forEach(u => console.log(`   ${u.name.padEnd(10)} ${u.tone.padEnd(5)} ${String(u.w).padStart(3)} x ${String(u.h).padStart(3)} pt   ${u.dpi} dpi`));
   if (warn.length) { console.log('\nLAYOUT WARNINGS:'); warn.forEach(w => console.log('  ! ' + w)); }
