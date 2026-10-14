@@ -4,3 +4,4 @@ node_modules/
 # presentation build caches
 presentations/*/build/graphics/
 presentations/*/preview/slide*.png
+presentations/*/preview/*.pptx

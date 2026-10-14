@@ -29,10 +29,10 @@ TOKENS = {
                    accent2="#A191E6", ink="#060815", soft="#151738"),
 }
 
-TICK_FILES = {"gold": "badgegold.png", "mint": "badgemint.png", "rose": "badgerose.png",
-              "lilac": "badgelilac.png", "pearl": "badgepearl.png", "deep": "badgedeep.png",
-              "ember": "badgeember.png", "deepmint": "badgedeepmint.png",
-              "deeprose": "badgedeeprose.png", "deeplilac": "badgedeeplilac.png"}
+TICK_FILES = {"night": "tick_night.png", "dawn": "tick_dawn.png", "forest": "tick_forest.png",
+              "rose": "tick_rose.png", "violet": "tick_violet.png", "muted": "tick_muted.png",
+              "light": "tick_light.png", "cross": "mark_cross.png", "ember": "mark_cross.png",
+              "gold": "tick_night.png", "mint": "tick_forest.png", "lilac": "tick_violet.png"}
 
 _FONT_CACHE = {}
 
@@ -55,11 +55,16 @@ def _font(font, bold, italic, size_px):
     """size_px is expressed in stage pixels (the preview canvas is 1:1 with the stage)."""
     key = (font, bold, italic, int(round(size_px)))
     if key not in _FONT_CACHE:
-        family = S.FONTS.get(font, "Verdana")
-        if family == "Verdana":
-            path = DEJAVU + ("DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf")
-        elif family == "Playfair Display":
-            path = DEJAVU + ("DejaVuSerif-Bold.ttf" if bold else "DejaVuSerif.ttf")
+        family = S.FONTS.get(font, "Calibri")
+        office = os.path.join(HERE, "fonts")
+        if family == "Calibri":
+            name = "Carlito-Bold.ttf" if bold else ("Carlito-Italic.ttf" if italic
+                                                    else "Carlito-Regular.ttf")
+            path = os.path.join(office, name)
+        elif family == "Cambria":
+            name = "Caladea-Bold.ttf" if bold else ("Caladea-Italic.ttf" if italic
+                                                    else "Caladea-Regular.ttf")
+            path = os.path.join(office, name)
         else:
             path = DEJAVU + ("DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf")
         _FONT_CACHE[key] = ImageFont.truetype(path, int(size_px))
@@ -112,7 +117,7 @@ def render_graphics(slide, scale=1.0):
                                       int(el["y"] * scale - g.size[1] * 0.0)))
         elif k == "chev":
             pal = slide["palette"]
-            name = "arrow_%s_%s_0.png" % (pal, el["key"])
+            name = "chevron_%s.png" % pal
             im = load_asset(name, el["w"] * scale)
             if el.get("down"):
                 im = im.transpose(Image.ROTATE_270)

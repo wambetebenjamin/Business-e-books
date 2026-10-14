@@ -1,90 +1,112 @@
 {
  "1": {
   "bg": "bg01.jpg",
-  "palette": "night"
+  "family": "night",
+  "accent": "#E2B95F"
  },
  "2": {
   "bg": "bg02.jpg",
-  "palette": "dawn"
+  "family": "dawn",
+  "accent": "#E8A45C"
  },
  "3": {
   "bg": "bg03.jpg",
-  "palette": "dawn"
+  "family": "dawn",
+  "accent": "#E8A45C"
  },
  "4": {
   "bg": "bg04.jpg",
-  "palette": "dawn"
+  "family": "dawn",
+  "accent": "#E8A45C"
  },
  "5": {
   "bg": "bg05.jpg",
-  "palette": "dawn"
+  "family": "dawn",
+  "accent": "#E8A45C"
  },
  "6": {
   "bg": "bg06.jpg",
-  "palette": "forest"
+  "family": "forest",
+  "accent": "#6FCBB4"
  },
  "7": {
   "bg": "bg07.jpg",
-  "palette": "forest"
+  "family": "forest",
+  "accent": "#6FCBB4"
  },
  "8": {
   "bg": "bg08.jpg",
-  "palette": "forest"
+  "family": "forest",
+  "accent": "#6FCBB4"
  },
  "9": {
   "bg": "bg09.jpg",
-  "palette": "forest"
+  "family": "forest",
+  "accent": "#6FCBB4"
  },
  "10": {
   "bg": "bg10.jpg",
-  "palette": "forest"
+  "family": "forest",
+  "accent": "#6FCBB4"
  },
  "11": {
   "bg": "bg11.jpg",
-  "palette": "forest"
+  "family": "forest",
+  "accent": "#6FCBB4"
  },
  "12": {
   "bg": "bg12.jpg",
-  "palette": "rose"
+  "family": "rose",
+  "accent": "#E9A184"
  },
  "13": {
   "bg": "bg13.jpg",
-  "palette": "rose"
+  "family": "rose",
+  "accent": "#E9A184"
  },
  "14": {
   "bg": "bg14.jpg",
-  "palette": "rose"
+  "family": "rose",
+  "accent": "#E9A184"
  },
  "15": {
   "bg": "bg15.jpg",
-  "palette": "rose"
+  "family": "rose",
+  "accent": "#E9A184"
  },
  "16": {
   "bg": "bg16.jpg",
-  "palette": "rose"
+  "family": "rose",
+  "accent": "#E9A184"
  },
  "17": {
   "bg": "bg17.jpg",
-  "palette": "violet"
+  "family": "violet",
+  "accent": "#B7A8F2"
  },
  "18": {
   "bg": "bg18.jpg",
-  "palette": "violet"
+  "family": "violet",
+  "accent": "#B7A8F2"
  },
  "19": {
   "bg": "bg19.jpg",
-  "palette": "violet"
+  "family": "violet",
+  "accent": "#B7A8F2"
  },
  "20": {
   "bg": "bg20.jpg",
-  "palette": "violet"
+  "family": "violet",
+  "accent": "#B7A8F2"
  },
  "21": {
   "bg": "bg21.jpg",
-  "palette": "night"
+  "family": "night",
+  "accent": "#E2B95F"
  },
  "22": {
   "bg": "bg22.jpg",
-  "palette": "night"
+  "family": "night",
+  "accent": "#E2B95F"
  }
 }

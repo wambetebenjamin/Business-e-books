@@ -4,8 +4,8 @@ Builds the deliverable: Gestalt Theory and Its Application to Counselling.pptx
 
 Structure of every slide:
   * one full bleed background picture (the painted silhouette scene)
-  * one transparent "graphics" picture holding the halos, rings and chevrons
-  * the three dimensional tick badges as transparent pictures
+  * one transparent "graphics" picture holding the halos and chevrons
+  * the Word style tick marks as transparent pictures
   * text boxes, one per text block, using Verdana / Playfair Display / Consolas
 
 Entrance animations are written into the slide timing tree: a soft fade for
@@ -194,10 +194,6 @@ def bake_graphics(slide, index):
     return path
 
 
-def chev_asset(palette, key="accent"):
-    return "arrow_%s_%s_0.png" % (palette, key)
-
-
 def build_pptx():
     prs = Presentation()
     prs.slide_width = emu(S.STAGE_W)
@@ -225,7 +221,7 @@ def build_pptx():
                 if k in ("tick", "cross"):
                     src = RC.TICK_FILES[el["color"]]
                     if k == "cross":
-                        src = "badgeember.png"
+                        src = "mark_cross.png"
                 path = os.path.join(RC.ASSETS, src)
                 w = el["w"]
                 if el.get("h"):

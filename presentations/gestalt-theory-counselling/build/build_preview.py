@@ -75,9 +75,10 @@ def main():
 {cards}
 </div>
 <p class="note">
-  <b>Every list line is introduced by a 3D tick.</b> Backgrounds are hand painted silhouette scenes,
-  one per slide. Type is Verdana, Playfair Display and Consolas.
-  This preview is flattened; the PowerPoint file carries the entrance animations.
+  <b>Every list line opens with the Word tick bullet, drawn as artwork so it never
+  falls back to an emoji.</b> Backgrounds are one quiet gradient each. Type is Calibri,
+  Cambria and Consolas. This preview is flattened; the PowerPoint file carries the
+  entrance animations.
 </p>
 </body>
 </html>

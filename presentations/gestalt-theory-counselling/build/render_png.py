@@ -28,9 +28,9 @@ def render_slide(slide, scale=1.0, with_bg=True):
     draw = ImageDraw.Draw(canvas)
     for el in slide["els"]:
         if el["k"] in ("tick", "cross"):
-            name = RC.TICK_FILES.get(el["color"], "badgegold.png")
+            name = RC.TICK_FILES.get(el["color"], "tick_night.png")
             if el["k"] == "cross":
-                name = "badgeember.png"
+                name = "mark_cross.png"
             im = RC.load_asset(name, el["w"] * scale)
             canvas.alpha_composite(im, (int(el["x"] * scale), int(el["y"] * scale)))
     for el in slide["els"]:

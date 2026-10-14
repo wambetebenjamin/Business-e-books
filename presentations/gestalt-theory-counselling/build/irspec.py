@@ -8,9 +8,10 @@ PNG layers for review.
 House rules encoded here:
   * no cards, no boxes, no panel fills, no rules and no underlines
   * no bullet points and no dashes of any kind
-  * every list item is introduced by a three dimensional tick
-  * all type comes from Verdana, Playfair Display or Consolas (never Arial,
-    Calibri, Aptos, Roboto or any other Office default)
+  * every list item is introduced by the tick mark Word itself uses for its
+    tick bullet, drawn as an image so it looks identical everywhere
+  * type is the standard Microsoft Office set: Calibri for running text,
+    Cambria for headings, Consolas for labels and figures. Nothing exotic.
 
 Layout is measured, never guessed: helpers below wrap text with the same
 metrics the renderers use, so nothing can collide.
@@ -22,15 +23,15 @@ I, PT = 0, 1
 STAGE_W, STAGE_H = 1600.0, 900.0
 PT_PER_PX = 13.3333 * 72.0 / STAGE_W          # 0.6 : points per stage pixel
 LH = 1.25                                      # line box, as a multiple of the em
-WIDTH_SAFETY = 1.02   # Verdana runs a shade wider than the measuring face
+WIDTH_SAFETY = 1.02   # the preview face runs a shade wider than Word's
 
-FONTS = {"sans": "Verdana", "display": "Playfair Display", "mono": "Consolas"}
+FONTS = {"sans": "Calibri", "display": "Cambria", "mono": "Consolas"}
 
 # One global type scale. The stage is 1600 x 900 px mapped onto a 13.33 x 7.5 inch
-# slide, so one stage pixel is 0.6 pt. Multiplying every authored size by a single
-# factor keeps the design proportions intact while landing body copy at a size that
-# reads comfortably on a projector (about 14 pt for running text).
-SCALE_TYPE = 1.34
+# slide, so one stage pixel is 0.6 pt. Body copy lands near 15 pt and list lines
+# near 16 pt, which reads from the back of a room.
+SCALE_TYPE = 1.62
+MARK_SCALE = 1.30      # ticks and their gaps grow more slowly than the type
 
 MARGIN = 104.0
 
@@ -64,7 +65,7 @@ def line(x1, y1, x2, y2, color="#FFFFFF", width=1.2, alpha=0.35, anim="fade", de
 def run(s, size=15, color="text", font="sans", bold=False, italic=False, spacing=0.0,
         alpha=1.0):
     return dict(s=s, size=size * SCALE_TYPE, color=color, font=font, bold=bold, italic=italic,
-                spacing=spacing * SCALE_TYPE, alpha=alpha)
+                spacing=spacing * MARK_SCALE, alpha=alpha)
 
 
 def P(*runs, align=None, space_before=0, line=None):
@@ -82,7 +83,7 @@ def t(x, y, w, paras, align="l", anchor="t", anim="fade", delay=0.0, name=None, 
 
 
 def tick(x, y, size=26, color="gold", anim="pop", delay=0.0, name=None, kind="tick"):
-    size = size * SCALE_TYPE
+    size = size * MARK_SCALE
     return dict(k=kind, x=x, y=y, w=size, h=size, color=color, anim=anim, delay=delay, name=name)
 
 
@@ -97,14 +98,17 @@ def _fonts():
     global _FONTS
     if _FONTS is None:
         from PIL import ImageFont
-        base = "/usr/share/fonts/truetype/dejavu/"
+        office = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+        dejavu = "/usr/share/fonts/truetype/dejavu/"
         _FONTS = {
-            ("sans", False): ImageFont.truetype(base + "DejaVuSans.ttf", 100),
-            ("sans", True): ImageFont.truetype(base + "DejaVuSans-Bold.ttf", 100),
-            ("display", False): ImageFont.truetype(base + "DejaVuSerif.ttf", 100),
-            ("display", True): ImageFont.truetype(base + "DejaVuSerif-Bold.ttf", 100),
-            ("mono", False): ImageFont.truetype(base + "DejaVuSansMono.ttf", 100),
-            ("mono", True): ImageFont.truetype(base + "DejaVuSansMono-Bold.ttf", 100),
+            # Carlito is metric compatible with Calibri, Caladea with Cambria,
+            # so these measurements match what Word and PowerPoint will do.
+            ("sans", False): ImageFont.truetype(os.path.join(office, "Carlito-Regular.ttf"), 100),
+            ("sans", True): ImageFont.truetype(os.path.join(office, "Carlito-Bold.ttf"), 100),
+            ("display", False): ImageFont.truetype(os.path.join(office, "Caladea-Regular.ttf"), 100),
+            ("display", True): ImageFont.truetype(os.path.join(office, "Caladea-Bold.ttf"), 100),
+            ("mono", False): ImageFont.truetype(dejavu + "DejaVuSansMono.ttf", 100),
+            ("mono", True): ImageFont.truetype(dejavu + "DejaVuSansMono-Bold.ttf", 100),
         }
     return _FONTS
 
@@ -185,12 +189,29 @@ def item(x, y, w, s, size=15.5, color="text", tick_color="gold", tick_size=25, g
 
 
 def bullet_list(x, y, w, items, size=15.5, color="text", tick_color="gold", tick_size=25,
-                gap=34, item_gap=18, anim_delay=0.0, palette=None, font="sans", bold=False):
-    """A vertical list, every line carrying its own three dimensional tick."""
-    els, yy = [], y
+                gap=34, item_gap=18, anim_delay=0.0, palette=None, font="sans", bold=False,
+                fill_to=None):
+    """A vertical list where every line carries its own tick.
+
+    fill_to, when given, is a y position near the foot of the slide. The list
+    opens its gaps evenly so it reaches that line, which keeps short lists from
+    stranded at the top of an otherwise empty slide.
+    """
     item_gap = item_gap * SCALE_TYPE
-    for i, s in enumerate(items):
-        e, h = item(x, yy, w, s, size=size, color=color, tick_color=tick_color,
+    heights = []
+    for s_ in items:
+        _, h = item(x, 0, w, s_, size=size, color=color, tick_color=tick_color,
+                    tick_size=tick_size, gap=gap, delay=0.0, font=font, bold=bold)
+        heights.append(h)
+    if fill_to is not None and len(items) > 1:
+        room = fill_to - y - sum(heights)
+        if room > 0:
+            item_gap = max(item_gap, room / (len(items) - 1))
+    # never let a gap open wider than a comfortable reading step
+    item_gap = min(item_gap, 96 * SCALE_TYPE)
+    els, yy = [], y
+    for i, s_ in enumerate(items):
+        e, h = item(x, yy, w, s_, size=size, color=color, tick_color=tick_color,
                     tick_size=tick_size, gap=gap, delay=anim_delay + i * 0.10, font=font,
                     bold=bold)
         els += e
@@ -288,8 +309,8 @@ PALETTE = {1: "night", 2: "dawn", 3: "dawn", 4: "dawn", 5: "dawn", 6: "forest", 
            8: "forest", 9: "forest", 10: "forest", 11: "forest", 12: "rose", 13: "rose",
            14: "rose", 15: "rose", 16: "rose", 17: "violet", 18: "violet", 19: "violet",
            20: "violet", 21: "night", 22: "night"}
-TICK_BY_PALETTE = {"night": "gold", "dawn": "gold", "forest": "mint", "rose": "rose",
-                   "violet": "lilac"}
+TICK_BY_PALETTE = {"night": "night", "dawn": "dawn", "forest": "forest", "rose": "rose",
+                   "violet": "violet"}
 
 
 def slide(n):
@@ -367,7 +388,7 @@ def build():
                           "Understands individuals within their environment and relationships",
                           "Encourages personal responsibility, choice and authentic living",
                           "Focuses on the client's experience in the here and now"],
-                         size=17, gap=36, tick_size=26, item_gap=26, anim_delay=0.5)
+                         size=17, gap=36, tick_size=26, item_gap=26, anim_delay=0.5, fill_to=760)
     s["els"] += els
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
@@ -381,7 +402,7 @@ def build():
                           ["Emerged during the 1940s and 1950s",
                            "Developed partly in response to limitations perceived in traditional "
                            "psychoanalysis"],
-                          size=16.5, item_gap=20, anim_delay=0.5)
+                          size=16.5, item_gap=20, anim_delay=0.5, fill_to=350)
     s["els"] += els
     s["els"] += block_label(MARGIN, y2 + 30, "INFLUENCED BY", delay=0.9)[0]
     sources = ["Gestalt psychology", "Phenomenology", "Existential philosophy", "Field theory",
@@ -445,9 +466,10 @@ def build():
     right = ["People have capacity for choice and self regulation",
              "Healthy functioning involves meaningful contact",
              "Psychological difficulties may involve interruptions in awareness or contact"]
-    e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=30, anim_delay=0.5)
+    e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=30, anim_delay=0.5, fill_to=780)
     s["els"] += e
-    e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=30, anim_delay=0.9)
+    e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=30, anim_delay=0.9,
+                       fill_to=780)
     s["els"] += e
     s["cite"] = "Perls et al., 1951   |   Brownell, 2010   |   Joyce and Sills, 2014"
     S.append(s)
@@ -485,13 +507,13 @@ def build():
     e, y1 = bullet_list(MARGIN, y + 34, 640,
                         ["Focuses on the client's present experience",
                          "Includes thoughts, emotions, bodily sensations and behaviour"],
-                        size=16, item_gap=24, anim_delay=0.58)
+                        size=16, item_gap=24, anim_delay=0.58, fill_to=y + 300)
     s["els"] += e
     s["els"] += block_label(MARGIN + 720, y, "THE PAST", delay=0.9)[0]
     e, y2 = bullet_list(MARGIN + 720, y + 34, 580,
                         ["Past experiences are explored through their current impact",
                          "The therapeutic relationship offers present moment awareness"],
-                        size=16, item_gap=24, anim_delay=0.98)
+                        size=16, item_gap=24, anim_delay=0.98, fill_to=y + 300)
     s["els"] += e
     e, _ = item(MARGIN, max(y1, y2) + 44, 1250,
                 "Encourages direct experience rather than excessive intellectual analysis",
@@ -508,7 +530,7 @@ def build():
     ring_w = 430.0
     s["els"] += [
         glow(196, y + 4, 500, 420, color="accent", alpha=0.18),
-        img("rings.png", 236, y + 20, ring_w, alpha=0.92, anim="zoom", delay=0.5),
+        img("figure_ground.png", 236, y + 20, ring_w, alpha=0.95, anim="zoom", delay=0.5),
         t(236, y + 158, ring_w, [P(run("FIGURE", size=14.5, color="text", font="mono", bold=True,
                                        spacing=2.4), align="c")], anim="fade", delay=1.0),
         t(236, y + 186, ring_w, [P(run("what steps forward", size=13, color="muted",
@@ -554,7 +576,7 @@ def build():
                          "Healthy contact addresses needs while keeping a sense of self",
                          "Contact involves engaging, responding and withdrawing",
                          "Relationships, culture and circumstances influence contact"],
-                        size=16, item_gap=18, anim_delay=0.5)
+                        size=16, item_gap=18, anim_delay=0.5, fill_to=720)
     s["els"] += e
     s["els"] += chain(MARGIN + 10, y2 + 34, ["Individual", "Contact boundary", "Environment"],
                       gapx=340, size=17, anim_delay=1.3)
@@ -576,7 +598,7 @@ def build():
                        ["Can remain psychologically active in the present",
                         "May interfere with healthy contact",
                         "Therapy promotes awareness and processing"],
-                       size=16, item_gap=24, anim_delay=1.1)
+                       size=16, item_gap=24, anim_delay=1.1, fill_to=760)
     s["els"] += e
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
@@ -591,7 +613,7 @@ def build():
                          "Promotes agency and ownership",
                          "Encourages authentic decision making",
                          "Uses language that reflects personal experience"],
-                        size=16, item_gap=24, anim_delay=0.5)
+                        size=16, item_gap=24, anim_delay=0.5, fill_to=700)
     s["els"] += e
     s["els"] += [
         t(MARGIN, y1 + 32, 660, [P(run("RESPONSIBILITY IS OWNERSHIP  NOT BLAME", size=11.5,
@@ -621,9 +643,10 @@ def build():
             "Observes verbal and non verbal behaviour", "Uses the therapeutic relationship"]
     right = ["Encourages authentic expression", "Explores interruptions in contact",
              "Promotes responsibility and choice"]
-    e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=30, anim_delay=0.5)
+    e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=30, anim_delay=0.5, fill_to=760)
     s["els"] += e
-    e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=30, anim_delay=0.95)
+    e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=30, anim_delay=0.95,
+                       fill_to=760)
     s["els"] += e
     s["cite"] = "Joyce and Sills, 2014   |   Brownell, 2010"
     S.append(s)
@@ -738,9 +761,10 @@ def build():
     right = ["Considers person and environment interaction",
              "Encourages active client participation",
              "Supports experiential emotional processing"]
-    e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=28, anim_delay=0.45)
+    e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=28, anim_delay=0.45, fill_to=780)
     s["els"] += e
-    e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=28, anim_delay=0.85)
+    e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=28, anim_delay=0.85,
+                       fill_to=780)
     s["els"] += e
     S.append(s)
 
@@ -756,9 +780,10 @@ def build():
     right = ["Not every intervention suits every client",
              "Cultural context must be considered",
              "Ethical boundaries are essential"]
-    e, _ = bullet_list(MARGIN, y, 620, left, size=16, item_gap=28, anim_delay=0.45)
+    e, _ = bullet_list(MARGIN, y, 620, left, size=16, item_gap=28, anim_delay=0.45, fill_to=770)
     s["els"] += e
-    e, _ = bullet_list(MARGIN + 700, y, 600, right, size=16, item_gap=28, anim_delay=0.9)
+    e, _ = bullet_list(MARGIN + 700, y, 600, right, size=16, item_gap=28, anim_delay=0.9,
+                       fill_to=770)
     s["els"] += e
     s["cite"] = "Corey, 2024   |   Joyce and Sills, 2014"
     S.append(s)
@@ -857,7 +882,7 @@ def build():
             "Yontef, G., and Fuhr, R. (2005). Gestalt therapy theory of change. In Woldt and Toman "
             "(Eds.), Gestalt therapy: History, theory, and practice (pp. 81 to 100). SAGE."]
     e, _ = bullet_list(MARGIN, y - 10, 1240, refs, size=13.5, color="muted", item_gap=13,
-                       anim_delay=0.4, tick_size=22, gap=32)
+                       anim_delay=0.4, tick_size=22, gap=32, fill_to=790)
     s["els"] += e
     S.append(s)
 
