@@ -1,0 +1,54 @@
+name: Publish booklet PDF
+
+# Attaches the built Treasure Tuesday booklet to the GitHub release, so that
+# https://github.com/wambetebenjamin/Business-e-books/releases/download/treasure-tuesday-v1/Cancel-Culture-vs-Grace-Culture-Treasure-Tuesday.pdf
+# is a direct link that downloads the PDF on click.
+#
+# This file lives outside .github on purpose.  The token used to build this
+# repo cannot push workflow files ("refusing to allow a GitHub App to create or
+# update workflow ... without workflows permission"), so it is kept here ready
+# to go: copy it to .github/workflows/publish-booklet-pdf.yml, which then
+# republishes the release asset whenever the PDF changes.
+#
+# Why this runs on GitHub instead of locally: release asset uploads go to
+# uploads.github.com, which is not reachable from the build sandbox. An Actions
+# runner has full network access and a token with contents:write, so it can
+# upload the asset and keep it in sync whenever the PDF changes.
+
+on:
+  push:
+    paths:
+      - "Cancel Culture vs Grace Culture - Treasure Tuesday.pdf"
+      - ".github/workflows/publish-booklet-pdf.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-booklet-pdf
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      TAG: treasure-tuesday-v1
+      PDF: Cancel Culture vs Grace Culture - Treasure Tuesday.pdf
+      ASSET: Cancel-Culture-vs-Grace-Culture-Treasure-Tuesday.pdf
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the PDF is there and not empty
+        run: |
+          test -s "$PDF" || { echo "::error::missing $PDF"; exit 1; }
+          ls -l "$PDF"
+
+      - name: Upload the PDF to the release
+        run: gh release upload "$TAG" "$PDF#$ASSET" --clobber
+
+      - name: Show the download link
+        run: |
+          echo "Downloads straight away:"
+          echo "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/${ASSET}"

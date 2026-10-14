@@ -4,42 +4,84 @@ Support files for `../generate-treasure-tuesday.js`.
 
 ## fonts/
 
-Premium typefaces, all under the SIL Open Font License, taken from the
-[google/fonts](https://github.com/google/fonts) repository. The variable
-families were instantiated to static weights with
-`fontTools.varLib.instancer` (see the commands in the git history of this file).
+One family: **Droid Serif**, the typeface of the supplied template
+(`../topic book.pdf`, which embeds DroidSerif and DroidSerif-Bold), in its four
+real styles. Apache License 2.0.
 
 | file | face | used for |
 |---|---|---|
-| `playfair-700.ttf` | Playfair Display 700 | cover title, page headlines, section heads |
-| `playfair-500.ttf` | Playfair Display 500 | numerals, lighter display |
-| `playfair-it500.ttf` | Playfair Display Italic 500 | sublines, card titles |
-| `lora-400.ttf` | Lora 400 | body copy |
-| `lora-600.ttf` | Lora 600 | list headings |
-| `lora-it400.ttf` / `lora-it500.ttf` | Lora Italic | intros, notes |
-| `cormorant-500.ttf` | Cormorant Garamond 500 | pull quotes |
-| `cormorant-it500.ttf` | Cormorant Garamond Italic | scripture quotations |
-| `marcellussc.ttf` | Marcellus SC | kickers, labels, the G R A C E discs |
-| `droid-serif-*.ttf` | Droid Serif | kept for reference: it is the typeface of the supplied template |
+| `droid-serif-regular.ttf` | Droid Serif 400 | body copy |
+| `droid-serif-bold.ttf` | Droid Serif 700 | headlines, section heads, kickers, labels |
+| `droid-serif-italic.ttf` | Droid Serif Italic | intros, notes, pull quotes, scripture |
+| `droid-serif-bolditalic.ttf` | Droid Serif Bold Italic | emphasis inside body copy |
+
+Earlier drafts of this booklet set its display type in Playfair Display, Lora,
+Cormorant Garamond and Marcellus SC. Those four Google families were
+machine-generated descendants, so they were removed from the repository and the
+book is now set in the template's own face.
 
 ## img/
 
-Photography is from Pexels: free to use, no attribution required, no watermark
-(<https://www.pexels.com/license/>). Nothing here is stock licensed by Getty,
-Dreamstime or Shutterstock.
+The photo pool, 784 KB. Photography is from Pexels: free to use, no attribution
+required, no watermark (<https://www.pexels.com/license/>). These files are the
+*source* for the silhouettes below; the booklet no longer places them on a page.
 
 `prepare-book-images.py` centre crops each source, grades it slightly and
-unsharps it, then writes `manifest.json`. **The generator reads that manifest and
-caps every photo box at the file's own resolution**, so no panel is ever enlarged
-and every image in the book prints at 190 dpi or better (the build log reports
-the actual figure per panel).
+unsharps it, then writes `manifest.json`.
 
-| file | px | where it appears |
+## sil/
+
+What the booklet actually draws. Every picture is matted, cleaned up, and
+written out as a single flat tone with a soft edge, so a page carries a shape
+rather than a photograph.
+
+    python3 assets/make-silhouettes.py            # cut every shape
+    python3 assets/make-silhouettes.py cover worship
+
+| shape | source | appears |
 |---|---|---|
-| `cover.jpg` | 870x750 | front cover panel |
-| `community.jpg` | 500x316 | page 2 |
-| `balance.jpg` | 1125x643 | page 6, full width strip |
-| `choir.jpg` | 500x750 | page 7 |
-| `nairobi.jpg` | 500x316 | page 8 |
-| `worship.jpg` | 500x750 | back cover |
-| `scripture.jpg`, `reflect.jpg`, `grace.jpg`, `gathering.jpg` | 500px class | spare, not used in this edition |
+| `worship` | hands raised in worship | front cover, page 6 |
+| `cover` | a young worshipper, arm raised | back cover |
+| `community` | the youth group | page 2, page 6 |
+| `choir` | the choir in robes | page 7 |
+| `reflect` | two people listening | page 9 |
+| `nairobi` | the city skyline | page 8, as a horizon |
+
+**How the cut is made.** `make-silhouettes.py` runs IS-Net (an MIT licensed
+segmentation network, <https://github.com/xuebinqin/DIS>) over each picture,
+thresholds the matte, drops specks, keeps the biggest blobs, fills interior
+holes, closes ragged edges and feathers the outline by about a pixel. The
+subject's own organic outline survives; every pixel of detail inside it is
+gone. Shapes are written at 900 px on the long edge or more, so no panel prints
+below 150 dpi, and in two tones: `ink/` (near black plum, for cream pages) and
+`paper/` (cream, for the ink pages). `manifest.json` carries the pixel sizes.
+
+**Weights.** IS-Net is redistributed inside the `@imgly/background-removal-node`
+npm bundle (the package itself is AGPL, the model is MIT; only the weights are
+used here, never that package's code, inference is written against onnxruntime
+direct). The 44 MB file is not committed, so fetch it once:
+
+    npm pack @imgly/background-removal-node@1.4.5
+    tar xzf imgly-background-removal-node-1.4.5.tgz
+    python3 assets/make-silhouettes.py --fetch package
+
+which reassembles `package/dist` chunks into `assets/sil/model/isnet.onnx` using
+`package/dist/resources.json`. Requires `pillow`, `numpy` and `onnxruntime`.
+
+## palette
+
+The book uses six colours and three tints of one of them, all defined at the
+top of the generator:
+
+| constant | value | role |
+|---|---|---|
+| `ink` | `#2E1140` | body type, dark shapes |
+| `plum` | `#3A0F6B` | dark panels, second gradient stop |
+| `accent` | `#C1126B` | the one accent |
+| `gold` | `#E0A32E` | rules, kickers, the metal |
+| `white` | `#FFFFFF` | the template's page |
+| `paper` | `#FBF7F1` | warm paper: tints, and type on dark |
+
+plus `tint`, `tint2` and `edge`, three tints of plum for panels and hairlines.
+Secondary copy is set in `ink` at reduced opacity rather than in a grey, which
+keeps the page inside the same six colours.
