@@ -11,6 +11,7 @@ file straight away instead of trying to open it.
   /                     the review page, every slide as an image
   /download             the deck, straight to the downloads folder
   /<deck file name>     the same
+  /auto                 a stub page that starts the download by itself
 """
 
 import os
@@ -22,6 +23,26 @@ DECK_DIR = os.path.abspath(os.path.join(HERE, ".."))
 PREVIEW = os.path.join(DECK_DIR, "preview")
 DECK_SRC = "Gestalt Theory and Its Application to Counselling.pptx"
 DECK = "Gestalt-Theory-and-Its-Application-to-Counselling.pptx"
+
+# a stub page for anyone who wants the file without any other step: it sends the
+# browser on to the download before anything is drawn
+AUTO = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your download is starting</title>
+<meta http-equiv="refresh" content="0; url=download">
+</head>
+<body style="margin:0;background:#eef5fa;color:#33506b;
+             font:16px/1.7 Segoe UI,Verdana,sans-serif">
+<p style="max-width:620px;margin:18vh auto;padding:0 24px">
+The PowerPoint is downloading now. If nothing happens,
+<a href="download" style="color:#006aad;font-weight:600">click here to save it</a>.
+</p>
+<script>location.replace("download");</script>
+</body>
+</html>
+"""
 
 
 def deck_path():
@@ -42,7 +63,18 @@ class Handler(SimpleHTTPRequestHandler):
         path = self.path.split("?")[0].rstrip("/") or "/"
         if path == "/download":
             return self.send_deck()
+        if path == "/auto":
+            return self.send_stub()
         return super().do_GET()
+
+    def send_stub(self):
+        body = AUTO.encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
 
     def send_head(self):
         """A request for the deck itself is answered as an attachment."""
