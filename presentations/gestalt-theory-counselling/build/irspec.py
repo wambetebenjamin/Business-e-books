@@ -39,6 +39,12 @@ SCALE_BY_FONT = {"sans": SCALE_TYPE * BODY_SCALE, "display": SCALE_TYPE,
 MARK_SCALE = 1.30      # ticks and their gaps grow more slowly than the type
 
 MARGIN = 104.0
+MIN_PT = 10.5           # nothing in the deck sets smaller than this
+
+# the band the body of a page lives in: it opens just under the lead line and
+# aims at the foot of the page, the way the template sets its own pages
+BODY_TOP = 300.0
+BODY_FOOT = 792.0
 
 # ---------------------------------------------------------------------------
 # element constructors
@@ -71,7 +77,9 @@ def run(s, size=15, color="text", font="sans", bold=False, italic=False, spacing
         alpha=1.0):
     # the template carries regular and bold only, so emphasis comes from colour
     # and weight rather than from a synthesised slant
-    return dict(s=s, size=size * SCALE_BY_FONT.get(font, SCALE_TYPE), color=color, font=font,
+    px = size * SCALE_BY_FONT.get(font, SCALE_TYPE)
+    # captions and tags stay legible: nothing sets below the floor
+    return dict(s=s, size=max(px, MIN_PT / PT_PER_PX), color=color, font=font,
                 bold=bold, italic=False, spacing=spacing * MARK_SCALE, alpha=alpha)
 
 
@@ -202,7 +210,7 @@ def item(x, y, w, s, size=15.5, color="text", tick_color="gold", tick_size=25, g
 
 def bullet_list(x, y, w, items, size=15.5, color="text", tick_color="gold", tick_size=25,
                 gap=34, item_gap=18, anim_delay=0.0, palette=None, font="sans", bold=False,
-                fill_to=None):
+                fill_to=None, ys=None):
     """A vertical list where every line carries its own tick.
 
     fill_to, when given, is a y position near the foot of the slide. The list
@@ -223,11 +231,14 @@ def bullet_list(x, y, w, items, size=15.5, color="text", tick_color="gold", tick
     item_gap = min(item_gap, 96 * SCALE_TYPE)
     els, yy = [], y
     for i, s_ in enumerate(items):
-        e, h = item(x, yy, w, s_, size=size, color=color, tick_color=tick_color,
+        # ys, when given, pins every line to the same baselines as its neighbour
+        # column, which is how two lists of different lengths stay in step
+        top = ys[i] if ys and i < len(ys) else yy
+        e, h = item(x, top, w, s_, size=size, color=color, tick_color=tick_color,
                     tick_size=tick_size, gap=gap, delay=anim_delay + i * 0.10, font=font,
                     bold=bold)
         els += e
-        yy += h + item_gap
+        yy = top + h + item_gap
     return els, yy - item_gap
 
 
@@ -274,11 +285,84 @@ def chain(x, y, labels, gapx=190, size=17, font="sans", bold=True, color="text",
 # ---------------------------------------------------------------------------
 
 def title_size(title):
-    """The largest size at which the heading still sets on a single line."""
-    for size in (58, 52, 46, 41, 36, 32, 28):
-        if text_width(title.upper(), size, "display", True) <= 1270:
+    """The largest size at which the heading still sets on a single line.
+
+    The size is measured through the same scaling the runs get, so a heading
+    the measurement clears really does set on one line in the finished slide.
+    """
+    for size in (58, 52, 46, 41):
+        if text_width(title.upper(), scaled(size, "display"), "display", True) <= 1264:
             return size
-    return 26
+    # the two or three longest headings take a second line rather than shrink
+    # below the rest of the deck
+    return 41
+
+
+def _span(el):
+    """The vertical extent of one element, measured the way the renderers do."""
+    if el["k"] == "text":
+        h = block_height(el["paras"], el["w"], el.get("line"))
+    else:
+        h = el.get("h") or el.get("w", 0) * 0.85
+    return el["y"], el["y"] + h
+
+
+def settle(s, top=BODY_TOP, foot=BODY_FOOT, min_free=54.0, max_gap=104.0, share=0.42):
+    """Balance one page.
+
+    The body of a page is read as a stack of rows. Whatever room is left under
+    the last row is handed to the gaps between the rows, so a short page opens
+    out instead of hanging at the top, and only what is left after that becomes
+    white space above and below the block. The heading, the folio and the
+    citation never move.
+    """
+    fixed = ("head", "folio", "cite")
+    rows = []
+    for el in s["els"]:
+        if el["k"] not in ("text", "tick", "cross", "img", "chev"):
+            continue
+        if el.get("name") in fixed:
+            continue
+        y0, y1 = _span(el)
+        for r in rows:
+            if y0 <= r[1] + 10 and y1 >= r[0] - 10:
+                r[0], r[1] = min(r[0], y0), max(r[1], y1)
+                r[2].append(el)
+                break
+        else:
+            rows.append([y0, y1, [el]])
+    if not rows:
+        return s
+    for _ in range(len(rows)):          # a row may have bridged two earlier rows
+        merged = []
+        for r in sorted(rows, key=lambda row: row[0]):
+            if merged and r[0] <= merged[-1][1] + 10:
+                merged[-1][1] = max(merged[-1][1], r[1])
+                merged[-1][2] += r[2]
+            else:
+                merged.append(r)
+        if len(merged) == len(rows):
+            break
+        rows = merged
+    rows.sort(key=lambda row: row[0])
+    if not s.get("stretch", True):      # this page keeps its groups tight
+        rows = [[rows[0][0], rows[-1][1], [el for r in rows for el in r[2]]]]
+    free = (foot - top) - (rows[-1][1] - rows[0][0])
+    if free < min_free:
+        return s
+    gaps = len(rows) - 1
+    step = min(max_gap, free * 0.86 / gaps) if gaps else 0.0
+    pad = (free - step * gaps) * share
+    offsets = [pad + i * step + (top - rows[0][0]) for i in range(len(rows))]
+    for i, r in enumerate(rows):
+        for el in r[2]:
+            el["y"] = el["y"] + offsets[i]
+    for el in s["els"]:                 # soft shapes travel with the nearest row
+        if el["k"] != "glow":
+            continue
+        i = min(range(len(rows)), key=lambda j: abs(rows[j][0] - el["y"]))
+        el["y"] = el["y"] + offsets[i]
+    return s
 
 
 def chrome(section, title, folio, lead=None, lead_w=1180, lead_size=17.5):
@@ -290,22 +374,25 @@ def chrome(section, title, folio, lead=None, lead_w=1180, lead_size=17.5):
                                    bold=True),
                                 run("     " + section.upper(), size=11, color="muted",
                                     font="mono", bold=True, spacing=2.6))],
-          anim="fade", delay=0.05),
+          anim="fade", delay=0.05, name="head"),
     ]
     title_paras = [P(run(title.upper(), size=tsize, color="heading", font="display", bold=True),
-                     line=1.05)]
-    th = block_height(title_paras, 1270, 1.05)
-    els.append(t(MARGIN, 76, 1270, title_paras, anim="rise", delay=0.18))
-    y = 76 + th
+                     line=1.14)]
+    th = block_height(title_paras, 1270, 1.14)
+    els.append(t(MARGIN, 74, 1270, title_paras, anim="rise", delay=0.18, name="head"))
+    y = 74 + th
     if lead:
         lead_paras = [P(run(lead, size=lead_size, color="muted", font="sans"), line=1.30)]
-        els.append(t(MARGIN, y + 14, lead_w, lead_paras, anim="fade", delay=0.34))
-        y += 14 + block_height(lead_paras, lead_w, 1.30)
-    y += 30
+        els.append(t(MARGIN, y + 16, lead_w, lead_paras, anim="fade", delay=0.34,
+                      name="head"))
+        y += 16 + block_height(lead_paras, lead_w, 1.30)
+    # every page opens its body on the same line, the way the template does, so
+    # a short heading leaves a little more air instead of shifting the page up
+    y = max(y + 30, BODY_TOP)
     els += [
         t(STAGE_W - MARGIN - 380, 44, 380,
           [P(run("PAN AFRICAN CHRISTIAN UNIVERSITY", size=10, color="dim", font="mono",
-                 bold=True, spacing=1.4), align="r")], anim="fade", delay=0.1),
+                 bold=True, spacing=1.4), align="r")], anim="fade", delay=0.1, name="head"),
         t(STAGE_W - MARGIN - 300, STAGE_H - 62, 300,
           [P(run("%02d" % folio, size=12, color="dim", font="mono", bold=True, spacing=2.0),
              align="r")], anim="fade", delay=0.1, name="folio"),
@@ -442,6 +529,7 @@ def build():
     s["els"] += chain(MARGIN - 8, yy + 58,
                       ["Gestalt psychology", "Phenomenology", "Existentialism", "Field theory",
                        "Gestalt therapy"], gapx=224, size=14, anim_delay=1.7)
+    s["stretch"] = False               # each column reads as one object
     s["cite"] = "Perls et al., 1951   |   Woldt and Toman, 2005"
     S.append(s)
 
@@ -459,18 +547,19 @@ def build():
     for i, (med, nm, dates, role, note) in enumerate(people):
         x = MARGIN + i * 470
         s["els"] += [
-            img(med, x, y + 8, 104, anim="pop", delay=0.45 + i * 0.16),
-            t(x + 122, y + 16, 320, [P(run(nm.upper(), size=20, color="heading", font="display",
+            img(med, x, y + 4, 156, anim="pop", delay=0.45 + i * 0.16),
+            t(x + 178, y + 22, 296, [P(run(nm.upper(), size=21, color="heading", font="display",
                                            bold=True))], anim="rise", delay=0.55 + i * 0.16),
-            t(x + 122, y + 52, 320, [P(run(dates.upper(), size=12, color="accent", font="display",
-                                           bold=True, spacing=1.4))],
+            t(x + 178, y + 66, 296, [P(run(dates.upper(), size=13, color="accent", font="display",
+                                           bold=True, spacing=1.6))],
               anim="fade", delay=0.62 + i * 0.16),
-            t(x, y + 134, 440, [P(run(role, size=15.5, color="text", bold=True), line=1.3)],
+            t(x + 178, y + 104, 296, [P(run(role, size=15, color="muted", bold=True), line=1.3)],
               anim="fade", delay=0.7 + i * 0.16),
         ]
-        e, _ = item(x, y + 176, 440, note, size=14.5, color="muted", tick_size=23, gap=32,
+        e, _ = item(x, y + 250, 440, note, size=16, color="text", tick_size=26, gap=36,
                     delay=0.78 + i * 0.16)
         s["els"] += e
+    s["stretch"] = False               # each column reads as one object
     s["cite"] = "Perls et al., 1951   |   Woldt and Toman, 2005"
     S.append(s)
 
@@ -582,6 +671,7 @@ def build():
                          "Awareness reveals what matters most right now"],
                         size=14, item_gap=12, anim_delay=1.3)
     s["els"] += e
+    s["stretch"] = False               # each column reads as one object
     s["cite"] = "Perls et al., 1951   |   Woldt and Toman, 2005"
     S.append(s)
 
@@ -665,8 +755,11 @@ def build():
              "Promotes responsibility and choice"]
     e, _ = bullet_list(MARGIN, y, 600, left, size=16, item_gap=30, anim_delay=0.5, fill_to=760)
     s["els"] += e
+    # the second column carries one line fewer, so it takes the first column's
+    # baselines rather than opening wider gaps of its own
+    steps = [el["y"] for el in e if el["k"] == "text"]
     e, _ = bullet_list(MARGIN + 700, y, 620, right, size=16, item_gap=30, anim_delay=0.95,
-                       fill_to=760)
+                       ys=steps)
     s["els"] += e
     s["cite"] = "Joyce and Sills, 2014   |   Brownell, 2010"
     S.append(s)
@@ -877,15 +970,12 @@ def build():
                                  bold=True), line=1.25)], anim="rise", delay=0.52 + i * 0.16)
         s["els"] += [tick(MARGIN, yy + (h - ts) * 0.5, size=ts, color=tk, anim="pop",
                           delay=0.45 + i * 0.16)] + e
-        if not last:
-            s["els"].append(chev(MARGIN + 18, yy + h + 8, w=30, key="accent", alpha=0.55,
-                                 delay=0.62 + i * 0.16, down=True))
         yy += h + 32
     s["els"] += [
-        glow(1010, y + 80, 470, 400, color="accent", alpha=0.18),
-        t(MARGIN + 880, y + 190, 520,
-          [P(run("Therapeutic change begins with noticing what is happening now.", size=16.5,
-                 color="muted", font="display", italic=True), line=1.4)], anim="rise", delay=1.5),
+        glow(1010, y + 150, 470, 400, color="accent", alpha=0.10),
+        t(MARGIN + 880, y + 250, 520,
+          [P(run("Therapeutic change begins with noticing what is happening now.", size=17,
+                 color="text", font="display"), line=1.45)], anim="rise", delay=1.5),
     ]
     s["cite"] = "Perls et al., 1951   |   Joyce and Sills, 2014"
     S.append(s)
@@ -907,7 +997,7 @@ def build():
     s["els"] += e
     S.append(s)
 
-    return S
+    return [settle(s) for s in S]
 
 
 if __name__ == "__main__":

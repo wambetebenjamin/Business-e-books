@@ -26,10 +26,15 @@ Pan African Christian University. Lecturer, Dr. Lucy Gachenia.
 * **The template's fonts, embedded.** Poppins for running text and labels, Raleway for
   headings and figures, lifted out of the template itself and written back into our file
   as embedded fonts, so the deck sets in that type on any machine, installed or not.
-* **Large type.** Titles run to 40 to 56 pt in Raleway caps over the template's blue;
-  Poppins running text is set to read like 16 pt at 13 to 14 pt on the page. Lists open
-  their gaps evenly so they use the full height of the slide instead of bunching at the
-  top.
+* **Large type.** Headings are measured at the size they will really set and take the
+  largest size that holds them on one line, 25 to 56 pt in Raleway caps over the
+  template's blue; the three longest headings take two lines rather than shrink. Poppins
+  running text sits at 13 to 14 pt on the page and nothing anywhere sets below 10.5 pt.
+* **Every page is balanced.** Once a slide is built its body is read as a stack of rows:
+  the room left under the last row is shared out between the rows, and what remains
+  becomes even white space above and below. Lists also open their own gaps to reach the
+  foot of the page. Nothing hangs at the top of an empty slide, and the heading, the
+  folio and the citation never move.
 * **No boxes, cards or rules.** No panel fills, no outlines, no underlines and no
   horizontal bars. Structure comes from spacing, weight contrast and the ticks.
 * **Animation.** Background art fades up first, headings rise, text fades in and the
