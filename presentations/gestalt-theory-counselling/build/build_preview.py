@@ -81,7 +81,7 @@ def main():
 <body>
 <header>
   <h1>Gestalt Theory and Its Application to Counselling</h1>
-  <p>Group 4 presentation, 22 slides. MCP504 Theories of Counseling and Psychotherapy,
+  <p>Group 4 presentation, {n} slides. MCP504 Theories of Counseling and Psychotherapy,
   Pan African Christian University. Lecturer, Dr. Lucy Gachenia.</p>
 </header>
 <p class="bar">
@@ -102,7 +102,7 @@ def main():
 </p>
 </body>
 </html>
-""".format(cards=cards, deck=DECK_NAME)
+""".format(cards=cards, deck=DECK_NAME, n=len(slides))
     open(os.path.join(PREVIEW, "index.html"), "w").write(html)
     print("preview/index.html written")
 
