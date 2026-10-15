@@ -1,0 +1,12 @@
+{
+  "name": "the-secret-place-ebook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Secret Place — The Three Levels of the Will of God · Presbyter Jeremiah Mugala · CHRICO Central Church, Nairobi",
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.5",
+    "@fontsource/outfit": "^5.2.5",
+    "@fontsource/playfair-display": "^5.2.5",
+    "pdfkit": "^0.17.1"
+  }
+}
