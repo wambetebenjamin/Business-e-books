@@ -418,14 +418,13 @@ function numberedList(s, items, x, y, w, o = {}) {
 
   label(s, "LANGUAGE IN PRACTICE  ·  EXAMPLE", 0.66, 5.18, 6, { name: "blk3" });
   const ex = [
-    { mark: "✗", mc: WHITE, q: "“You make me angry.”" },
-    { mark: "✓", mc: PERI, q: "“I notice that I become angry when…”" },
+    { qc: WHITE, q: "“You make me angry.”" },
+    { qc: PERI, q: "“I notice that I become angry when…”" },
   ];
   ex.forEach((e, i) => {
     const y = 5.52 + i * 0.62;
     s.addText([
-      { text: e.mark + "   ", options: { fontFace: BODY, fontSize: 14, bold: true, color: e.mc } },
-      { text: e.q, options: { fontFace: HEAD, fontSize: 14.5, italic: true, color: WHITE } },
+      { text: e.q, options: { fontFace: HEAD, fontSize: 14.5, italic: true, color: e.qc } },
     ], { x: 0.66, y, w: 7.5, h: 0.5, valign: "middle", margin: 0, objectName: "blk3" });
   });
   citation(s, "(Perls et al., 1951; Corey, 2024)", { x: 8.5, y: 6.55, w: 4.16, name: "blk4" });
@@ -603,10 +602,10 @@ function numberedList(s, items, x, y, w, o = {}) {
 /* SLIDE 19 — CASE APPLICATION                                                */
 /* ========================================================================== */
 {
-  const s = newSlide("Case Application");
+  const s = newSlide("Amina’s Case Study");
   s.background = { color: DEEP };
   bgPhoto(s, "bg-shore.jpg");
-  header(s, "EVALUATION", "Case Application", { w: 9 });
+  header(s, "EVALUATION", "Amina’s Case Study", { w: 9 });
   label(s, "CLIENT", 0.94, 1.82, 2.5, { name: "blk1" });
   s.addText("20-year-old undergraduate scholarship student", { x: 0.94, y: 2.2, w: 3.3, h: 1.5, fontFace: HSEMI, bold: true, fontSize: 13, color: WHITE, margin: 0, lineSpacingMultiple: 1.3, objectName: "blk1" });
 

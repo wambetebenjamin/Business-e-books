@@ -407,8 +407,9 @@ function layoutParas(ctx, el) {
     for (const bad of ["undefined", "nan", "todo", "lorem", "[object"]) if (low.includes(bad)) issues.push(`S${slideNo} PLACEHOLDER: "${bad}"`);
     const mf = MANIFEST[si];
     if (mf) {
+      const strip = (t) => t.replace(/[\u2018\u2019']/g, "");
       const words = mf.title.toLowerCase().split(/\s+/).slice(0, 2);
-      if (!words.every((w) => low.includes(w.replace(/[^a-z-]/g, "")))) issues.push(`S${slideNo} MANIFEST: "${mf.title}" text not found`);
+      if (!words.every((w) => strip(low).includes(strip(w).replace(/[^a-z-]/g, "")))) issues.push(`S${slideNo} MANIFEST: "${mf.title}" text not found`);
     }
     if (slideNo > 1) {
       if (!all.includes("PAN AFRICAN")) issues.push(`S${slideNo} FOOTER: brand missing`);
