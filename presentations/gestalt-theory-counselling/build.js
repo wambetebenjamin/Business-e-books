@@ -660,7 +660,7 @@ function numberedList(s, items, x, y, w, o = {}) {
   steps.forEach((t, i) => {
     const y = 1.82 + i * 0.86;
     const last = i === steps.length - 1;
-    s.addText(t, { x: 4.97, y, w: 3.4, h: 0.5, align: "center", valign: "middle", fontFace: HSEMI, bold: true, fontSize: 13, color: last ? PERI : WHITE, charSpacing: 1.5, margin: 0, objectName: "blk1" });
+    s.addText(t, { x: 4.97, y, w: 3.4, h: 0.5, align: "center", valign: "middle", fontFace: HSEMI, bold: true, fontSize: 13, color: PERI, charSpacing: 1.5, margin: 0, objectName: "blk1" });
     if (!last) s.addText("↓", { x: 4.97, y: y + 0.48, w: 3.4, h: 0.36, align: "center", valign: "middle", fontFace: BODY, fontSize: 14, bold: true, color: WHITE, margin: 0, objectName: "blk1" });
   });
 
